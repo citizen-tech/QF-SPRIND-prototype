@@ -32,7 +32,9 @@ type Eigenschaften = {
   vomStandardAbweichend: boolean;
   onEntwurf: (naechster: Simulationseinstellungen) => void;
   onStarten: () => void;
+  onAuswuerfeln: () => void;
   onZuruecksetzen: () => void;
+  laeuft: boolean;
 };
 
 const ROLLEN: Vorhabenrolle[] = ['normal', 'wenige-grosse', 'allein', 'absprache'];
@@ -43,7 +45,9 @@ export default function Einrichtung({
   vomStandardAbweichend,
   onEntwurf,
   onStarten,
+  onAuswuerfeln,
   onZuruecksetzen,
+  laeuft,
 }: Eigenschaften) {
   const setze = (teil: Partial<Simulationseinstellungen>) => onEntwurf({ ...entwurf, ...teil });
 
@@ -77,11 +81,28 @@ export default function Einrichtung({
         </Title>
       </div>
 
-      <Text c="dimmed" maw="74ch" mb="lg">
+      <p className="leitsatz">
         {ersterLauf
           ? 'Legen Sie die Runde fest und starten Sie die Simulation. Der Seed steuert den Zufall vollständig: Gleicher Seed und gleiche Einstellungen erzeugen dieselbe Runde und damit dieselbe Prüfsumme. Zufällig ist nur, wie die Runde zustande kommt — nie, was daraus gerechnet wird.'
           : 'Änderungen wirken erst, wenn die Simulation erneut gestartet wird.'}
-      </Text>
+      </p>
+
+      <Paper withBorder p="lg" radius="sm" bg="white" mb="md">
+        <Group justify="space-between" align="center" wrap="wrap" gap="md">
+          <div>
+            <Title order={3}>Runde auswürfeln</Title>
+            <Text size="sm" c="var(--tinte-lese)" maw="72ch">
+              Zieht einen neuen Seed und leitet daraus eine vollständige, plausible Runde ab:
+              sechs bis zehn Vorhaben mit unterschiedlichem Zuspruch, genau ein Vorhaben mit
+              wenigen großen Beiträgen, gelegentlich eines mit einer einzigen beitragenden
+              Person und eine Absprachegruppe. Alles danach von Hand nachjustierbar.
+            </Text>
+          </div>
+          <Button variant="default" size="md" onClick={onAuswuerfeln}>
+            Runde auswürfeln
+          </Button>
+        </Group>
+      </Paper>
 
       <Paper withBorder p="lg" radius="sm" bg="white">
         <Stack gap="lg">
@@ -343,13 +364,17 @@ export default function Einrichtung({
           </div>
 
           <Group>
-            <Button size="md" onClick={onStarten}>
+            <Button size="md" onClick={onStarten} loading={laeuft}>
               {ersterLauf ? 'Simulation starten' : 'Simulation erneut starten'}
             </Button>
-            <Button variant="default" onClick={onZuruecksetzen} disabled={!vomStandardAbweichend}>
+            <Button
+              variant="default"
+              onClick={onZuruecksetzen}
+              disabled={!vomStandardAbweichend || laeuft}
+            >
               Auf Ausgangswerte zurücksetzen
             </Button>
-            <Text size="sm" c="dimmed">
+            <Text size="sm" c="var(--tinte-lese)">
               {euro(entwurf.poolCent)} auf {entwurf.vorhaben.length} Vorhaben, rund{' '}
               {entwurf.beitragendeGesamt} Beitragende.
             </Text>

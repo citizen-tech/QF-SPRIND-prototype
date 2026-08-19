@@ -75,5 +75,18 @@ export const thema = createTheme({
   components: {
     Button: { defaultProps: { fw: 500 } },
     Table: { defaultProps: { verticalSpacing: 'xs', horizontalSpacing: 'md' } },
+
+    // Beschreibungen unter das Eingabefeld statt darüber: sonst rutschen
+    // Felder mit Beschreibung gegenüber Feldern ohne nach unten und die
+    // Zeile steht nicht mehr auf einer Linie.
+    NumberInput: {
+      defaultProps: { inputWrapperOrder: ['label', 'input', 'description', 'error'] },
+    },
+    TextInput: {
+      defaultProps: { inputWrapperOrder: ['label', 'input', 'description', 'error'] },
+    },
+    Select: {
+      defaultProps: { inputWrapperOrder: ['label', 'input', 'description', 'error'] },
+    },
   },
 });

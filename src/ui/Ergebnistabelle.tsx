@@ -129,7 +129,7 @@ export default function Ergebnistabelle({
   return (
     <>
       <Group justify="space-between" align="baseline" mb="xs">
-        <Text size="sm" c="dimmed" maw="62ch">
+        <Text size="sm" c="var(--tinte-lese)">
           Aufgeklappt zeigt jede Zeile ihr vollständiges Rechenprotokoll, die Wirkung eines
           weiteren Beitrags und die pseudonymisierte Beitragsliste.
         </Text>

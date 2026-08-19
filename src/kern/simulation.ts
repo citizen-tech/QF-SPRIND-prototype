@@ -196,6 +196,141 @@ export const STANDARD_EINSTELLUNGEN: Simulationseinstellungen = {
   ],
 };
 
+// --- Zufällige, aber plausible Einstellungen -----------------------------
+
+/**
+ * Leitet eine vollständige Rundenkonfiguration aus einem Seed ab.
+ *
+ * Der Würfelknopf der Oberfläche zieht einen neuen Seed und ruft diese
+ * Funktion — die Konfiguration bleibt damit reproduzierbar: derselbe Seed
+ * ergibt dieselbe Runde.
+ *
+ * Die Bandbreiten sind bewusst eng gehalten. Eine Runde, in der jedes Vorhaben
+ * von einer einzigen Person getragen wird, wäre zwar zufällig, aber als
+ * Demonstration wertlos: Sie käme in der Wirklichkeit nicht vor und zeigte
+ * keinen Unterschied zwischen den Verfahren.
+ */
+export function zufaelligeEinstellungen(seed: number): Simulationseinstellungen {
+  // Eigener Zufallsstrom, damit Konfiguration und Beitragsverteilung nicht
+  // aneinander gekoppelt sind.
+  const zufall = mulberry32((seed ^ 0x9e3779b9) >>> 0);
+  const ganzzahl = (min: number, max: number) => min + Math.floor(zufall() * (max - min + 1));
+  const mische = <T>(liste: readonly T[]): T[] => {
+    const kopie = [...liste];
+    for (let i = kopie.length - 1; i > 0; i--) {
+      const j = Math.floor(zufall() * (i + 1));
+      [kopie[i], kopie[j]] = [kopie[j], kopie[i]];
+    }
+    return kopie;
+  };
+
+  const anzahl = ganzzahl(6, 10);
+  const titel = mische(VORHABENTITEL).slice(0, anzahl);
+  const traeger = mische(TRAEGER).slice(0, anzahl);
+
+  // Zuspruch als abfallende Reihe: wenige stark getragene Vorhaben, viele
+  // mittlere. Gleichverteilter Zuspruch erzeugt eine langweilige Runde.
+  const zuspruchReihe = [10, 9, 7, 6, 5, 4, 4, 3, 2, 2].slice(0, anzahl);
+  const zuspruch = mische(zuspruchReihe);
+
+  const rollen: Vorhabenrolle[] = Array.from({ length: anzahl }, () => 'normal');
+  const freieIndizes = mische(Array.from({ length: anzahl }, (_, i) => i));
+  let naechster = 0;
+
+  // Genau ein Vorhaben mit wenigen großen Beiträgen — der Kontrast, um den es geht.
+  rollen[freieIndizes[naechster++]] = 'wenige-grosse';
+
+  // Höchstens ein Vorhaben mit einer einzigen beitragenden Person.
+  const mitAllein = zufall() < 0.5;
+  if (mitAllein) rollen[freieIndizes[naechster++]] = 'allein';
+
+  // Absprachegruppe braucht genau zwei Vorhaben, sonst ist sie wirkungslos.
+  const mitAbsprache = anzahl >= 5 && zufall() < 0.7;
+  if (mitAbsprache) {
+    rollen[freieIndizes[naechster++]] = 'absprache';
+    rollen[freieIndizes[naechster++]] = 'absprache';
+  }
+
+  const betragMinCent = ganzzahl(3, 7) * 100;
+  const betragMaxCent = betragMinCent + ganzzahl(3, 9) * 100;
+  const beitragendeGesamt = ganzzahl(24, 52) * 5;
+  const abspracheGroesse = mitAbsprache ? ganzzahl(8, 15) : 0;
+  const hoechstbetragJeVorhabenCent = ganzzahl(4, 8) * 10_000;
+
+  const wirksameRollen = rollen.map((r) => (r === 'absprache' && !mitAbsprache ? 'normal' : r));
+
+  // Erwartete Beitragssumme je Vorhaben abschätzen, wie erzeugeRunde sie
+  // später tatsächlich verteilt. Nur so lassen sich Kostenplan und Fördertopf
+  // so bemessen, dass eine knappe — und damit aussagekräftige — Runde entsteht.
+  const mittlererBetrag = (betragMinCent + betragMaxCent) / 2;
+  const anzahlAllein = wirksameRollen.filter((r) => r === 'allein').length;
+  const anzahlGross = wirksameRollen.filter((r) => r === 'wenige-grosse').length;
+  const frischeGesamt = Math.max(
+    0,
+    beitragendeGesamt - abspracheGroesse - anzahlAllein - anzahlGross * 3,
+  );
+  const gewichtsumme = wirksameRollen.reduce(
+    (a, r, i) => (r === 'allein' || r === 'wenige-grosse' ? a : a + zuspruch[i]),
+    0,
+  );
+
+  const eigenErwartet = wirksameRollen.map((rolle, i) => {
+    if (rolle === 'allein') return mittlererBetrag;
+    // "wenige große Beiträge": drei Personen, Beträge weit über der Spanne.
+    if (rolle === 'wenige-grosse') return 3 * betragMaxCent * 9.5;
+    const koepfe = gewichtsumme > 0 ? (frischeGesamt * zuspruch[i]) / gewichtsumme : 2;
+    const ausAbsprache = rolle === 'absprache' ? abspracheGroesse * betragMaxCent : 0;
+    return koepfe * mittlererBetrag + ausAbsprache;
+  });
+
+  // Kostenplan: erwartete Beitragssumme plus Spielraum. Der Spielraum ist das,
+  // was überhaupt zugeteilt werden kann.
+  const spielraum = wirksameRollen.map(() => ganzzahl(6, 18) * 5_000);
+  const beantragt = eigenErwartet.map((eigen, i) =>
+    Math.min(150_000, Math.max(20_000, Math.round((eigen + spielraum[i]) / 5_000) * 5_000)),
+  );
+
+  // Aufnahmefähigkeit der Runde: Summe der Obergrenzen. Der Topf deckt davon
+  // nur einen Teil — ein Topf, der alles trägt, macht alle Verfahren gleich
+  // und die Gegenüberstellung wertlos.
+  const aufnahme = beantragt.reduce(
+    (a, b, i) => a + Math.max(0, Math.min(hoechstbetragJeVorhabenCent, b - eigenErwartet[i])),
+    0,
+  );
+  const deckungsgrad = 0.35 + zufall() * 0.2; // 35 % bis 55 %
+  const poolCent = Math.max(50_000, Math.round((aufnahme * deckungsgrad) / 10_000) * 10_000);
+
+  const programm = PROGRAMME[ganzzahl(0, PROGRAMME.length - 1)];
+
+  return {
+    seed,
+    zweck: programm.zweck,
+    zeitraumVon: STANDARD_EINSTELLUNGEN.zeitraumVon,
+    zeitraumBis: STANDARD_EINSTELLUNGEN.zeitraumBis,
+    poolCent,
+    hoechstbetragJeVorhabenCent,
+    beitragendeGesamt,
+    betragMinCent,
+    betragMaxCent,
+    abspracheGroesse,
+    zulassungskriterien: STANDARD_ZULASSUNGSKRITERIEN,
+    vorhaben: Array.from({ length: anzahl }, (_, i) => ({
+      id: `v-${i + 1}`,
+      titel: titel[i],
+      traeger: traeger[i],
+      beantragtCent: beantragt[i],
+      jurypunkte: ganzzahl(40, 95),
+      zuspruch: wirksameRollen[i] === 'allein' || wirksameRollen[i] === 'wenige-grosse' ? 1 : zuspruch[i],
+      rolle: wirksameRollen[i],
+    })),
+  };
+}
+
+/** Neuer Seed für den Würfelknopf. Nur hier ist echter Zufall erlaubt. */
+export function neuerSeed(): number {
+  return 1 + Math.floor(Math.random() * 99_999_999);
+}
+
 // --- Erzeugung -----------------------------------------------------------
 
 const TAG_MS = 86_400_000;

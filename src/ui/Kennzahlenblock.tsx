@@ -63,11 +63,11 @@ export default function Kennzahlenblock({ daten, verfahren }: Eigenschaften) {
         </Title>
       </div>
 
-      <Text c="dimmed" maw="76ch" mb="md">
+      <p className="leitsatz">
         Wirtschaftlichkeit ist ein Vergleichsbegriff. Dieselben Eingangsdaten, derselbe Topf,
         dieselben Höchstbeträge, fünf Verteilregeln. Die erste Zeile ist die aussagekräftigste:
         Sie zählt, wie viele Menschen am Ergebnis beteiligt sind.
-      </Text>
+      </p>
 
       <div className="tabellenrahmen">
         <Table withRowBorders>

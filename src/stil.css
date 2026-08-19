@@ -7,7 +7,11 @@
   --flaeche: #ffffff;
   --flaeche-stumpf: #f1f3f5;
   --tinte: #101418;
-  --tinte-still: #5b6570;
+  /* Lesefarbe für Fließtext unter den Überschriften. Deutlich dunkler als das
+     frühere Grau — dieser Text trägt Inhalt und muss lesbar sein, nicht
+     zurücktreten. */
+  --tinte-lese: #2b3138;
+  --tinte-still: #4a535d;
   --linie: #dfe3e7;
   --linie-kraeftig: #b9c1c9;
 
@@ -108,6 +112,56 @@ body {
   border-bottom: 1px solid var(--tinte);
   padding-bottom: 7px;
   margin-bottom: 18px;
+}
+
+/* Erläuternder Satz unter einer Überschrift. Volle Spaltenbreite, Lesefarbe. */
+.leitsatz {
+  color: var(--tinte-lese);
+  max-width: none;
+  margin: 0 0 18px;
+  font-size: 0.97rem;
+  line-height: 1.6;
+}
+
+/* Mantines gedämpfte Farben aufhellen reicht nicht — sie werden dunkler
+   gesetzt, damit Feldbeschreibungen und Nebentexte lesbar bleiben. */
+:root {
+  --mantine-color-dimmed: #4a535d;
+}
+
+.mantine-InputWrapper-description {
+  color: var(--tinte-still);
+}
+
+/* --- Simulationslauf ---------------------------------------------------- */
+
+.laufliste {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 0.92rem;
+}
+
+.laufliste__schritt {
+  display: grid;
+  grid-template-columns: 1.4em 1fr;
+  align-items: baseline;
+  padding: 3px 0;
+  color: var(--tinte-still);
+}
+
+.laufliste__schritt--fertig {
+  color: var(--tinte-lese);
+}
+
+.laufliste__schritt--aktiv {
+  color: var(--amt);
+  font-weight: 500;
+}
+
+.laufliste__marke {
+  font-family: var(--mantine-font-family-monospace);
+  color: var(--amt);
 }
 
 /* --- Zahlen ------------------------------------------------------------- */

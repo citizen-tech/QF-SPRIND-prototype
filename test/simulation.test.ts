@@ -9,9 +9,11 @@ import {
   erzeugeRunde,
   STANDARD_EINSTELLUNGEN,
   vorhabenvorgabe,
+  zufaelligeEinstellungen,
   type Simulationseinstellungen,
 } from '../src/kern/simulation';
 import type { Rundendaten } from '../src/kern/typen';
+import { alleVerfahren } from '../src/kern/vergleich';
 
 describe('Determinismus des Erzeugers', () => {
   it('erzeugt bei gleichem Seed bytegleiche Runden', () => {
@@ -102,6 +104,67 @@ describe('Einstellungen wirken', () => {
     const allein = werte.find((w) => w.vorhabenId === 'v-3')!;
     expect(allein.beitragendeAnzahl).toBe(1);
     expect(allein.rohEuro).toBe(0);
+  });
+});
+
+describe('Ausgewürfelte Runden sind plausibel', () => {
+  // Der Würfelknopf muss brauchbare Runden liefern. Eine Runde, in der jedes
+  // Vorhaben von einer einzigen Person getragen wird oder in der alle Verfahren
+  // dasselbe ergeben, wäre als Demonstration wertlos.
+  const seeds = Array.from({ length: 60 }, (_, i) => (i + 1) * 7919);
+  const runden = seeds.map((seed) => {
+    const einstellungen = zufaelligeEinstellungen(seed);
+    const daten = erzeugeRunde(einstellungen);
+    const werte = berechneVorhabenwerte(daten);
+    return { einstellungen, daten, werte, verfahren: alleVerfahren(daten, werte) };
+  });
+
+  it('ist aus dem Seed reproduzierbar', () => {
+    expect(JSON.stringify(zufaelligeEinstellungen(4711))).toBe(
+      JSON.stringify(zufaelligeEinstellungen(4711)),
+    );
+    expect(JSON.stringify(zufaelligeEinstellungen(4711))).not.toBe(
+      JSON.stringify(zufaelligeEinstellungen(4712)),
+    );
+  });
+
+  it('bleibt im vorgesehenen Zuschnitt', () => {
+    for (const { daten } of runden) {
+      expect(daten.vorhaben.length).toBeGreaterThanOrEqual(6);
+      expect(daten.vorhaben.length).toBeLessThanOrEqual(10);
+      const personen = new Set(daten.beitraege.map((b) => b.beitragendeId)).size;
+      expect(personen).toBeGreaterThanOrEqual(100);
+      expect(personen).toBeLessThanOrEqual(280);
+    }
+  });
+
+  it('lässt höchstens ein Vorhaben mit einer einzigen beitragenden Person zu', () => {
+    for (const { werte } of runden) {
+      expect(werte.filter((w) => w.beitragendeAnzahl <= 1).length).toBeLessThanOrEqual(1);
+    }
+  });
+
+  it('trägt die meisten Vorhaben von mehr als einer Handvoll Personen', () => {
+    for (const { werte } of runden) {
+      const sortiert = [...werte.map((w) => w.beitragendeAnzahl)].sort((a, b) => a - b);
+      expect(sortiert[Math.floor(sortiert.length / 2)]).toBeGreaterThanOrEqual(5);
+    }
+  });
+
+  it('bemisst den Topf knapp genug, dass er ausgeschöpft wird', () => {
+    // Ein Topf, der alles trägt, macht alle Verfahren gleich und die
+    // Gegenüberstellung wertlos.
+    for (const { verfahren } of runden) {
+      expect(verfahren.qf.nichtAusgeschoepftCent).toBe(0);
+    }
+  });
+
+  it('erreicht unter QF stets mehr Personen als unter dem Windhundverfahren', () => {
+    for (const { verfahren } of runden) {
+      expect(verfahren.qf.kennzahlen.beitragendeMitTreffer).toBeGreaterThan(
+        verfahren.windhund.kennzahlen.beitragendeMitTreffer,
+      );
+    }
   });
 });
 

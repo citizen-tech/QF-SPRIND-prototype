@@ -6,7 +6,12 @@ import { berechneQfMitKopplung, KOPPLUNGSPARAMETER_M } from '../kern/paarweise';
 import { pruefsumme as berechnePruefsumme } from '../kern/pruefsumme';
 import { berechneVorhabenwerte } from '../kern/qf';
 import type { Simulationseinstellungen } from '../kern/simulation';
-import { erzeugeRunde, STANDARD_EINSTELLUNGEN } from '../kern/simulation';
+import {
+  erzeugeRunde,
+  neuerSeed,
+  STANDARD_EINSTELLUNGEN,
+  zufaelligeEinstellungen,
+} from '../kern/simulation';
 import { alleVerfahren } from '../kern/vergleich';
 import { FORMEL_VERSION } from '../kern/version';
 import { baueNachweismappe } from '../nachweis/mappe';
@@ -15,6 +20,7 @@ import Einrichtung from './Einrichtung';
 import Ergebnistabelle from './Ergebnistabelle';
 import Kennzahlenblock from './Kennzahlenblock';
 import Kopplungsgruppen from './Kopplungsgruppen';
+import Simulationslauf, { LAUFDAUER_MS, LAUFSCHRITTE } from './Simulationslauf';
 
 function gleich(a: Simulationseinstellungen, b: Simulationseinstellungen): boolean {
   return JSON.stringify(a) === JSON.stringify(b);
@@ -24,6 +30,13 @@ export default function App() {
   const [entwurf, setEntwurf] = useState<Simulationseinstellungen>(STANDARD_EINSTELLUNGEN);
   // Null bis zum ersten Knopfdruck: vorher wird nichts gerechnet und nichts gezeigt.
   const [angewandt, setAngewandt] = useState<Simulationseinstellungen | null>(null);
+
+  // Läuft gerade eine Simulation? Die Rechnung selbst dauert Millisekunden;
+  // die Schrittanzeige führt vor, was der Rechenkern tut.
+  const [lauf, setLauf] = useState<{
+    einstellungen: Simulationseinstellungen;
+    schritt: number;
+  } | null>(null);
 
   const [zeigeVergleich, setZeigeVergleich] = useState(true);
   const [zeigeKopplung, setZeigeKopplung] = useState(false);
@@ -44,6 +57,20 @@ export default function App() {
         : null,
     [zeigeKopplung, daten, werte],
   );
+
+  useEffect(() => {
+    if (!lauf) return;
+    if (lauf.schritt >= LAUFSCHRITTE.length) {
+      setAngewandt(lauf.einstellungen);
+      setLauf(null);
+      return;
+    }
+    const kennung = setTimeout(
+      () => setLauf((bisher) => (bisher ? { ...bisher, schritt: bisher.schritt + 1 } : null)),
+      LAUFDAUER_MS / LAUFSCHRITTE.length,
+    );
+    return () => clearTimeout(kennung);
+  }, [lauf]);
 
   useEffect(() => {
     if (!daten) {
@@ -151,23 +178,27 @@ export default function App() {
           ersterLauf={angewandt === null}
           vomStandardAbweichend={vomStandardAbweichend}
           onEntwurf={setEntwurf}
-          onStarten={() => setAngewandt(entwurf)}
+          onStarten={() => setLauf({ einstellungen: entwurf, schritt: 0 })}
+          onAuswuerfeln={() => setEntwurf(zufaelligeEinstellungen(neuerSeed()))}
           onZuruecksetzen={() => {
             setEntwurf(STANDARD_EINSTELLUNGEN);
             setAngewandt(null);
           }}
+          laeuft={lauf !== null}
         />
 
-        {!daten && (
+        {lauf && <Simulationslauf schritt={lauf.schritt} />}
+
+        {!lauf && !daten && (
           <Paper withBorder p="xl" radius="sm" mt="xl" bg="white">
-            <Text c="dimmed" maw="60ch">
+            <Text c="var(--tinte-lese)">
               Noch nichts gerechnet. Starten Sie die Simulation, um Zuteilung,
               Vergleichsrechnung und Nachweismappe zu erhalten.
             </Text>
           </Paper>
         )}
 
-        {daten && werte && verfahren && hebel && (
+        {!lauf && daten && werte && verfahren && hebel && (
           <div className="auftritt">
             <section className="abschnitt" aria-labelledby="ueberschrift-ergebnis">
               <div className="abschnitt__kopf">
@@ -302,11 +333,11 @@ export default function App() {
                   Nachweismappe
                 </Title>
               </div>
-              <Text c="dimmed" maw="76ch" mb="md">
+              <p className="leitsatz">
                 Druckfähige Zusammenstellung: Rechenregel, Zuteilungstabelle, Begründungstext je
                 Zuteilung, Vergleichsrechnung, Rechenprotokoll und die pseudonymisierten
                 Eingangsdaten. Zusätzlich als JSON herunterladbar.
-              </Text>
+              </p>
               <Group>
                 <Button onClick={() => setMappeOffen(true)} disabled={pruefsumme === ''}>
                   Nachweismappe erzeugen
