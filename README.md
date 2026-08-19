@@ -1,8 +1,13 @@
 # Bemessungsrechnung Quadratic Funding — Prototyp
 
-Eine einseitige, statische Webanwendung. Sie rechnet eine fiktive Förderrunde nach
-**budgetbeschränktem Quadratic Funding** durch, stellt das Ergebnis vier herkömmlichen
-Vergabeverfahren gegenüber und erzeugt daraus eine prüffähige Nachweismappe.
+Eine einseitige, statische Webanwendung. Man richtet eine Förderrunde ein, lässt sie
+simulieren, und die Seite rechnet sie nach **budgetbeschränktem Quadratic Funding**
+durch, stellt das Ergebnis vier herkömmlichen Vergabeverfahren gegenüber und erzeugt
+daraus eine prüffähige Nachweismappe.
+
+Die Simulation ist **seed-gesteuert**: Gleicher Seed und gleiche Einstellungen erzeugen
+dieselbe Runde und damit dieselbe Prüfsumme. Zufällig ist nur, wie die Runde zustande
+kommt, nie, was daraus gerechnet wird.
 
 Der Satz, den die Seite belegen soll:
 
@@ -59,13 +64,19 @@ Fassungsnummer in `src/kern/version.ts` zu erhöhen und `FORMEL.md` zu ergänzen
 
 ```
 src/kern/        reine Rechenbibliothek — keine React-, DOM- oder UI-Importe
-src/ui/          Oberfläche
+                 (Formel, Verteilung, Vergleichsverfahren, Kennzahlen,
+                  Prüfsumme, Hebel, Kopplungsabschlag, Rundenerzeuger)
+src/ui/          Oberfläche: Einstellungen, eine Ergebnistabelle, Kennzahlen
 src/nachweis/    Nachweismappe: Objektaufbau, Begründungstexte, Druckansicht
 src/daten/       erzeugte Demodaten (eingecheckt)
-tools/           Erzeugung von Demodaten und Golden-Datei
-test/            Ankertests, Kerntests, Vergleichstests, Golden-Test
+tools/           schreibt Demodaten und Golden-Datei
+test/            Ankertests, Kerntests, Vergleichs-, Simulations-, Golden-Test
 docs/            Primärquelle zur Formel
 ```
+
+Der Rundenerzeuger liegt in `src/kern/simulation.ts`, nicht in `tools/`: Browser und
+Befehlszeile müssen dieselbe Runde erzeugen, sonst wäre die eingecheckte Demorunde nicht
+mehr das, was die Seite zeigt.
 
 Die Trennung ist verbindlich: `src/kern/**` importiert nichts aus React, dem DOM oder
 `src/ui`. Der Rechenkern muss unverändert in anderem Zusammenhang laufen und für sich

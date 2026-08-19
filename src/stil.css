@@ -1,55 +1,34 @@
-/* Nüchtern-behördlich. Keine Verläufe, kein Neon, keine Wallet-Anmutung.
-   Hierarchie über Größe und Weißraum, nicht über Farbe. */
+/* Nüchtern-behördlich, Hellmodus. Keine Verläufe, kein Neon, keine
+   Wallet-Anmutung. Hierarchie über Größe und Weißraum, nicht über Farbe. */
 
 :root {
   --grund: #fbfaf8;
   --flaeche: #ffffff;
   --flaeche-still: #f4f2ee;
+  --flaeche-auf: #f7f6f2;
   --text: #14161a;
   --text-still: #575d66;
-  --linie: #d8d3ca;
+  --linie: #ddd8cf;
   --linie-kraeftig: #b3aca0;
 
   /* Einzige kräftige Farbe. Trägt ausschließlich QF-Werte. */
   --akzent: #0f4c81;
-  --akzent-flaeche: #dbe7f2;
+  --akzent-flaeche: #e6eef6;
   /* Vergleichsverfahren bleiben grau. */
   --neutral: #6b7280;
   --neutral-flaeche: #e2e0dc;
   /* Hinweise und Deckelmarkierungen. */
   --hinweis: #7a4d05;
-  --hinweis-flaeche: #f6ecd7;
+  --hinweis-flaeche: #f8f0dd;
   --hinweis-linie: #d8b96a;
 
   --fokus: #0f4c81;
 
-  --schrift: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
-    sans-serif;
+  --schrift: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 
   --rand: 6px;
-  --spalte: 1180px;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --grund: #15171b;
-    --flaeche: #1c1f24;
-    --flaeche-still: #23272d;
-    --text: #e9e7e3;
-    --text-still: #a8aeb8;
-    --linie: #343941;
-    --linie-kraeftig: #4d545e;
-
-    --akzent: #79b2e3;
-    --akzent-flaeche: #1b3348;
-    --neutral: #98a0ac;
-    --neutral-flaeche: #2b3037;
-    --hinweis: #e2b866;
-    --hinweis-flaeche: #332914;
-    --hinweis-linie: #6b5525;
-
-    --fokus: #9cc7ec;
-  }
+  --spalte: 1240px;
 }
 
 *,
@@ -59,7 +38,7 @@
 }
 
 html {
-  color-scheme: light dark;
+  color-scheme: light;
 }
 
 body {
@@ -85,7 +64,8 @@ body {
 
 h1,
 h2,
-h3 {
+h3,
+h4 {
   line-height: 1.25;
   margin: 0;
   font-weight: 640;
@@ -96,10 +76,13 @@ h1 {
   font-size: 1.75rem;
 }
 h2 {
-  font-size: 1.3rem;
+  font-size: 1.25rem;
 }
 h3 {
-  font-size: 1.02rem;
+  font-size: 1rem;
+}
+h4 {
+  font-size: 0.9rem;
 }
 
 p {
@@ -127,35 +110,41 @@ p {
   margin: 0 auto;
 }
 
-.band strong {
-  font-weight: 660;
-}
-
 .kopf {
-  padding: 40px 0 8px;
+  padding: 36px 0 4px;
 }
 
 .kopf__unterzeile {
   color: var(--text-still);
   font-size: 0.97rem;
   margin-top: 8px;
-  max-width: 62ch;
+  max-width: 68ch;
 }
 
 .abschnitt {
-  margin-top: 44px;
+  margin-top: 40px;
 }
 
 .abschnitt__kopf {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  flex-wrap: wrap;
   border-bottom: 2px solid var(--linie-kraeftig);
   padding-bottom: 8px;
-  margin-bottom: 18px;
+  margin-bottom: 16px;
+}
+
+.abschnitt__nummer {
+  font-variant-numeric: tabular-nums;
+  color: var(--text-still);
+  font-weight: 640;
 }
 
 .abschnitt__einleitung {
   color: var(--text-still);
-  max-width: 74ch;
-  margin-top: 10px;
+  max-width: 76ch;
+  margin: 0 0 14px;
 }
 
 .tafel {
@@ -171,7 +160,7 @@ p {
   color: var(--text-still);
   font-size: 0.92rem;
   margin: 14px 0;
-  max-width: 78ch;
+  max-width: 80ch;
 }
 
 .notiz--hinweis {
@@ -179,17 +168,22 @@ p {
   color: var(--hinweis);
 }
 
+.notiz ul {
+  margin: 6px 0 0;
+  padding-left: 1.2em;
+}
+
 /* --- Kennwertpaare ------------------------------------------------------ */
 
 .paare {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
-  gap: 16px 26px;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 14px 24px;
   margin: 0;
 }
 
 .paar__begriff {
-  font-size: 0.8rem;
+  font-size: 0.76rem;
   text-transform: uppercase;
   letter-spacing: 0.055em;
   color: var(--text-still);
@@ -198,12 +192,12 @@ p {
 
 .paar__wert {
   margin: 0;
-  font-size: 1.06rem;
+  font-size: 1.02rem;
   font-variant-numeric: tabular-nums;
 }
 
 .paar__wert--gross {
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   font-weight: 640;
 }
 
@@ -223,14 +217,14 @@ p {
 table {
   border-collapse: collapse;
   width: 100%;
-  font-size: 0.93rem;
+  font-size: 0.92rem;
 }
 
 caption {
   text-align: left;
   padding: 12px 14px;
   color: var(--text-still);
-  font-size: 0.88rem;
+  font-size: 0.87rem;
   border-bottom: 1px solid var(--linie);
 }
 
@@ -243,22 +237,25 @@ td {
 }
 
 thead th {
-  font-size: 0.78rem;
+  font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   color: var(--text-still);
   font-weight: 640;
   background: var(--flaeche-still);
   white-space: nowrap;
+  vertical-align: bottom;
 }
 
-tbody tr:last-child td {
+tbody tr:last-child > td,
+tbody tr:last-child > th {
   border-bottom: none;
 }
 
 tfoot td,
 tfoot th {
   border-top: 2px solid var(--linie-kraeftig);
+  border-bottom: none;
   font-weight: 620;
   background: var(--flaeche-still);
 }
@@ -274,10 +271,7 @@ tfoot th {
   font-weight: 620;
 }
 
-.zahl--still {
-  color: var(--text-still);
-}
-
+.zahl--still,
 .zahl--null {
   color: var(--text-still);
 }
@@ -289,21 +283,76 @@ th[scope='row'] {
 .traeger {
   display: block;
   color: var(--text-still);
-  font-size: 0.85rem;
+  font-size: 0.84rem;
   font-weight: 400;
+}
+
+/* --- Aufklappbare Zeilen ------------------------------------------------ */
+
+.aufklapp {
+  font: inherit;
+  font-size: 0.92rem;
+  font-weight: 560;
+  text-align: left;
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  color: var(--text);
+  cursor: pointer;
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
+  width: 100%;
+}
+
+.aufklapp:hover {
+  color: var(--akzent);
+}
+
+.aufklapp__pfeil {
+  color: var(--text-still);
+  font-size: 0.72rem;
+  line-height: 1.9;
+  transition: transform 0.12s ease;
+  flex: none;
+}
+
+.aufklapp[aria-expanded='true'] .aufklapp__pfeil {
+  transform: rotate(90deg);
+}
+
+tr.zeile--offen > th,
+tr.zeile--offen > td {
+  background: var(--flaeche-auf);
+  border-bottom-color: transparent;
+}
+
+tr.detailzeile > td {
+  background: var(--flaeche-auf);
+  padding: 4px 16px 20px 34px;
+  border-bottom: 1px solid var(--linie);
+}
+
+.detail {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+  align-items: start;
 }
 
 /* --- Markierungen ------------------------------------------------------- */
 
 .marke {
   display: inline-block;
-  font-size: 0.74rem;
+  font-size: 0.72rem;
   letter-spacing: 0.03em;
   padding: 1px 7px;
   border-radius: 999px;
   border: 1px solid var(--linie-kraeftig);
   color: var(--text-still);
   white-space: nowrap;
+  font-weight: 400;
 }
 
 .marke--deckel {
@@ -321,7 +370,7 @@ th[scope='row'] {
 .balken {
   display: block;
   height: 9px;
-  min-width: 90px;
+  min-width: 80px;
   background: var(--neutral-flaeche);
   border-radius: 2px;
   overflow: hidden;
@@ -331,10 +380,6 @@ th[scope='row'] {
   display: block;
   height: 100%;
   background: var(--akzent);
-}
-
-.balken__fuellung--neutral {
-  background: var(--neutral);
 }
 
 /* --- Bedienelemente ----------------------------------------------------- */
@@ -358,12 +403,17 @@ th[scope='row'] {
 .knopf--haupt {
   background: var(--akzent);
   border-color: var(--akzent);
-  color: var(--flaeche);
+  color: #fff;
 }
 
 .knopf--haupt:hover {
   filter: brightness(1.12);
   background: var(--akzent);
+}
+
+.knopf--klein {
+  font-size: 0.82rem;
+  padding: 4px 10px;
 }
 
 .knopf:disabled {
@@ -378,59 +428,23 @@ th[scope='row'] {
   align-items: center;
 }
 
-.regler {
-  display: block;
-  margin-bottom: 22px;
-}
-
-.regler__kopf {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: 12px;
-  margin-bottom: 4px;
-}
-
-.regler__name {
-  font-weight: 560;
-}
-
-.regler__wert {
-  font-variant-numeric: tabular-nums;
-  font-size: 1.05rem;
-}
-
-input[type='range'] {
-  width: 100%;
-  accent-color: var(--akzent);
-  height: 24px;
-}
-
-.regler__spanne {
-  display: flex;
-  justify-content: space-between;
-  font-size: 0.78rem;
-  color: var(--text-still);
-  font-variant-numeric: tabular-nums;
-}
-
-.schalter {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 0.92rem;
-}
-
 select,
-input[type='number'] {
+input[type='number'],
+input[type='text'],
+input[type='date'] {
   font: inherit;
-  font-size: 0.92rem;
-  padding: 7px 9px;
+  font-size: 0.9rem;
+  padding: 6px 8px;
   border-radius: var(--rand);
   border: 1px solid var(--linie-kraeftig);
   background: var(--flaeche);
   color: var(--text);
   max-width: 100%;
+  width: 100%;
+}
+
+input[type='number'] {
+  font-variant-numeric: tabular-nums;
 }
 
 .feld {
@@ -440,70 +454,75 @@ input[type='number'] {
 }
 
 .feld__name {
-  font-size: 0.8rem;
+  font-size: 0.76rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   color: var(--text-still);
 }
 
-.raster-zwei {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 26px;
-}
-
-/* --- Rechenprotokoll ---------------------------------------------------- */
-
-details {
-  border: 1px solid var(--linie);
-  border-radius: var(--rand);
-  background: var(--flaeche);
-  margin-bottom: 8px;
-}
-
-summary {
-  cursor: pointer;
-  padding: 11px 14px;
-  font-weight: 560;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  align-items: baseline;
-  justify-content: space-between;
-  list-style-position: inside;
-}
-
-summary::marker {
+.feld__hinweis {
+  font-size: 0.78rem;
   color: var(--text-still);
 }
 
-details[open] > summary {
-  border-bottom: 1px solid var(--linie);
+.felder {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 16px 20px;
 }
 
-.protokoll__inhalt {
-  padding: 14px;
+.schalter {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  cursor: pointer;
 }
+
+.schalter input {
+  width: auto;
+  accent-color: var(--akzent);
+  margin: 0;
+  flex: none;
+}
+
+.schalterreihe {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 22px;
+  align-items: center;
+  padding: 12px 14px;
+  background: var(--flaeche);
+  border: 1px solid var(--linie);
+  border-radius: var(--rand);
+  margin-bottom: 12px;
+}
+
+.trenner {
+  border: none;
+  border-top: 1px solid var(--linie);
+  margin: 22px 0 18px;
+}
+
+/* --- Rechenschritte ----------------------------------------------------- */
 
 .rechenschritte {
-  margin: 0 0 16px;
+  margin: 0;
   display: grid;
   grid-template-columns: 1fr auto;
-  gap: 0;
   font-variant-numeric: tabular-nums;
-  font-size: 0.9rem;
-  max-width: 640px;
+  font-size: 0.87rem;
 }
 
 .rechenschritte dt {
-  padding: 5px 0;
+  padding: 4px 0;
   border-bottom: 1px dotted var(--linie);
   color: var(--text-still);
 }
 
 .rechenschritte dd {
   margin: 0;
-  padding: 5px 0 5px 20px;
+  padding: 4px 0 4px 18px;
   border-bottom: 1px dotted var(--linie);
   text-align: right;
 }
@@ -514,21 +533,30 @@ details[open] > summary {
   border-top: 2px solid var(--linie-kraeftig);
   font-weight: 640;
   color: var(--text);
-  padding-top: 8px;
+  padding-top: 7px;
 }
 
 .beitragsliste {
-  font-size: 0.85rem;
-  max-height: 260px;
+  max-height: 240px;
   overflow-y: auto;
   border: 1px solid var(--linie);
   border-radius: var(--rand);
+  background: var(--flaeche);
+}
+
+.beitragsliste table {
+  font-size: 0.83rem;
+}
+
+.beitragsliste th,
+.beitragsliste td {
+  padding: 5px 10px;
 }
 
 /* --- Fußbereich --------------------------------------------------------- */
 
 .fuss {
-  margin-top: 60px;
+  margin-top: 56px;
   padding-top: 20px;
   border-top: 1px solid var(--linie);
   color: var(--text-still);
@@ -536,7 +564,7 @@ details[open] > summary {
 }
 
 .pruefsumme {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-family: var(--mono);
   font-size: 0.85em;
   word-break: break-all;
 }
@@ -560,14 +588,13 @@ details[open] > summary {
   font-weight: 660;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  font-size: 0.82rem;
+  font-size: 0.8rem;
   color: var(--hinweis);
   margin: 0 0 10px;
 }
 
 .mappe__abschnitt {
   margin-top: 34px;
-  break-inside: auto;
 }
 
 .begruendung {
@@ -603,7 +630,7 @@ details[open] > summary {
   justify-content: space-between;
 }
 
-/* --- Nur für Bildschirmleser ------------------------------------------- */
+/* --- Nur für Bildschirmleser -------------------------------------------- */
 
 .nur-vorlesen {
   position: absolute;
@@ -621,23 +648,23 @@ details[open] > summary {
 
 @media print {
   :root {
-    --grund: #ffffff;
-    --flaeche: #ffffff;
-    --flaeche-still: #ffffff;
-    --text: #000000;
-    --text-still: #333333;
-    --linie: #999999;
-    --linie-kraeftig: #333333;
-    --akzent: #000000;
-    --neutral: #666666;
-    --hinweis: #000000;
-    --hinweis-flaeche: #ffffff;
-    --hinweis-linie: #333333;
+    --grund: #fff;
+    --flaeche: #fff;
+    --flaeche-still: #fff;
+    --flaeche-auf: #fff;
+    --text: #000;
+    --text-still: #333;
+    --linie: #999;
+    --linie-kraeftig: #333;
+    --akzent: #000;
+    --neutral: #666;
+    --hinweis: #000;
+    --hinweis-flaeche: #fff;
+    --hinweis-linie: #333;
   }
 
   body {
     font-size: 10.5pt;
-    background: #fff;
   }
 
   .werkzeugleiste,
@@ -649,10 +676,6 @@ details[open] > summary {
   .mappe {
     max-width: none;
     padding: 0;
-  }
-
-  .mappe__abschnitt {
-    break-before: auto;
   }
 
   h2 {
@@ -685,13 +708,5 @@ details[open] > summary {
   .beitragsliste {
     max-height: none;
     overflow: visible;
-  }
-
-  details {
-    border: none;
-  }
-
-  details > summary {
-    list-style: none;
   }
 }

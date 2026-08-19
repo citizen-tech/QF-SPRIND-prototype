@@ -1,0 +1,398 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Formularentwurf — Deutschland, was geht?</title>
+<style>
+  @page { size: A4; margin: 13mm 13mm 11mm 13mm; }
+  * { box-sizing: border-box; }
+  html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 8.6pt; line-height: 1.42; color: #16191d; margin: 0; hyphens: auto;
+  }
+  header { border-bottom: 1.5pt solid #16191d; padding-bottom: 3mm; margin-bottom: 3.5mm; }
+  h1 { font-size: 15pt; line-height: 1.08; margin: 0 0 1.4mm; letter-spacing: -.3pt; }
+  .sub { font-size: 9pt; color: #4a5058; margin: 0; }
+  .meta { font-size: 7pt; color: #767d86; margin: 1.4mm 0 0; letter-spacing: .1pt; text-transform: uppercase; }
+
+  .note { font-size: 8pt; line-height: 1.4; padding: 2.4mm 3mm; background: #f2f4f6; border-left: 2pt solid #16191d; margin: 0 0 3mm; }
+  .note p { margin: 0 0 1.4mm; }
+  .note p:last-child { margin: 0; }
+
+  .decide { border: 1.1pt solid #16191d; background: #fbfbfc; padding: 2.4mm 3mm; margin: 0 0 4mm; break-inside: avoid; }
+  .decide h3 { margin: 0 0 1.2mm; font-size: 8.6pt; }
+  .decide p { margin: 0 0 1.2mm; }
+  .decide p:last-child { margin: 0; }
+
+  h2.sec {
+    font-size: 8pt; text-transform: uppercase; letter-spacing: .5pt; color: #2b3138;
+    margin: 5mm 0 2mm; padding-bottom: .8mm; border-bottom: 1pt solid #16191d;
+  }
+
+  .field { margin: 0 0 3.4mm; }
+  .fh {
+    display: flex; align-items: baseline; justify-content: space-between; gap: 3mm;
+    border-bottom: .5pt solid #c3c9cf; padding-bottom: .7mm; margin-bottom: 1.4mm;
+    break-after: avoid;
+  }
+  .txt p, .var { break-inside: avoid; }
+  .fn { font-size: 8.8pt; font-weight: 700; }
+  .badge { font-size: 7pt; color: #4a5058; white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .badge.over { color: #b3261e; font-weight: 700; }
+  .txt p { margin: 0 0 1.5mm; }
+  .txt p:last-child { margin: 0; }
+  .txt ul { margin: 0 0 1.5mm; padding-left: 4mm; }
+  .txt li { margin-bottom: .6mm; }
+
+  .var { margin: 1.8mm 0 0; padding: 1.8mm 2.4mm; background: #f2f4f6; border-left: 2pt solid #8b939c; }
+  .var .vh { font-size: 7pt; text-transform: uppercase; letter-spacing: .4pt; color: #4a5058; margin: 0 0 1mm; font-weight: 700; }
+  .var p { margin: 0 0 1.4mm; }
+  .var p:last-child { margin: 0; }
+
+  .cb { font-size: 8.2pt; margin: 0 0 1.4mm; }
+  .cb b { font-weight: 700; }
+  .hint { font-size: 7.4pt; color: #767d86; margin: 1.2mm 0 0; font-style: italic; }
+
+  .gantt { break-inside: avoid; }
+  .gantt pre {
+    font-family: "SF Mono", Menlo, Consolas, monospace; font-size: 6.1pt; line-height: 1.34;
+    margin: 2mm 0; padding: 2.4mm 3mm; background: #f2f4f6; overflow-x: auto; white-space: pre;
+  }
+  .ghint { font-size: 7.6pt; color: #33393f; margin: 0 0 1.4mm; }
+  .glegend { font-size: 7.4pt; line-height: 1.38; color: #33393f; margin: 0 0 2mm; }
+  .glegend p { margin: 0 0 1.1mm; }
+
+  footer { margin-top: 5mm; padding-top: 1.8mm; border-top: .5pt solid #c3c9cf; font-size: 7pt; color: #767d86; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Einreichung „Deutschland, was geht?“ — Formularentwurf</h1>
+  <p class="sub">Alle Freitextfelder auf Zeichenlimit, offline vorgeschrieben. CitizenTech UG.</p>
+  <p class="meta">Fassung 2 · Arbeitsstand 19.08.2026 · Frist 20.08.2026 · Zeichenzahlen maschinell gezählt</p>
+</header>
+
+<div class="note">
+  <p><b>Was sich gegenüber Fassung 1 geändert hat.</b> „Quadratic Funding“ und RadicalxChange stehen jetzt namentlich im Pitch, statt umschrieben zu werden. Parry ist im Fließtext eingeführt und eingeordnet (eigenfinanziert, erster Nutzer der offenen Schnittstelle, nicht Fördergegenstand). Der wissenschaftliche Unterbau der Formel ist belegt statt behauptet, mit Zahlen aus real gelaufenen Runden. Team statt Gründer. Und die rhetorischen Zuspitzungen sind raus, ebenso ein Großteil der Gedankenstriche.</p>
+  <p><b>Zur Sprache.</b> Raus bleibt der <i>Mechanismus</i>-Jargon: kein „Sybil“, kein „Cluster-Matching“, keine Abkürzungen für Rechenverfahren. Bewusst <i>drin</i> bleiben zwei Vokabulare, weil sie die Sprache der Lesenden sind: das Verwaltungsdeutsch (Zuwendungsbescheid, Förderrichtlinie, Verwendungsnachweis) und das des Deutschland-Stacks (EUDI-Wallet, PID, EAA, OpenID4VP, openCode). Beim zweiten ist Präzision ein Zugehörigkeitssignal, denn SPRIND hat den Funke „EUDI Wallet Prototypes“ selbst betrieben. Rechtsfundstellen stehen in Klammern und tragen nie den Satz.</p>
+  <p><b>Neu in dieser Fassung: der zweite Anwendungsfall ist jetzt ein Bundesfall.</b> Die <b>Skalierbarkeit</b> nennt statt einer allgemeinen „Vereinsförderung“ das <b>Mikroförderprogramm der DSEE</b>, weil dessen Förderaufruf 2026 die Bemessungslücke in einem einzigen Abschnitt wörtlich vorführt: Die Anträge stehen „miteinander im Wettbewerb“, entschieden wird „in der Reihenfolge ihres Eingangs“. Dazu kommt, dass das Programm bereits 10 % Eigenbeteiligung verlangt — der Beitrag, aus dem unsere Formel rechnet, wird dort also schon erhoben. Und die Zuständigkeit liegt seit dem Organisationserlass vom Mai 2025 im <b>Bundeskanzleramt</b>, was den Fall auf dieselbe Flughöhe hebt wie den IT-Planungsrat. Die drei Vorschläge des Normenkontrollrats Baden-Württemberg sind dafür aus dem Feld gewichen; sie waren Landesebene und kosteten den Platz. Neu ist außerdem das <b>Ergiebigkeitsprinzip</b> (VV Nr. 1 zu § 7 BHO) unter „Prüfsicherheit“: Es verlangt wörtlich, „mit einem bestimmten Mitteleinsatz das bestmögliche Ergebnis zu erzielen“ — die Aufgabenstellung von Quadratic Funding, aus dem Haushaltsrecht selbst.</p>
+  <p><b>Nicht enthalten:</b> Kontakt- und Unternehmensangaben sowie die Erklärungen (Datenschutz, Interessenkonflikt, Finanzierungsquellen) — die werden am Abgabetag eingetragen. ⚠️ Achtung dabei: Das Feld „Wie habt ihr davon erfahren → bitte genauer ausführen“ hat im Live-Formular <b>50 Zeichen</b>, nicht 600 wie im Briefing vermerkt. Die <b>Pflichtanlage Projektablauf</b> steht am Ende als Textfassung; das PDF-Diagramm wird daraus gezeichnet, sobald der Zuschnitt bestätigt ist.</p>
+</div>
+
+<div class="decide">
+  <h3>Eine Entscheidung ist noch offen: das primäre Handlungsfeld</h3>
+  <p>Die Arbeitsunterlagen setzen bisher <b>#3 „Neue Technik schneller testen“</b> primär. Die Schirmherrschaft dieses Feldes liegt beim BMWE. <b>#5 „Öffentliche Ausschreibungen vereinfachen“</b> liegt beim BMDS — dem Haus, das die Mission mitträgt und dessen Minister beim Pitch am Ende von Phase 1 anwesend ist.</p>
+  <p><b>Empfehlung: #5 primär, #3 und #8 sekundär.</b> Das Argument ist nicht inhaltlich, sondern institutionell — der schnellste Weg, eine Ausschreibung zu vereinfachen, ist, sie nicht zu brauchen, und das trägt als Feldzuordnung ebenso gut. <b>#9 „Vereinsarbeit“ nicht ankreuzen</b>, auch bei Variante B nicht: Vereine sind das Testfeld, nicht das Thema; wer #9 setzt, wird als Vereinstool gelesen und verliert den Bundesbezug.</p>
+  <p class="hint">Kein Feldtext hängt an dieser Entscheidung — sie betrifft nur die Checkboxen.</p>
+</div>
+
+<h2 class="sec">Projekt &amp; Thema</h2>
+
+<div class="field" data-limit="50">
+  <div class="fh"><span class="fn">Projektname</span><span class="badge"><span class="cnt">44</span> / 50</span></div>
+  <div class="txt">
+    <p>Quadratic Funding – erstmals auf Staatsebene</p>
+  </div>
+  <p class="hint"><b>Warum das trägt:</b> Der Pilot in Split (2023) war <i>kommunale</i> Förderung, kein staatlicher Einsatz — die Ebene ist also frei. <b>Was dabei zu wissen ist:</b> Taiwan vergibt im Presidential Hackathon staatliche Mittel per <i>Quadratic Voting</i>. Das ist ein anderes Verfahren, aber wer die Szene kennt (Leon kennt sie), hat es im Kopf. Der Name hält deshalb nur, solange im Fließtext „uns ist kein Einsatz bekannt“ steht — genau so steht es dort. Sichere Rückfallebene: „Quadratic Funding – erstmals in Deutschland“ (43).</p>
+</div>
+
+<div class="field" data-limit="600">
+  <div class="fh"><span class="fn">Beschreibung in drei Sätzen</span><span class="badge"><span class="cnt">584</span> / 600</span></div>
+  <div class="txt">
+    <p>Quadratic Funding ist ein Verteilverfahren aus der Ökonomie, hergeleitet 2019: Es teilt einen gedeckelten Fördertopf danach auf, wie viele Menschen ein Vorhaben mit eigenem Geld mittragen, nicht danach, wer die größte Summe aufbringt oder den besten Antrag schreibt. Wir arbeiten seit demselben Jahr damit, als Partner von RadicalxChange, und bauen daraus das erste Werkzeug, mit dem eine deutsche Behörde so fördern kann. Gelingt es, steht in einer Förderrichtlinie erstmals eine veröffentlichte, nachrechenbare Formel dort, wo heute Eingangsdatum, Jury oder Verhandlung entscheiden.</p>
+  </div>
+</div>
+
+<div class="field" data-limit="0">
+  <div class="fh"><span class="fn">Themenauswahl (Checkboxen)</span><span class="badge">Auswahl</span></div>
+  <div class="txt">
+    <p class="cb"><b>☑ 5 — Öffentliche Ausschreibungen vereinfachen</b> (primär, siehe Entscheidung oben)<br>
+    <b>☑ 3 — Neue Technik schneller testen</b><br>
+    <b>☑ 8 — Aufwand für Berichts- und Nachweispflichten senken</b><br>
+    ☐ 9 — Vereinsarbeit einfacher machen &nbsp;<span class="hint" style="display:inline">— bewusst nicht</span></p>
+  </div>
+</div>
+
+<h2 class="sec">Lösung</h2>
+
+<div class="field" data-limit="1000">
+  <div class="fh"><span class="fn">Was unterscheidet euren Ansatz radikal von bestehenden Ansätzen?</span><span class="badge"><span class="cnt">999</span> / 1.000</span></div>
+  <div class="txt">
+    <p>Erstens ist das Verfahren erprobt, und zwar erfolgreich. Über Gitcoin wurden in 38 Runden rund 4,5 Mio. $ verteilt und ausgewertet (Miller/Weyl/Kanich 2025). Gefördert wurden nicht nur Krypto-Vorhaben, sondern auch Klimaschutz, Ukraine-Hilfe und Open Source; allein die Open-Source-Runde hatte 26.203 Beitragende. Jeder Beitrag war öffentlich einsehbar, jedes Vorhaben konnte sich vorstellen. Das Prinzip ist auch hier etabliert: Einzelne Volks- und Raiffeisenbanken fördern Vereins-Crowdfunding per Festbetrag je Erstspender.</p>
+    <p>Zweitens fehlt nicht der Funktionsnachweis, sondern die Brücke in die Verwaltung. Der einzige uns bekannte Einsatz in einer europäischen Verwaltung ist ein Pilot der Stadt Split (2023), lokal und blockchainbasiert. Auf Staatsebene ist uns weltweit kein Einsatz bekannt.</p>
+    <p>Drittens kann kein bestehendes Werkzeug zuwendungsrechtlich sauber auszahlen: Weiterleitung, Verwendungsnachweis, Prüfvermerk. Daran scheitert der Übergang in die öffentliche Hand. Das bauen wir zuerst.</p>
+  </div>
+</div>
+
+<div class="field" data-limit="2500">
+  <div class="fh"><span class="fn">Problembeschreibung</span><span class="badge"><span class="cnt">2463</span> / 2.500 <span class="vcnt"></span></span></div>
+  <div class="txt">
+    <p>Das Zuwendungsrecht regelt genau, wie viel von den Kosten <i>eines</i> Vorhabens gedeckt wird: Anteil-, Fehlbedarfs-, Festbetrags- oder Vollfinanzierung. Es regelt nicht, wie ein gedeckelter Topf auf <i>viele</i> Antragsteller aufgeteilt wird. Diese Lücke füllen heute das Eingangsdatum, eine Jurysitzung oder eine Verhandlung.</p>
+    <p>Darunter leiden drei Gruppen, und die erste wird meist übersehen: die bewilligende Stelle selbst. Wer nach Ermessen aufteilt, muss die Entscheidung gegenüber Abgelehnten, Rechnungshof und Parlament begründen, und hat dafür keinen Maßstab außer dem eigenen Urteil. Das ist der unangenehmste Teil der Arbeit und zugleich der teuerste: Jede Runde bindet Sitzungen, Gutachten und Personalzeit, die für weitere Anträge fehlt.</p>
+    <p>Wie groß die Lücke ist, zeigt das Digitalisierungsbudget des IT-Planungsrats: Die FITKO bewertete rund 70 Anträge mit einem Förderbedarf von 75 Mio. €, genehmigt wurden Vorhaben im Volumen von 15 Mio. € (Jahresbericht IT-Planungsrat/FITKO 2025/2026). Kriterien gibt es durchaus: Planungsreife, Laufzeit und Förderfähigkeit als Ausschlussgründe, dazu Strategiebeitrag und deutschlandweite Wirkung als Priorisierung. Nur erzeugen sie keine nachrechenbare Rangfolge: Welche 27 Vorhaben es am Ende werden, ist eine Bewertung im Gremium aus Bund und sechzehn Ländern.</p>
+    <p>Die zweite Gruppe sind die Antragstellenden. Wo die Begründung im Antrag den Ausschlag gibt, gewinnt, wer Anträge schreiben kann, nicht, wer den größten Rückhalt hat. Kleine Träger und Initiativen verlieren damit systematisch gegen professionelle Antragsabteilungen. Die dritte Gruppe sind die Bürgerinnen und Bürger, deren Geld verteilt wird und die am Ergebnis nicht ablesen können, warum es so ausfiel.</p>
+    <p>Bestehende Antworten greifen zu kurz. Das Windhundverfahren belohnt Schreibgeschwindigkeit, ein Kriterium ohne Bezug zur Förderwürdigkeit. Jurys skalieren nicht und werden pro Euro umso teurer, je kleiner die Beträge sind. Punktesysteme verlagern das Ermessen in die Matrix.</p>
+    <p>Unser Ansatz dreht die Reihenfolge um: Die Behörde legt Zweck, Zulassung und Rechenregel vorab in der Förderrichtlinie fest und veröffentlicht sie. Danach entscheidet keine Sitzung mehr, sondern eine nachrechenbare Formel, die zählt, wie viele Menschen ein Vorhaben mit eigenem Geld mittragen. Die Zahl der Unterstützenden wiegt dabei stärker als die Höhe der Beträge. Wer mitzahlt, meint es ernst: das ehrlichste verfügbare Bedarfssignal, und billiger zu erheben als jedes Gutachten.</p>
+  </div>
+</div>
+
+<div class="field" data-limit="2500">
+  <div class="fh"><span class="fn">Wie funktioniert die Lösung?</span><span class="badge"><span class="cnt">2494</span> / 2.500</span></div>
+  <div class="txt">
+    <p>Drei Sichten auf dasselbe Werkzeug.</p>
+    <p><b>Der Mittelgeber</b> richtet eine Runde ein wie heute eine Förderrichtlinie: Zweck, Zulassung, Höchstbetrag, Zeitraum, dazu die Rechenregel mit Versionsnummer. Alles wird vor dem Start veröffentlicht. Nach Ende der Runde erhält er eine Nachweismappe: je Zuteilung eine erzeugte Begründung, das Rechenprotokoll, die Vergleichsrechnung und die Vorlagen für Verwendungsnachweis und Prüfvermerk. Bescheiden tut die Behörde. Das Werkzeug rechnet und dokumentiert, es entscheidet nichts.</p>
+    <p>Wir bauen für die Bundesebene, weil dort die Nachweispflichten am strengsten sind. Was ihnen genügt, genügt darunter.</p>
+    <p><b>Die Beitragenden.</b> Wer mitträgt, hängt vom Programm ab. Bei einem Bundesprogramm für Länder und Kommunen sind es diese selbst: Sie geben aus dem eigenen Haushalt einen Beitrag, der Bund legt aus dem Topf nach der Formel nach. Ein Vorhaben, das zwölf Länder mit kleinen Beträgen mittragen, zieht dann mehr als ein gleich teures, das ein großes Land allein einbringt. Bei bürgernahen Programmen sind es die Bürgerinnen und Bürger mit Beiträgen ab wenigen Euro. Das Geld fließt über einen zugelassenen Zahlungsdienstleister direkt an das Vorhaben. Wir fassen es nie an, wir lesen und rechnen.</p>
+    <p><b>Die Antragstellenden</b> beschreiben Vorhaben, Kosten, Zeitraum und Ort. Mehr braucht das Formular nicht, weil die Förderwürdigkeit nicht im Antrag behauptet, sondern in der Runde gemessen wird.</p>
+    <p><b>Die Rechenregel.</b> Für jedes Vorhaben wird aus jedem Einzelbeitrag die Wurzel gezogen, die Wurzeln werden addiert, die Summe wird quadriert. Weil der Topf haushaltsrechtlich gedeckelt sein muss, rechnen wir die budgetbeschränkte Variante, nicht die Lehrbuchversion.</p>
+    <p><b>Der Schutz gegen Missbrauch.</b> Zwei Angriffe, zwei Abwehrlinien. Der erste und gefährlichere ist das gefälschte Konto: Wer eine Spende auf viele erfundene Personen aufteilt, vervielfacht seinen Anteil, weil die Formel Köpfe zählt. Dagegen steht der Ausweisnachweis der Wallet, mit dem jede Person nur einmal teilnehmen kann. Der zweite ist die Absprache: eine echte Gruppe, die sich gegenseitig stützt. Dagegen gewichtet das Verfahren Beiträge aus Gruppen ab, die immer gemeinsam auftreten, und belohnt Unterstützung über Gruppengrenzen. Dafür braucht es belegte Zugehörigkeiten, und die Wallet weist sie nach, ohne die Person preiszugeben. Region und Altersgruppe stehen schon im Ausweisnachweis, der zum Start Anfang 2027 gesichert ist; weitere folgen später. Wir sind nur die prüfende Seite und speichern kein Merkmal.</p>
+  </div>
+</div>
+
+<div class="field" data-limit="1000">
+  <div class="fh"><span class="fn">Löst ihr das Problem strukturell oder oberflächlich?</span><span class="badge"><span class="cnt">995</span> / 1.000</span></div>
+  <div class="txt">
+    <p>Strukturell. Wir bauen kein besseres Antragsformular, sondern ersetzen den Schritt, in dem heute nach Ermessen aufgeteilt wird.</p>
+    <p>Der Prüfstein ist die Frage, was nach uns anders ist. Nach einem digitalisierten Antragsformular liest dieselbe Runde dieselben Anträge. Nach einer Runde mit unserem Werkzeug steht in der Förderrichtlinie eine veröffentlichte Rechenregel, jede Zuteilung ist nachrechenbar, und die Sitzung, die sie bisher hervorgebracht hat, entfällt.</p>
+    <p>Zugleich ist das der Grund, warum das Vorhaben anspruchsvoll ist: Es greift in geltendes Haushaltsrecht ein. Diese Frage haben wir zuerst geprüft. Ergebnis: Es braucht keine Gesetzesänderung. Die Rechenregel wird in die Förderrichtlinie geschrieben, unter den Punkt Bewilligungsverfahren nach § 44 Bundeshaushaltsordnung. Eine Förderrichtlinie erlässt das Ministerium selbst. Das Ermessen verschwindet nicht, es wird vorgezogen: Ob ein Vorhaben zugelassen wird, bleibt Einzelfallentscheidung. Wie viel es bekommt, steht vorher fest.</p>
+  </div>
+</div>
+
+<div class="field" data-limit="0">
+  <div class="fh"><span class="fn">Voraussetzungen für die Umsetzung (Checkboxen)</span><span class="badge">Auswahl + 50</span></div>
+  <div class="txt">
+    <p class="cb">☐ Sofort umsetzbar &nbsp;·&nbsp; <b>☑ Organisatorische Änderungen</b> &nbsp;·&nbsp; <b>☑ Technische Schnittstellen</b> &nbsp;·&nbsp; ☐ Gesetzesänderungen &nbsp;·&nbsp; ☐ Noch unklar</p>
+    <p class="cb"><b>Sonstiges (50):</b> Weiterleitungsklausel im Zuwendungsbescheid</p>
+    <p class="hint">„Gesetzesänderungen“ auf keinen Fall ankreuzen — das Feld wird zweimal abgefragt und ist erkennbar ein Ausschlusskriterium. Die Rechtsanalyse trägt die Antwort.</p>
+  </div>
+</div>
+
+<div class="field" data-limit="100">
+  <div class="fh"><span class="fn">Deutschland-Stack-Kompatibilität</span><span class="badge"><span class="cnt">98</span> / 100</span></div>
+  <div class="txt">
+    <p>EUDI-Wallet als Identitätsquelle (PID/EAA über OpenID4VP), offene API, Open Source auf openCode.de</p>
+  </div>
+  <p class="hint">Bewusst standardnah statt allgemeinverständlich: Bei 100 Zeichen zählt jedes Wort, und das Feld liest das BMDS. „PID/EAA über OpenID4VP“ sagt in vier Begriffen, dass wir die Architektur kennen und auf der prüfenden Seite stehen. <b>Dies ist die einzige Stelle, an der diese Kürzel im Formular stehen.</b> In den Fließtextfeldern heißt es „Ausweisnachweis der Wallet“ und „bestätigtes Merkmal“ — dort kosten die Abkürzungen Verständlichkeit, hier sind sie das Fachsignal.</p>
+</div>
+
+<div class="field" data-limit="250">
+  <div class="fh"><span class="fn">Schutzrechte / geistiges Eigentum</span><span class="badge"><span class="cnt">249</span> / 250</span></div>
+  <div class="txt">
+    <p>Wir schreiben die Software neu, ohne fremden Code als Grundlage. Die Lizenz ist frei wählbar. Vorgesehen ist die EUPL-1.2: europäisch anschlussfähig, in der Verwaltung etabliert, mit Rückflusspflicht. Veröffentlichung auf openCode.de zum Förderende.</p>
+  </div>
+</div>
+
+<div class="field" data-limit="2500">
+  <div class="fh"><span class="fn">Drei zentrale Meilensteine</span><span class="badge"><span class="cnt">2455</span> / 2.500</span></div>
+  <div class="txt">
+    <p><b>Ausgangsstand.</b> Die Rechenregel selbst ist wenige Zeilen Code, und es gibt Referenzen zum Gegenrechnen. Was den Übergang in die Verwaltung ausmacht, existiert nirgends: der gedeckelte Topf, die Nachweiskette, die belegten Zugehörigkeiten. Das sind die drei Meilensteine. Zugeschnitten sind sie auf rund neun Personenwochen Entwicklung, nicht auf drei Kalendermonate.</p>
+    <p><b>1 — Der Rechenkern steht und lässt sich nachrechnen (bis Ende Oktober).</b> Die Formel für den gedeckelten Topf: Bei gleicher Eingabe kommt immer dasselbe heraus, jede Fassung trägt eine Versionsnummer, und die Ergebnisse stimmen mit den Referenzen überein. Daneben rechnet dasselbe Werkzeug mit, was Gießkanne, Windhundverfahren und Jury-Ranking ergeben hätten. Dieser Vergleich ist juristisch das wertvollste Einzelstück: Wirtschaftlichkeit ist ein Vergleichsbegriff, und die Grundlinie lässt sich nachträglich nicht erheben.</p>
+    <p><b>2 — Wir rechnen erstmals mit einem geprüften Merkmal statt mit einer Schätzung (bis Ende November).</b> Der Schutz gegen Absprachen braucht eine Information: Wer gehört zusammen? Bisher wurde das aus dem Verhalten geschätzt. Wir holen es stattdessen aus der EUDI-Wallet: Wir melden uns bei der EUDI-Sandbox des Bundes als prüfende Stelle an, holen ein bestätigtes Merkmal und rechnen damit eine Zuteilung. Das ist ein eigener Baustein, keine Erweiterung des Vergleichsrechners. Damit stehen beide Abwehrlinien: belegte Zugehörigkeit gegen Absprachen, ein Ausweis je Person gegen gefälschte Konten. Voraussetzen lässt sich die Wallet im Dezember nicht: Sie startet erst Anfang 2027, die Sandbox ist ein Testsystem. Die echte Runde läuft deshalb mit einfacher Anmeldung. Gezeigt wird, dass die Architektur trägt, sobald die Wallet da ist.</p>
+    <p><b>3 — Eine echte Förderrunde (bis Mitte Dezember).</b> Sechs bis zehn Vorhaben ehrenamtlicher Initiativen in Berlin, rund 2.500 € aus dieser Förderung selbst, als Weiterleitung an die Letztempfänger ausgereicht, verteilt nach vorab veröffentlichter Regel, vollständig auditierbar, angelegt als Wirtschaftlichkeitsuntersuchung nach § 7 Abs. 2 Bundeshaushaltsordnung.</p>
+    <p><b>Gezeigt wird im Dezember</b> keine polierte Oberfläche, sondern eine abgeschlossene Runde, die Gegenrechnung und die Nachweismappe.</p>
+    <p><b>Voraussetzung für Meilenstein 3:</b> Der Zuwendungsbescheid muss die Weiterleitung an Letztempfänger vorsehen (VV Nr. 12 zu § 44 BHO). Fällt sie weg, läuft dieselbe Runde als Simulation auf echten Förderdaten, schwächer im Nachweis, aber tragfähig.</p>
+  </div>
+</div>
+
+<h2 class="sec">Offenheit &amp; Team</h2>
+
+<div class="field" data-limit="500">
+  <div class="fh"><span class="fn">Ergänzungen zur Offenheit</span><span class="badge"><span class="cnt">496</span> / 500</span></div>
+  <div class="txt">
+    <p class="cb"><b>☑ Open Source · ☑ offene Schnittstellen · ☑ offene Standards · ☑ Dokumentation öffentlich</b></p>
+    <p>Ein Verfahren, das öffentliche Mittel verteilt, muss von jedem nachgerechnet werden können. Offenheit ist Teil der Legitimation, kein Zugeständnis. Offengelegt werden Rechenkern, Formelversionen und Rechenprotokolle, dazu eine offene Schnittstelle und ein neutrales Referenz-Frontend. Unsere Anwendung Parry bindet sich als erste daran an, auf eigene Kosten. Dass wir damit nicht der einzige Anbieter bleiben, ist beabsichtigt. Eine Behörde, die sich an niemanden bindet, kann jederzeit wechseln.</p>
+  </div>
+</div>
+
+<div class="field" data-limit="2000">
+  <div class="fh"><span class="fn">Warum ist euer Team das richtige?</span><span class="badge"><span class="cnt">1999</span> / 2.000</span></div>
+  <div class="txt">
+    <p>Wir arbeiten seit 2019 mit dieser Methodenfamilie, nicht seit dieser Ausschreibung.</p>
+    <p>Angefangen haben wir mit Quadratic Voting, dem Abstimmungsverfahren derselben Familie. Wir haben es mit RadicalxChange gebaut und produktiv betrieben: für die Mitgliederversammlung der europäischen Partei Volt und für die Preisvergabe eines Hackathons in Turin. CitizenTech ist offizieller Partner von RadicalxChange.</p>
+    <p>Das zählt hier, weil dieselben Fragen auftreten wie bei Quadratic Funding, nicht im Lehrbuch, sondern mit echten Teilnehmenden: Wie erklärt man eine Wurzelfunktion in zwei Sätzen? Wie geht man mit Absprachen unter Leuten um, die sich kennen? Und wie verhindert man, dass jemand mehrfach mitmacht? Wir haben auf jede in verschiedenen Anwendungen andere Antworten gebaut. Welches Mittel trägt, hängt vom Zuschnitt ab; diese Abwägung haben wir mehrfach getroffen.</p>
+    <p>Dieselbe Methode läuft heute in Parry: eine eigene kartenbasierte Beteiligungsplattform, 2024 in Berlin gestartet, binnen Tagen über hundert Nutzerinnen und Nutzer; die Einmaligkeit sichern wir dort über eine SMS-Prüfung. Parry ist eigenfinanziert und nicht Gegenstand dieses Antrags. Es belegt, dass wir solche Verfahren in ein benutzbares Produkt bringen.</p>
+    <p>Das Team deckt die nötige Bandbreite ab: Softwareentwicklung, User Interface, Branding, Benutzerfreundlichkeit, Kommunikation. Die Formel muss stimmen, die Behörde muss ihr trauen, und die Menschen müssen sie bedienen können.</p>
+    <p>Dazu kommt der Zugang zu echten Empfängern. Wir sind in Berlin und der Initiativenlandschaft vernetzt, arbeiten laufend mit ehrenamtlichen Gruppen, mehrere kamen von sich aus auf uns zu. Sie in drei Monaten zu finden, ist sonst der Punkt, an dem ein Pilot scheitert. Aus dieser Arbeit kennen wir die Antragstellerseite: wie lange Entscheidungen dauern und woran sie hängen. Das ist im Zeitplan eingerechnet.</p>
+    <p>CitizenTech ist ein kleines Berliner Unternehmen, das als Kollektiv mit Unterstützern in Deutschland, Italien, Nigeria und der Ukraine arbeitet.</p>
+  </div>
+</div>
+
+<div class="field" data-limit="500">
+  <div class="fh"><span class="fn">Kompetenzen im Team (Checkboxen) + Sonstiges</span><span class="badge"><span class="cnt">185</span> / 500</span></div>
+  <div class="txt">
+    <p class="cb"><b>☑ Softwareentwicklung · ☑ UX Design · ☑ Produktmanagement · ☑ Daten · ☑ Kommunikation</b><br>
+    ☐ Verwaltung &nbsp;☐ Recht &nbsp;<span class="hint" style="display:inline">— bewusst nicht, siehe „Fehlende Expertise“</span></p>
+    <p><b>Sonstiges:</b> Entwurf kollektiver Entscheidungsverfahren, Partnerschaft mit RadicalxChange seit 2019, produktive Umsetzung quadratischer Abstimmungsverfahren seit 2020 in drei Anwendungen.</p>
+  </div>
+</div>
+
+<div class="field" data-limit="2500">
+  <div class="fh"><span class="fn">Fehlende Expertise &amp; Verwaltungserfahrung</span><span class="badge"><span class="cnt">2230</span> / 2.500</span></div>
+  <div class="txt">
+    <p>Vier Lücken, die wichtigste zuerst.</p>
+    <p><b>Zuwendungs- und Vergaberecht.</b> Wir haben die Rechtsfragen vor der Bewerbung selbst aufgearbeitet, an den amtlichen Fassungen einschließlich der Vergaberechtsreform vom 1. Juli 2026. Ergebnis: Es ist Zuwendungs- und nicht Vergaberecht, es braucht keine Gesetzesänderung, und es folgen neun konkrete Auflagen für die Software, die bereits in der Produktspezifikation stehen. Juristen sind wir deswegen nicht. Bei der Weiterleitungskonstruktion und bei der Frage, ab wann das Einlesen fremder Zahlungsströme erlaubnispflichtig wird, brauchen wir anwaltliche Bestätigung. Dafür sind 2.500 € fest eingeplant, als Posten, nicht als Puffer.</p>
+    <p><b>Erfahrung mit einer produktiv gelaufenen Runde nach diesem Verfahren.</b> Wir haben tiefe Erfahrung mit quadratischen Abstimmungsverfahren. Das ist nicht dasselbe: Abstimmen verteilt Stimmen, dieses Verfahren verteilt Geld aus einem Fördertopf. Verwandt, aber verschieden. Mit echtem Geld haben wir es noch nie laufen lassen. Genau deshalb ist die reale Runde Meilenstein 3 und keine Simulation.</p>
+    <p><b>Verwaltungserfahrung von innen.</b> Niemand im Team hat in einer Bewilligungsstelle gearbeitet. Wir kennen die Vorschriften, aber nicht den Arbeitsalltag, den sie erzeugen. Ob unser Werkzeug einer Sachbearbeitung tatsächlich Arbeit abnimmt, kann nur beantworten, wer diese Arbeit macht. Das ist der Punkt, an dem wir das Mentoring der Mission am dringendsten brauchen.</p>
+    <p><b>Barrierefreiheit, IT-Sicherheit im Verwaltungskontext, Datenschutz.</b> Die Anforderungen nach BITV und die Vorgaben des BSI kennen wir als Anforderung, nicht aus der Umsetzung. Für einen Prototyp ist das verkraftbar, vor einem produktiven Einsatz nicht.</p>
+    <p>Nicht als Lücke zählen wir die Mathematik des Verfahrens. Deren Grenzen kennen wir und benennen sie lieber, als sie zu überspielen. Gegen Absprachen liegen ausgearbeitete Verfahren vor, etwa aus Miller/Weyl/Erichsen (2022). Sie brauchen Angaben darüber, wer zusammengehört, und genau die kann die EUDI-Wallet als bestätigte Merkmale liefern. Wie sie bei zehn Vorhaben und 2.500 € wirken und wenn diese Angaben unvollständig bleiben, ist offene Forschung und zugleich unser realer Betriebszustand. Wir messen das in der Pilotrunde, statt es zu behaupten.</p>
+  </div>
+</div>
+
+<div class="field" data-limit="2500">
+  <div class="fh"><span class="fn">Geplante Rollen-Ergänzungen</span><span class="badge"><span class="cnt">1436</span> / 2.500</span></div>
+  <div class="txt">
+    <p>Wir stellen für drei Monate niemanden ein. Das Budget entspricht rund neun Personenwochen Entwicklung, dafür lohnt keine Einstellung. Wir kaufen gezielt ein und binden verbindlich an.</p>
+    <p><b>Eingekauft, mit Budget hinterlegt:</b> anwaltliche Begleitung für die Weiterleitungskonstruktion und die zahlungsrechtliche Frage, 2.500 €. Die erste und wichtigste Ergänzung, weil sie Meilenstein 3 absichert.</p>
+    <p><b>Aus dem Mentoring der Mission:</b> eine Person aus einer Bewilligungsstelle, die den Behörden-Ablauf gegenliest. Wir brauchen keine Beratung zur Idee, sondern jemanden, der uns sagt, an welcher Stelle unsere Nachweismappe im echten Verfahren nicht funktioniert. Das ist die konkreteste Erwartung, die wir an die Förderphase haben.</p>
+    <p><b>Nicht bezahlt, aber verbindlich:</b> sechs bis zehn ehrenamtliche Initiativen als Letztempfänger der Pilotrunde. Mit ihnen werden die Vorhaben vor Beginn definiert, und zwar Vorhaben, die noch nicht begonnen haben, weil das Zuwendungsrecht das verlangt. Diese Abstimmung ist ein eigener Arbeitsstrang im Zeitplan, keine Entwicklungsaufgabe.</p>
+    <p><b>Für Phase 2, nicht für Phase 1:</b> Barrierefreiheit und IT-Sicherheitsprüfung nach den Vorgaben des Bundes. Beides gehört vor einen produktiven Einsatz, nicht vor einen Prototyp. Wir planen es deshalb erst für Phase 2 ein und nicht schon hier.</p>
+    <p><b>Wen wir nicht suchen:</b> eine zweite Entwicklerrolle. Der Engpass dieses Vorhabens ist nicht Programmierleistung, sondern Zugang zur Verwaltung.</p>
+  </div>
+</div>
+
+<h2 class="sec">Umsetzung &amp; Skalierung</h2>
+
+<div class="field" data-limit="2500">
+  <div class="fh"><span class="fn">Skalierbarkeit auf Bund und weitere öffentliche Institutionen</span><span class="badge"><span class="cnt">2498</span> / 2.500 <span class="vcnt"></span></span></div>
+  <div class="txt">
+    <p>Zwei Dinge müssen skalieren: die Regel und die Software. Die Regel wird einmal geschrieben und ist dann in jede weitere Förderrichtlinie übernehmbar, ohne Gesetz und ohne zusätzlichen Euro, denn eine Förderrichtlinie ist eine Verwaltungsvorschrift des Hauses. Die Software wandert mit: derselbe Rechenkern, angepasst an Programm und Nachweispflichten, erweitert um Anschlüsse statt neu gebaut. Die Frage ist deshalb nicht, ob das skaliert, sondern warum ein Haus anfangen sollte.</p>
+    <p><b>Weniger Begründungsdruck.</b> Wer nach Ermessen aufteilt, verteidigt das vor Abgelehnten, Rechnungshof und Parlament. Steht die Regel vorher fest und veröffentlicht, wird daraus ein nachrechenbares Ergebnis: Wer weniger bekommt, sieht, dass ihn weniger Menschen getragen haben.</p>
+    <p><b>Prüfsicherheit.</b> § 7 Bundeshaushaltsordnung verlangt nicht nur Sparsamkeit. Das Ergiebigkeitsprinzip verlangt, „mit einem bestimmten Mitteleinsatz das bestmögliche Ergebnis zu erzielen“ (VV Nr. 1 zu § 7 BHO). Ein gedeckelter Fördertopf ist genau so ein Mitteleinsatz; dass die Aufteilung die bestmögliche war, weist heute kaum ein Haus nach. Unsere Formel tut das, einfach genug für jede Prüfung: eine Wurzel, eine Summe, ein Quadrat. Dahinter steht begutachtete Forschung (Management Science 2019), die budgetbeschränkte Variante ist eigens als optimal nachgewiesen, und aus 38 Runden liegen Auswertungen vor.</p>
+    <p><b>Beispielhafte Anwendungsfälle.</b> Der erste ist das Digitalisierungsbudget des IT-Planungsrats, das Bund und Länder gemeinsam füllen, 35 % zu 65 % nach Königsteiner Schlüssel. Zuletzt standen 70 Anträgen mit 75 Mio. € Bedarf nur 15 Mio. € gegenüber, bewilligt für 27 Vorhaben. Die deutschlandweite Wirkung zählt dort bereits zu den Priorisierungskriterien, heute als Einschätzung im Gremium, unter dieser Regel als Messung; ersetzt würde allein der Verteilschritt.</p>
+    <p>Der zweite liegt im Kanzleramt, das seit Mai 2025 Ehrenamt und Engagementpolitik bündelt und 2026 mit 13,3 Mio. € fördert (Einzelplan 04). Im Mikroförderprogramm der Deutschen Stiftung für Engagement und Ehrenamt stehen die Anträge laut Förderaufruf 2026 „miteinander im Wettbewerb“, entschieden wird aber „in der Reihenfolge ihres Eingangs“. Zugleich sind 10 % Eigenbeteiligung Pflicht: Der Beitrag, aus dem unsere Regel rechnet, wird dort längst erhoben, er dient nur als Schwelle, nicht als Maßstab.</p>
+    <p>Beides endet nicht an der Grenze. Die EUDI-Wallet ist europäisch geregelt, nicht deutsch; steht die Regel hier einmal, trägt dieselbe Architektur in jedem Mitgliedstaat.</p>
+  </div>
+</div>
+
+<div class="field" data-limit="2500">
+  <div class="fh"><span class="fn">Langfristiger Betrieb — Hosting, Wartung, Support</span><span class="badge"><span class="cnt">1330</span> / 2.500</span></div>
+  <div class="txt">
+    <p>Der Betrieb ist bewusst klein, weil das Werkzeug wenig tut: Es rechnet, dokumentiert und liest Zahlungsdaten. Es hält kein Geld, betreibt keine Zahlungsstrecke und läuft zwischen den Runden nicht im Dauerbetrieb.</p>
+    <p><b>Hosting.</b> Deutsche oder europäische Infrastruktur, containerisiert und selbst betreibbar. Eine Behörde, die das Werkzeug im eigenen Rechenzentrum betreiben will, kann das. Das ist eine bewusste Architekturentscheidung: Ein privates Unternehmen dauerhaft zwischen Fördermittel und Empfänger zu setzen, wäre im Bund nicht tragfähig.</p>
+    <p><b>Wartung.</b> Der Rechenkern ist klein, deterministisch und ändert sich nach der Erstfassung fast nie. Das ist sogar rechtlich geboten, denn eine über Runden hinweg wechselnde Formel würde die gleichmäßige Verwaltungspraxis zerstören, auf die sich die Zulässigkeit stützt. Änderungen laufen deshalb über Formelversionen mit dokumentierter Begründung, nie über stille Updates.</p>
+    <p><b>Support.</b> Der Aufwand entsteht nicht im Dauerbetrieb, sondern pro Runde: Runde einrichten, Zulassung begleiten, Abrechnung und Nachweismappe erstellen. Genau das ist auch das Geschäftsmodell.</p>
+    <p><b>Belegführung.</b> Belege und Unterlagen sind fünf Jahre nach Vorlage des Verwendungsnachweises aufzubewahren (ANBest-P). Das Werkzeug legt sie exportierbar ab, damit die Aufbewahrung bei der Behörde liegen kann und nicht bei uns.</p>
+  </div>
+</div>
+
+<div class="field" data-limit="2500">
+  <div class="fh"><span class="fn">Anschlussfinanzierung &amp; Geschäftsmodell</span><span class="badge"><span class="cnt">2022</span> / 2.500</span></div>
+  <div class="txt">
+    <p>Die Software ist offen, bezahlt wird der Betrieb einer Runde. Wir verkaufen keine Lizenzen. Wir richten Förderrunden ein, begleiten Zulassung und Abrechnung und liefern die Nachweismappe, alles als Dienstleistung gegenüber dem Mittelgeber.</p>
+    <p>Kundschaft sind Bundesressorts und ihre nachgeordneten Behörden, Bundesstiftungen mit Mikroförderprogrammen, Länder mit gedeckelten Landesprogrammen, kommunale Beteiligungshaushalte, dazu Stiftungen und Genossenschaftsbanken, die Matching-Verfahren bereits privat betreiben. Am nächsten liegen Stellen, die heute schon viele kleine Vorhaben aus einem gedeckelten Topf fördern: das Mikroförderprogramm der Deutschen Stiftung für Engagement und Ehrenamt etwa, der Prototype Fund des BMFTR, in dem je Runde eine Jury 25 bis 30 Vorhaben auswählt, oder die Sovereign Tech Agency, eine Tochter der SPRIND, die im Auftrag des BMDS rund 29 Mio. € jährlich an Open-Source-Vorhaben vergibt.</p>
+    <p>Zwei Dinge müssen dabei sauber getrennt bleiben. Der Bund, der Fördermittel verteilt, handelt im Zuwendungsrecht, und das ist kein öffentlicher Auftrag. Der Bund, der die Plattform oder ihren Betrieb beschafft, handelt im Vergaberecht, und das ist eindeutig einer. Der Weg zu Einnahmen führt also über Vergabeverfahren, im Wettbewerb, und die Open-Source-Auflage sorgt dafür, dass wir dort nicht der einzige mögliche Bieter sein werden.</p>
+    <p>Unser Vorsprung ist deshalb kein Lizenz-, sondern ein Kompetenzvorsprung. Wer den Mechanismus gebaut, die erste reale Runde durchgeführt und die zuwendungsrechtliche Abwicklung dokumentiert hat, ist der glaubwürdigste Bieter. Das ist tragfähig, aber kein Monopol. Für die Verwaltung ist genau das der Vorteil: keine Bindung an uns, ausschreibbar, jederzeit wechselbar.</p>
+    <p>Die eigentliche Anschlussfinanzierung ist aber keine Kundenbeziehung, sondern ein Regelungsakt. Steht die Rechenregel einmal in der Förderrichtlinie eines Bundesressorts, ist sie in beliebig viele weitere übernehmbar. Das kostet den Bund nichts und ist für uns mehr wert als jeder Einzelauftrag.</p>
+  </div>
+</div>
+
+<div class="field" data-limit="2500">
+  <div class="fh"><span class="fn">Fortführung nach der Mission</span><span class="badge"><span class="cnt">2499</span> / 2.500</span></div>
+  <div class="txt">
+    <p><b>Was in Phase 2 gebaut würde.</b> Erstens die produktive Anbindung an die deutsche EUDI-Wallet, deren erste Stufe für Anfang 2027 angekündigt ist, also für den Beginn von Phase 2. Zweitens eine Runde in echter Größe: Der Nachweis, dass das Verfahren bei 2.500 € trägt, ist ein Anfang, kein Beleg. Drittens der Rücklauf der Verwendungsnachweise, den wir in Phase 1 ausklammern.</p>
+    <p>Wir bauen dabei keine Wallet, wir sind die prüfende Seite. Prototypen liegen offen vor, aus dem SPRIND-Funke „EUDI Wallet Prototypes“; dazu kommen die EUDI-Sandbox des Bundes und die Deutschland-Architektur des IT-Planungsrats. Unser Beitrag ist eine Schicht darüber, und die gibt es bisher nirgends: die Verteilregel und ihre Nachweiskette.</p>
+    <p>Das Ziel ist nicht, dass eine Behörde unser Werkzeug einkauft, sondern ein Satz in der Förderrichtlinie eines Bundesressorts: eine veröffentlichte, nachrechenbare Verteilregel für gedeckelte Töpfe, dort, wo heute Ermessen, Eingangsdatum oder Verhandlung stehen. Ist er einmal geschrieben, ist er zitierbar.</p>
+    <p>Dafür brauchen wir kein Gesetz, sondern zwei Zugänge. Erstens ein Haus, das eine Runde tatsächlich fährt. Am nächsten liegt das BMDS: Es stellt die Bundesvertretung im IT-Planungsrat, dessen Digitalisierungsbudget unser Anwendungsfall ist, und verantwortet die EUDI-Wallet, auf der unsere Prüfung aufsetzt. Den Bundesvorsitz führt es 2026, also während Phase 1; der Kontakt sollte deshalb jetzt entstehen. Zweitens Daten abgeschlossener Förderrunden, um nachzurechnen, was die Regel dort verändert hätte. Beides wiegt mehr als zusätzliches Geld. Kommt es nicht dazu, sind Rechenkern, Vergleichsrechnung und Rechtsanalyse offen dokumentiert; die Lücke verschwindet nicht, weil wir sie nicht schließen.</p>
+    <p>Dahinter steht die größere Frage. Ob Digitalisierungsbudget, Ehrenamtsförderung oder die vielen kleinen Programme darunter: Überall wird ein gedeckelter Topf auf mehr Bewerber verteilt, als er tragen kann, und nirgends wird gemessen, wie viele Menschen ein Vorhaben tatsächlich mittragen. Quadratic Funding erhebt genau dieses Signal. Darin liegt die Tragweite: Öffentliches Geld ließe sich zugleich wirtschaftlicher und gerechter verteilen, weil dieselbe Zahl beides misst. Und Beteiligung wäre keine folgenlose Anhörung mehr, sondern eine Größe, an der Geld hängt. Dorthin arbeiten wir: nicht zu einer Plattform, die Behörden kaufen, sondern zu einer Bemessungsregel, die im deutschen Zuwendungsrecht Bestand hat und von dort in jedes europäische Förderrecht übernehmbar ist.</p>
+  </div>
+</div>
+
+<h2 class="sec">Veranstaltung</h2>
+
+<div class="field" data-limit="100">
+  <div class="fh"><span class="fn">Mentor Madness, 14.–15.09. München</span><span class="badge"><span class="cnt">87</span> / 100</span></div>
+  <div class="txt">
+    <p><b>JA.</b> Geschäftsführung nimmt teil, Anreise 13.09., Abreise 15.09. Reisebudget eingeplant.</p>
+  </div>
+</div>
+
+<h2 class="sec">Pflichtanlage — Projektablauf</h2>
+
+<div class="gantt">
+  <p class="ghint"><b>Nur zum Gegenlesen.</b> Die Anlage muss als PDF-Diagramm hochgeladen werden; hier steht sie als Textfassung, damit Zuschnitt und Termine kommentierbar sind, bevor gezeichnet wird. Raster: Halbmonate. Meilensteine identisch zum Formularfeld „Drei zentrale Meilensteine“.</p>
+<pre>
+                              SEP    OKT    NOV    DEZ
+AP  Arbeitspaket             1  2   1  2   1  2   1  2
+──────────────────────────────────────────────────────
+<b>A  RECHT &amp; BESCHAFFUNG — Vorlauf, extern abhängig</b>
+A1  Weiterleitungsklausel    ▒▒ ..  .. ..  .. ..  .. ..   ◀ liegt vor Förderbeginn
+A2  EUDI-Sandbox beantragen  ▒▒ ▒▒  ▒▒ ..  .. ..  .. ..   Vorlaufzeit unbekannt
+A3  Rechtsberatung           ▓▓ ▓▓  .. ..  .. ..  .. ..   Budgetposten 2.500 €
+A4  Zahlungsdienstleister    ▒▒ ▒▒  ▒▒ ..  .. ..  .. ..
+A5  Förderrichtlinien-Text   .. ▓▓  ▓▓ ..  .. ..  .. ..
+A6  Weiterleitungsverträge   .. ..  ▓▓ ▓▓  .. ..  .. ..
+A7  Mentor Madness München   ## ..  .. ..  .. ..  .. ..   14.–15.09., Pflicht
+
+<b>B  FELD: VORHABEN &amp; TRÄGER — Koordination, lange Laufzeit</b>
+B1  Programmzweck festlegen  ▓▓ ..  .. ..  .. ..  .. ..
+B2  Trägerverein gewinnen    ▒▒ ▒▒  ▒▒ ..  .. ..  .. ..
+B3  Vorhabenkatalog 6–10     ▒▒ ▒▒  ▒▒ ▒▒  .. ..  .. ..   nur noch nicht begonnene
+B4  Eignungsprüfung          .. ..  .. ▓▓  .. ..  .. ..
+B5  Konten-Onboarding (KYC)  .. ..  ▒▒ ▒▒  .. ..  .. ..   Vorstandsmitwirkung nötig
+B6  Beitragende mobilisieren .. ..  .. ▓▓  ▓▓ ..  .. ..   Ziel 150–250 Personen
+
+<b>C  ENGINE &amp; BEMESSUNG — Entwicklung</b>
+C1  Rechenkern, gedeckelt    .. ▓▓  ▓▓ ..  .. ..  .. ..
+C2  Validierung gegen Refs   .. ..  ▓▓ ..  .. ..  .. ..
+C3  Vergleichsrechner        .. ..  ▓▓ ..  .. ..  .. ..   Gießkanne/Windhund/Jury
+C4  Absprachefestes Verf.    .. ..  .. ▓▓  ▓▓ ..  .. ..
+C5  EUDI-Sandbox-Anbindung   .. ..  .. ..  ▓▓ ..  .. ..   hängt an A2
+C6  Anzeige laufender Stand  .. ..  .. ▓▓  .. ..  .. ..
+C7  Anmeldung für E2         .. ..  .. ▓▓  .. ..  .. ..   einfach, ohne Wallet
+
+<b>D  NACHWEIS &amp; BEHÖRDENSICHT — das eigentliche Produkt</b>
+D1  Rundenkonfigurator       .. ..  ▓▓ ..  .. ..  .. ..
+D2  Zulassungsliste          .. ..  ▓▓ ..  .. ..  .. ..
+D3  Nachweismappe            .. ..  .. ▓▓  ▓▓ ..  .. ..
+D4  Bescheid-Generator       .. ..  .. ..  ▓▓ ..  .. ..
+D5  Prüfenden-Zugang         .. ..  .. ..  .. ▓▓  .. ..
+D6  Offene API + Referenz-UI .. ..  ▓▓ ▓▓  ▓▓ ..  .. ..
+
+<b>E  DURCHFÜHRUNG &amp; AUSWERTUNG</b>
+E1  Testlauf ohne Geld       .. ..  .. ▓▓  .. ..  .. ..   Risikopuffer
+E2  <b>Reale Runde läuft</b>        .. ..  .. ..  ██ ██  .. ..   ~2.500 € Fördertopf
+E3  Bescheide + Auszahlung   .. ..  .. ..  .. ..  ██ ..
+E4  Wirtschaftlichkeit       .. ..  .. ..  .. ..  ██ ..   § 7 Abs. 2 BHO
+E5  Jury + Ministerpitch     .. ..  .. ..  .. ..  .. ##
+E6  openCode.de              .. ..  .. ..  .. ..  .. ▓▓
+
+<b>P  EIGENFINANZIERT — nicht Fördergegenstand</b>
+P1  Parry bindet an die API  .. ..  .. ..  ┄┄ ┄┄  .. ..
+
+──────────────────────────────────────────────────────
+MEILENSTEINE                 .. ..  ## ..  ## ..  ## ..
+                                     M1     M2    M3
+</pre>
+  <div class="glegend">
+    <p><b>▓▓</b> eigene Arbeit &nbsp;·&nbsp; <b>▒▒</b> Vorlauf, extern abhängig &nbsp;·&nbsp; <b>██</b> reale Förderrunde &nbsp;·&nbsp; <b>┄┄</b> eigenfinanziert &nbsp;·&nbsp; <b>##</b> Fixtermin / Meilenstein</p>
+    <p><b>M1</b> Rechenkern und Vergleichsrechner abgenommen &nbsp;·&nbsp; <b>M2</b> Zuteilung mit einem geprüften Merkmal statt einer Schätzung gerechnet &nbsp;·&nbsp; <b>M3</b> reale Runde durchgeführt und ausgewertet</p>
+    <p><b>Zu P1:</b> Parry ist unsere eigene, bereits laufende Beteiligungsplattform. Sie bindet sich als erster externer Nutzer an die offene Schnittstelle an. Das geschieht auf eigene Kosten und ist <b>nicht</b> Gegenstand der Förderung; es steht hier nur, weil es im selben Zeitraum Kapazität bindet.</p>
+    <p><b>Kritischer Pfad:</b> A1/A4 → B3 Vorhabenkatalog → B4/B5 Zulassung und Konten → E2 Runde (4 Wochen) → E3/E4 Auswertung → E5 Pitch. <b>Die Botschaft des Plans: Den Takt gibt nicht der Code vor, sondern Beschaffung und Feldarbeit.</b> Fünf Pakete starten deshalb in Woche 1 parallel, nicht nacheinander.</p>
+    <p><b>Rückfallebene:</b> Ohne Weiterleitungsklausel im Zuwendungsbescheid läuft E2 als Simulation auf echten Förderdaten — der Wirtschaftlichkeitsnachweis wird schwächer, der Plan hält.</p>
+  </div>
+  <p class="ghint"><b>Zwei Punkte, die vor dem Zeichnen zu entscheiden sind.</b> Erstens: C4/C5 lassen sich vom kritischen Pfad nehmen, indem das absprachefeste Verfahren als zusätzliche Vergleichsverteilung in E4 gerechnet wird statt als Voraussetzung von E2 — bei 6–10 Vorhaben ist Absprachenerkennung ohnehin akademisch, und die Auswertung wird dadurch reicher. Zweitens: Die Arbeitspakete sind noch <b>nicht</b> gegen die ~43 Personentage kalkuliert. Solange das nicht gerechnet ist, ist dieser Plan eine Reihenfolge, keine Zusage.</p>
+</div>
+
+<h2 class="sec">Quellennachweis — Stand der Prüfung 19.08.2026</h2>
+
+<div class="glegend" style="font-size:7.6pt">
+  <p><b>Neu in Fassung 2 geprüft: der wissenschaftliche Unterbau.</b> Die Herleitung ist begutachtet erschienen: Buterin/Hitzig/Weyl, <i>A Flexible Design for Funding Public Goods</i>, Management Science 65 (2019) 11, S. 5171–5187. · Die <b>budgetbeschränkte Variante</b>, die wir verwenden, ist eigens untersucht: Pasquini, <i>Optimal Allocation of Limited Funds in Quadratic Funding</i> (2022) · Das <b>Verfahren gegen Absprachen</b> stammt aus Miller/Weyl/<b>Erichsen</b>, <i>Beyond Collusion Resistance: Leveraging Social Information for Plural Funding and Voting</i> (Dezember 2022, SSRN 4311507): Absprachen werden dort nicht verboten, sondern über die soziale Struktur bewertet; das dort vorgeschlagene <i>Connection-Oriented Cluster Match</i> ist der Mechanismus, den auch Miller/Weyl/Kanich 2025 in 38 Runden auswerten. <b>⚠️ Korrektur einer Formulierung von heute:</b> Zwischenzeitlich stand im Formular „für große Runden ist es bewiesen“. Falsch: Theorem 1 kennt keine Rundengröße, und bewiesen ist nur, dass COCM der <i>eigenen</i> formalen Definition aus Anhang D genügt; die Autoren nennen den Mechanismus selbst „relatively coarse“. Das Formular behauptet deshalb keinen Beweis mehr, sondern nur, dass ausgearbeitete Verfahren vorliegen. Im Formular genannt an genau einer Stelle, unter „Fehlende Expertise“, dort wo wir die Grenzen des Verfahrens benennen — nicht als Zierat, zeigt für den Fall, dass nur der Matching-Topf verteilt wird, ein sozial optimales Ergebnis; derselbe Autor belegt an Gitcoin-Daten, dass der Topf in der Praxis früh erschöpft ist und „reciprocal backing“ messbar vorkommt. Letzteres ist genau der Angriff, gegen den wir das absprachefeste Verfahren bauen. · <b>Die 38 Runden und 4,5 Mio. $</b> stammen aus Miller/Weyl/Kanich, <i>Fair Decisions through Plurality</i> (arXiv 2509.18343, 22.09.2025, University of Illinois Chicago / Microsoft Research): 38 Runden, rund 4,5 Mio. $, das weiterentwickelte Verfahren mit 89 % Anteil an Gitcoins Vergaben. Dieselbe Arbeit hält fest, dass das ursprüngliche Verfahren „problems with both economic efficiency and fairness in practice“ hatte; deshalb steht im Text „erprobt“ und nicht „bewährt“. · <b>Was dort gefördert wurde</b>, ist eigens geprüft, weil „Kryptowelt“ als Abwertung gelesen werden konnte: Gitcoin führte Runden für Klimaschutz, Ukraine-Hilfe, Longevity, Open-Source-Software, dezentrale Wissenschaft und Bürgertechnik. Die Open-Source-Runde verzeichnete <b>26.203 verschiedene Beitragende</b> und 164.984 Beiträge über rund 502.000 $; die Klimarunde GG21 förderte 71 Vorhaben. Alle Beiträge waren öffentlich einsehbar, die Vorhaben hatten Profile. Die Blockchain war dort Zahlungsweg, nicht Zweck.</p>
+  <p><b>⚠️ Korrektur gegenüber Fassung 1 und 2: Es gibt einen Einsatz in der EU.</b> Die Stadt <b>Split (Kroatien)</b> hat im September 2023 mit BlockSplit, Funding the Commons und Gitcoin eine „Municipal Quadratic Funding Initiative“ gestartet und gilt in der Berichterstattung als erste EU-Kommune, die Quadratic Funding auf städtische Vorhaben anwendet (GovLab/The Living Library; DAOtimes). Der Satz „uns ist kein Einsatz in einer europäischen Verwaltung bekannt“ war damit <b>nicht mehr haltbar</b> und ist ersetzt. Was wir zu Split <i>nicht</i> gefunden haben: veröffentlichte Ergebnisse, verteilte Summen, eine Auswertung. <b>Einordnung:</b> Es ging um <i>lokale</i> Förderung städtischer Vorhaben durch eine einzelne Kommune, blockchainbasiert. Ein staatlicher Einsatz war es nicht, und ein Anschluss an ein Zuwendungs- oder Haushaltsrecht ist nicht erkennbar. <b>Folge für die Positionierung:</b> „Erste in Europa“ oder „weltweit Erste“ ist falsch und steht nirgends. Die <b>Staatsebene</b> ist dagegen frei — dort ist uns weltweit kein Einsatz bekannt, und daran ist der Projektname geschnitten.</p>
+  <p><b>Ebenfalls geprüft.</b> <b>Taiwan</b> vergibt im Presidential Hackathon öffentliche Mittel an fünf Vorhaben pro Jahr, entschieden per <i>Quadratic Voting</i> auf der Plattform Join. Das ist das Abstimmungs-, nicht das Förderverfahren; Quadratic Funding wird dort laut Berichterstattung nur „exploriert“. Wir führen Taiwan deshalb nicht als Gegenbeispiel. Es ist aber der Grund, warum der Projektname „erstmals auf Staatsebene“ im Fließtext durch „uns ist kein Einsatz bekannt“ abgesichert bleiben muss und nicht als absolute Tatsache auftreten darf. · Die Arbeit von 2025 dokumentiert keinen staatlichen Einsatz und nennt das Verfahren „a potentially helpful tool for general-purpose public decision making“. · <b>Nicht aufgenommen:</b> Ein vermuteter kommunaler Pilot in Boulder, Colorado ließ sich nicht belegen und steht nirgends im Text.</p>
+  <p><b>Neu in Fassung 3 geprüft: der Zuständigkeitswechsel zum Kanzleramt.</b> Mit dem <b>Organisationserlass des Bundeskanzlers vom 06.05.2025</b> sind „Ehrenamt“ (bis dahin BMI) und „Engagementpolitik“ (bis dahin BMBFSFJ) bei der <b>Staatsministerin für Sport und Ehrenamt im Bundeskanzleramt</b> gebündelt; der Ressortübergang wurde zum <b>01.11.2025</b> vollzogen, die Staatsministerin führt zugleich den Stiftungsrat der DSEE (Änderung des EhrenamtStiftG). Im <b>Bundeshaushalt 2026, Einzelplan 04</b> stehen <b>13,3 Mio. €</b> zur Förderung von Ehrenamt und Engagement (Quelle: Stiftung Aktive Bürgerschaft, Auswertung Bundeshaushalt 2026). Zum Vergleich, bewusst <i>nicht</i> im Formular verwendet: Einzelplan 17 (BMBFSFJ) „Stärkung der Zivilgesellschaft“ 332,1 Mio. €, davon Bundesfreiwilligendienst 194,2 Mio. € — das sind Freiwilligendienste, keine Projektförderung, und damit kein QF-Anwendungsfall.</p>
+  <p><b>Am Primärtext geprüft: das Windhundverfahren im Mikroförderprogramm.</b> DSEE, <i>Förderaufruf Mikroförderprogramm 2026</i> (PDF, Stand Februar 2026). Nr. 7 „Wie wird über die Förderanträge entschieden?“ wörtlich: <b>„Die Anträge werden in der Reihenfolge ihres Eingangs und auf Basis des Förderaufrufs formal und inhaltlich geprüft.“</b> Derselbe Abschnitt endet mit: <b>„Die eingereichten Projektvorschläge stehen miteinander im Wettbewerb.“</b> Beides steht in <i>einem</i> Abschnitt — genau die Bemessungslücke, die dieser Antrag beschreibt. Nr. 3 wörtlich: Förderung <b>„auf einmalig 1.500 € pro Organisation und Kalenderjahr begrenzt“</b>, maximal 90 % der förderfähigen Ausgaben, <b>Eigenbeteiligung von mindestens 10 %</b> verpflichtend (bar oder durch ehrenamtliche Leistungen). Der Beitrag, aus dem Quadratic Funding rechnet, wird dort also bereits erhoben und geprüft; er wirkt heute nur als Ja/Nein-Schwelle. <b>Nicht auffindbar und deshalb nicht behauptet:</b> Zahl der eingegangenen Anträge, Bewilligungsquote, Programmvolumen oder eine Überzeichnung.</p>
+  <p><b>Neu geprüft: das BMDS als naheliegender erster Partner — und die Grenzen des Arguments.</b> Am Primärtext geprüft: <b>§ 1 Abs. 2 Nr. 1 IT-Staatsvertrag</b> — Mitglied ist „der Beauftragte der Bundesregierung für Informationstechnik“, die Bundesvertretung liegt also dauerhaft beim CIO Bund, der heute im BMDS sitzt (Dr. Markus Richter, Staatssekretär BMDS, zuvor 2020–2025 CIO Bund im BMI). <b>§ 1 Abs. 3</b> wörtlich: „Den Vorsitz im IT-Planungsrat übernehmen im <b>jährlichen Wechsel</b> der Bund und die Länder.“ Daraus folgt: Mecklenburg-Vorpommern 2025, <b>Bund/BMDS 2026</b>, <b>Hessen 2027</b>, Bund wieder 2028. <b>⚠️ Korrektur einer früheren Formulierung:</b> Der Bundesvorsitz trägt <i>nicht</i> in Phase 2 (2027). Im Formular ist er deshalb als Argument für den <b>Zeitpunkt der Kontaktaufnahme</b> formuliert, nicht als Zusage für Phase 2; die dauerhafte Anknüpfung ist die Bundesvertretung nach § 1 Abs. 2, nicht der Vorsitz. — Der <b>Einzelplan 24 (BMDS)</b> umfasst 2026 rund <b>4,47 Mrd. €</b> (1,36 Mrd. Kernhaushalt, 3,11 Mrd. Sondervermögen), darin <b>162 Mio. € für die EUDI-Wallet</b>; Einzelplan 04 ist zum Vergleich der Haushalt des Bundeskanzleramts. Die <b>Sovereign Tech Agency GmbH</b> ist eine <b>Tochtergesellschaft der SPRIND GmbH</b> und arbeitet im Auftrag des BMDS; Fördervolumen 2025 rund 29 Mio. €, Haushaltstitel 2026 28,7 Mio. €. Der <b>Prototype Fund</b> (BMFTR, umgesetzt von der Open Knowledge Foundation) fördert 47.500 € je Einzelperson bzw. 95.000 € je Team für sechs Monate; die Jury schlägt je Runde 25 bis 30 Projekte vor, rund 100 Projekte in vier Klassen bis 2029. <b>Bewusst nicht behauptet:</b> eine Überzeichnungsquote — Antragszahlen sind nicht veröffentlicht — sowie, dass wir mit einer dieser Stellen im Gespräch wären, und nichts über die interne Vergabemechanik der Sovereign Tech Agency.</p>
+  <p><b>An Primärquellen geprüft.</b> VV-BHO (Volltext): Finanzierungsarten Nr. 2.2.1–2.2.3/2.4 · Höchstbetragspflicht · Nr. 2.5 wörtlich · Weiterleitung Nr. 12.1/12.2 wörtlich. — <b>Die Negativbehauptung wurde eigens geprüft:</b> Im gesamten VV-BHO-Text null Treffer für Rangfolge, Auswahlverfahren, Auswahlkriterien, Verteilschlüssel, Punktesystem oder Bewertungsmatrix. Die Bemessungslücke ist damit belegt, nicht bloß plausibel. · § 103 Abs. 1 GWB (Legaldefinition „einklagbar“) wörtlich am XML der amtlichen Fassung · ANBest-P: fünf Jahre nach Vorlage des Verwendungsnachweises, Prüfvermerkpflicht bei Weiterleitung · Normenkontrollrat Baden-Württemberg / Prognos, Oktober 2019: 6,5 Std./Woche, 49 Vorschläge, Nrn. 42/43/44 wörtlich, rund 1.900 Befragte, Fördermittel 18 % + 31 % (N = 1.824).</p>
+  <p><b>An veröffentlichten Sekundärquellen geprüft.</b> IT-Planungsrat/FITKO Jahresbericht 2025/2026: „rund 70 Anträge mit einem Förderbedarf von 75 Millionen Euro“, genehmigt 15 Mio. €, 27 Umsetzungsvorhaben · Priorisierungskriterium „deutschlandweite, flächendeckende Wirkung“ · Finanzierung 35 % Bund, 65 % Länder nach Königsteiner Schlüssel · Freiwilligensurvey 2024: 36,7 % ab 14 J. ≈ 26,97 Mio. · ZiviZ-Survey 2023: 615.759 e. V. (2022), rund 27 % mit bezahlten Beschäftigten · DSEE-Förderaufruf 2026: bis 1.500 €, „in der Reihenfolge ihres Eingangs“ · Co-Funding je Bank bei „Viele schaffen mehr“ (u. a. 10 € auf die erste Spende ab 10 €) · SPRIND-Funke „EUDI Wallet Prototypes“, drei Stufen, Abschlusskonferenz Oktober 2025, Ergebnisse offen · EUDI-Sandbox des Bundes seit Januar 2026, zunächst PID, EAA im Lauf des Jahres · Repository-Aktivität am 18.08.2026 über die GitHub-API nachgemessen und unverändert.</p>
+  <p><b>Bewusst nicht behauptet.</b> Kein Datum für den Wallet-Start („Anfang 2027“ statt eines Tagesdatums) · kein Rang für „Fördermittel“ unter den Belastungsbereichen (Veranstaltungen liegen höher) · kein Anspruch, weltweit oder in Europa die Ersten zu sein (siehe Split oben) · <b>kein Verfassungsargument aus Art. 91c Abs. 2 GG.</b> Der Vertrag zur Ausführung von Art. 91c GG kennt den Mehrheitsmechanismus zwar — § 2 Abs. 2 lässt Beschlüsse mit Bindungswirkung bei Zustimmung des Bundes und elf Ländern zu, die zwei Drittel der Finanzierungsanteile abbilden —, aber sein Gegenstand sind <i>Standards für den Datenaustausch</i>, nicht die Verteilung von Mitteln. Das Argument trägt hier also nicht und bleibt draußen.</p>
+  <p><b>Am Primärtext nachgezogen.</b> Der Finanzierungsschlüssel steht im Staatsvertrag selbst: § 9 Abs. 4 setzt einen festen Bundesanteil von 35 % fest, § 9 Abs. 2 das Digitalisierungsbudget von bis zu 180 Mio. € — letzteres allerdings dem Wortlaut nach für 2020 bis 2022. Über die <i>heutige</i> Rechtsgrundlage des Budgets (Änderungsstaatsvertrag 2023) wird hier bewusst nichts behauptet. · <b>Die Zeichenlimits</b> sind am 18.08.2026 gegen das Live-Formular abgeglichen und stimmen für alle hier bearbeiteten Felder.</p>
+</div>
+
+<footer>
+  Entwurf, nicht eingereicht. Zeichenzahlen maschinell über den reinen Textinhalt gezählt (Absatzumbrüche mitgezählt, Auszeichnungen nicht — das Formular nimmt reinen Text). Fehlend: Kontakt- und Unternehmensangaben, Erklärungen, Gantt-PDF. · CitizenTech UG, Berlin
+</footer>
+
+</body>
+</html>
