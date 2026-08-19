@@ -1,0 +1,697 @@
+/* Nüchtern-behördlich. Keine Verläufe, kein Neon, keine Wallet-Anmutung.
+   Hierarchie über Größe und Weißraum, nicht über Farbe. */
+
+:root {
+  --grund: #fbfaf8;
+  --flaeche: #ffffff;
+  --flaeche-still: #f4f2ee;
+  --text: #14161a;
+  --text-still: #575d66;
+  --linie: #d8d3ca;
+  --linie-kraeftig: #b3aca0;
+
+  /* Einzige kräftige Farbe. Trägt ausschließlich QF-Werte. */
+  --akzent: #0f4c81;
+  --akzent-flaeche: #dbe7f2;
+  /* Vergleichsverfahren bleiben grau. */
+  --neutral: #6b7280;
+  --neutral-flaeche: #e2e0dc;
+  /* Hinweise und Deckelmarkierungen. */
+  --hinweis: #7a4d05;
+  --hinweis-flaeche: #f6ecd7;
+  --hinweis-linie: #d8b96a;
+
+  --fokus: #0f4c81;
+
+  --schrift: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
+    sans-serif;
+
+  --rand: 6px;
+  --spalte: 1180px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --grund: #15171b;
+    --flaeche: #1c1f24;
+    --flaeche-still: #23272d;
+    --text: #e9e7e3;
+    --text-still: #a8aeb8;
+    --linie: #343941;
+    --linie-kraeftig: #4d545e;
+
+    --akzent: #79b2e3;
+    --akzent-flaeche: #1b3348;
+    --neutral: #98a0ac;
+    --neutral-flaeche: #2b3037;
+    --hinweis: #e2b866;
+    --hinweis-flaeche: #332914;
+    --hinweis-linie: #6b5525;
+
+    --fokus: #9cc7ec;
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  color-scheme: light dark;
+}
+
+body {
+  margin: 0;
+  background: var(--grund);
+  color: var(--text);
+  font-family: var(--schrift);
+  font-size: 16px;
+  line-height: 1.55;
+  -webkit-text-size-adjust: 100%;
+}
+
+:where(a) {
+  color: var(--akzent);
+  text-underline-offset: 2px;
+}
+
+:focus-visible {
+  outline: 3px solid var(--fokus);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+h1,
+h2,
+h3 {
+  line-height: 1.25;
+  margin: 0;
+  font-weight: 640;
+  letter-spacing: -0.011em;
+}
+
+h1 {
+  font-size: 1.75rem;
+}
+h2 {
+  font-size: 1.3rem;
+}
+h3 {
+  font-size: 1.02rem;
+}
+
+p {
+  margin: 0 0 0.85em;
+}
+
+/* --- Gerüst ------------------------------------------------------------- */
+
+.huelle {
+  max-width: var(--spalte);
+  margin: 0 auto;
+  padding: 0 20px 80px;
+}
+
+.band {
+  background: var(--hinweis-flaeche);
+  border-bottom: 1px solid var(--hinweis-linie);
+  color: var(--hinweis);
+  padding: 10px 20px;
+  font-size: 0.87rem;
+}
+
+.band__inhalt {
+  max-width: var(--spalte);
+  margin: 0 auto;
+}
+
+.band strong {
+  font-weight: 660;
+}
+
+.kopf {
+  padding: 40px 0 8px;
+}
+
+.kopf__unterzeile {
+  color: var(--text-still);
+  font-size: 0.97rem;
+  margin-top: 8px;
+  max-width: 62ch;
+}
+
+.abschnitt {
+  margin-top: 44px;
+}
+
+.abschnitt__kopf {
+  border-bottom: 2px solid var(--linie-kraeftig);
+  padding-bottom: 8px;
+  margin-bottom: 18px;
+}
+
+.abschnitt__einleitung {
+  color: var(--text-still);
+  max-width: 74ch;
+  margin-top: 10px;
+}
+
+.tafel {
+  background: var(--flaeche);
+  border: 1px solid var(--linie);
+  border-radius: var(--rand);
+  padding: 18px 20px;
+}
+
+.notiz {
+  border-left: 3px solid var(--linie-kraeftig);
+  padding: 2px 0 2px 14px;
+  color: var(--text-still);
+  font-size: 0.92rem;
+  margin: 14px 0;
+  max-width: 78ch;
+}
+
+.notiz--hinweis {
+  border-left-color: var(--hinweis-linie);
+  color: var(--hinweis);
+}
+
+/* --- Kennwertpaare ------------------------------------------------------ */
+
+.paare {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 16px 26px;
+  margin: 0;
+}
+
+.paar__begriff {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.055em;
+  color: var(--text-still);
+  margin: 0 0 2px;
+}
+
+.paar__wert {
+  margin: 0;
+  font-size: 1.06rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.paar__wert--gross {
+  font-size: 1.5rem;
+  font-weight: 640;
+}
+
+.paar__wert--akzent {
+  color: var(--akzent);
+}
+
+/* --- Tabellen ----------------------------------------------------------- */
+
+.tabellenrahmen {
+  overflow-x: auto;
+  border: 1px solid var(--linie);
+  border-radius: var(--rand);
+  background: var(--flaeche);
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 0.93rem;
+}
+
+caption {
+  text-align: left;
+  padding: 12px 14px;
+  color: var(--text-still);
+  font-size: 0.88rem;
+  border-bottom: 1px solid var(--linie);
+}
+
+th,
+td {
+  padding: 9px 12px;
+  text-align: left;
+  border-bottom: 1px solid var(--linie);
+  vertical-align: top;
+}
+
+thead th {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-still);
+  font-weight: 640;
+  background: var(--flaeche-still);
+  white-space: nowrap;
+}
+
+tbody tr:last-child td {
+  border-bottom: none;
+}
+
+tfoot td,
+tfoot th {
+  border-top: 2px solid var(--linie-kraeftig);
+  font-weight: 620;
+  background: var(--flaeche-still);
+}
+
+.zahl {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.zahl--akzent {
+  color: var(--akzent);
+  font-weight: 620;
+}
+
+.zahl--still {
+  color: var(--text-still);
+}
+
+.zahl--null {
+  color: var(--text-still);
+}
+
+th[scope='row'] {
+  font-weight: 560;
+}
+
+.traeger {
+  display: block;
+  color: var(--text-still);
+  font-size: 0.85rem;
+  font-weight: 400;
+}
+
+/* --- Markierungen ------------------------------------------------------- */
+
+.marke {
+  display: inline-block;
+  font-size: 0.74rem;
+  letter-spacing: 0.03em;
+  padding: 1px 7px;
+  border-radius: 999px;
+  border: 1px solid var(--linie-kraeftig);
+  color: var(--text-still);
+  white-space: nowrap;
+}
+
+.marke--deckel {
+  border-color: var(--hinweis-linie);
+  background: var(--hinweis-flaeche);
+  color: var(--hinweis);
+}
+
+.marke--modelliert {
+  border-style: dashed;
+}
+
+/* --- Balken ------------------------------------------------------------- */
+
+.balken {
+  display: block;
+  height: 9px;
+  min-width: 90px;
+  background: var(--neutral-flaeche);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.balken__fuellung {
+  display: block;
+  height: 100%;
+  background: var(--akzent);
+}
+
+.balken__fuellung--neutral {
+  background: var(--neutral);
+}
+
+/* --- Bedienelemente ----------------------------------------------------- */
+
+.knopf {
+  font: inherit;
+  font-size: 0.92rem;
+  font-weight: 560;
+  padding: 8px 16px;
+  border-radius: var(--rand);
+  border: 1px solid var(--linie-kraeftig);
+  background: var(--flaeche);
+  color: var(--text);
+  cursor: pointer;
+}
+
+.knopf:hover {
+  background: var(--flaeche-still);
+}
+
+.knopf--haupt {
+  background: var(--akzent);
+  border-color: var(--akzent);
+  color: var(--flaeche);
+}
+
+.knopf--haupt:hover {
+  filter: brightness(1.12);
+  background: var(--akzent);
+}
+
+.knopf:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.knopfreihe {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+
+.regler {
+  display: block;
+  margin-bottom: 22px;
+}
+
+.regler__kopf {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 4px;
+}
+
+.regler__name {
+  font-weight: 560;
+}
+
+.regler__wert {
+  font-variant-numeric: tabular-nums;
+  font-size: 1.05rem;
+}
+
+input[type='range'] {
+  width: 100%;
+  accent-color: var(--akzent);
+  height: 24px;
+}
+
+.regler__spanne {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.78rem;
+  color: var(--text-still);
+  font-variant-numeric: tabular-nums;
+}
+
+.schalter {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.92rem;
+}
+
+select,
+input[type='number'] {
+  font: inherit;
+  font-size: 0.92rem;
+  padding: 7px 9px;
+  border-radius: var(--rand);
+  border: 1px solid var(--linie-kraeftig);
+  background: var(--flaeche);
+  color: var(--text);
+  max-width: 100%;
+}
+
+.feld {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.feld__name {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-still);
+}
+
+.raster-zwei {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 26px;
+}
+
+/* --- Rechenprotokoll ---------------------------------------------------- */
+
+details {
+  border: 1px solid var(--linie);
+  border-radius: var(--rand);
+  background: var(--flaeche);
+  margin-bottom: 8px;
+}
+
+summary {
+  cursor: pointer;
+  padding: 11px 14px;
+  font-weight: 560;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: baseline;
+  justify-content: space-between;
+  list-style-position: inside;
+}
+
+summary::marker {
+  color: var(--text-still);
+}
+
+details[open] > summary {
+  border-bottom: 1px solid var(--linie);
+}
+
+.protokoll__inhalt {
+  padding: 14px;
+}
+
+.rechenschritte {
+  margin: 0 0 16px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0;
+  font-variant-numeric: tabular-nums;
+  font-size: 0.9rem;
+  max-width: 640px;
+}
+
+.rechenschritte dt {
+  padding: 5px 0;
+  border-bottom: 1px dotted var(--linie);
+  color: var(--text-still);
+}
+
+.rechenschritte dd {
+  margin: 0;
+  padding: 5px 0 5px 20px;
+  border-bottom: 1px dotted var(--linie);
+  text-align: right;
+}
+
+.rechenschritte dt.ergebnis,
+.rechenschritte dd.ergebnis {
+  border-bottom: none;
+  border-top: 2px solid var(--linie-kraeftig);
+  font-weight: 640;
+  color: var(--text);
+  padding-top: 8px;
+}
+
+.beitragsliste {
+  font-size: 0.85rem;
+  max-height: 260px;
+  overflow-y: auto;
+  border: 1px solid var(--linie);
+  border-radius: var(--rand);
+}
+
+/* --- Fußbereich --------------------------------------------------------- */
+
+.fuss {
+  margin-top: 60px;
+  padding-top: 20px;
+  border-top: 1px solid var(--linie);
+  color: var(--text-still);
+  font-size: 0.87rem;
+}
+
+.pruefsumme {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.85em;
+  word-break: break-all;
+}
+
+/* --- Nachweismappe ------------------------------------------------------ */
+
+.mappe {
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 0 20px 80px;
+}
+
+.mappe__kopf {
+  border: 2px solid var(--linie-kraeftig);
+  border-radius: var(--rand);
+  padding: 18px 20px;
+  margin-bottom: 26px;
+}
+
+.mappe__warnung {
+  font-weight: 660;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 0.82rem;
+  color: var(--hinweis);
+  margin: 0 0 10px;
+}
+
+.mappe__abschnitt {
+  margin-top: 34px;
+  break-inside: auto;
+}
+
+.begruendung {
+  border-left: 3px solid var(--linie-kraeftig);
+  padding-left: 14px;
+  margin: 0 0 18px;
+  max-width: 82ch;
+  break-inside: avoid;
+}
+
+.begruendung__titel {
+  font-weight: 620;
+  margin-bottom: 2px;
+}
+
+.werkzeugleiste {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: var(--grund);
+  border-bottom: 1px solid var(--linie);
+  padding: 12px 20px;
+  margin-bottom: 26px;
+}
+
+.werkzeugleiste__inhalt {
+  max-width: 920px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* --- Nur für Bildschirmleser ------------------------------------------- */
+
+.nur-vorlesen {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* --- Druck -------------------------------------------------------------- */
+
+@media print {
+  :root {
+    --grund: #ffffff;
+    --flaeche: #ffffff;
+    --flaeche-still: #ffffff;
+    --text: #000000;
+    --text-still: #333333;
+    --linie: #999999;
+    --linie-kraeftig: #333333;
+    --akzent: #000000;
+    --neutral: #666666;
+    --hinweis: #000000;
+    --hinweis-flaeche: #ffffff;
+    --hinweis-linie: #333333;
+  }
+
+  body {
+    font-size: 10.5pt;
+    background: #fff;
+  }
+
+  .werkzeugleiste,
+  .band,
+  .nicht-drucken {
+    display: none !important;
+  }
+
+  .mappe {
+    max-width: none;
+    padding: 0;
+  }
+
+  .mappe__abschnitt {
+    break-before: auto;
+  }
+
+  h2 {
+    break-after: avoid;
+  }
+
+  table {
+    font-size: 9pt;
+  }
+
+  .tabellenrahmen {
+    overflow: visible;
+    border: none;
+  }
+
+  thead {
+    display: table-header-group;
+  }
+
+  tr,
+  .begruendung {
+    break-inside: avoid;
+  }
+
+  a {
+    color: #000;
+    text-decoration: none;
+  }
+
+  .beitragsliste {
+    max-height: none;
+    overflow: visible;
+  }
+
+  details {
+    border: none;
+  }
+
+  details > summary {
+    list-style: none;
+  }
+}
