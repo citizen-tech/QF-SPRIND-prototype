@@ -1,3 +1,4 @@
+import { Alert, Button, Group, Paper, Table, Text, Title } from '@mantine/core';
 import { datum, euro, prozent, zahl } from '../format';
 import type { Nachweismappe } from './mappe';
 
@@ -8,10 +9,34 @@ type Eigenschaften = {
 
 function zeitpunkt(iso: string): string {
   const d = new Date(iso);
-  const zweistellig = (n: number) => String(n).padStart(2, '0');
+  const zwei = (n: number) => String(n).padStart(2, '0');
   return (
-    `${zweistellig(d.getDate())}.${zweistellig(d.getMonth() + 1)}.${d.getFullYear()}, ` +
-    `${zweistellig(d.getHours())}:${zweistellig(d.getMinutes())} Uhr`
+    `${zwei(d.getDate())}.${zwei(d.getMonth() + 1)}.${d.getFullYear()}, ` +
+    `${zwei(d.getHours())}:${zwei(d.getMinutes())} Uhr`
+  );
+}
+
+function Kennwert({ name, children }: { name: string; children: React.ReactNode }) {
+  return (
+    <div>
+      <Text size="xs" c="dimmed" tt="uppercase" fw={600} lts="0.06em">
+        {name}
+      </Text>
+      <Text className="mono" size="sm">
+        {children}
+      </Text>
+    </div>
+  );
+}
+
+function Abschnitt({ titel, children }: { titel: string; children: React.ReactNode }) {
+  return (
+    <section style={{ marginTop: '38px' }}>
+      <Title order={2} mb="sm" style={{ borderBottom: '1px solid var(--tinte)', paddingBottom: 6 }}>
+        {titel}
+      </Title>
+      {children}
+    </section>
   );
 }
 
@@ -34,389 +59,356 @@ export default function NachweismappeAnsicht({ mappe, onSchliessen }: Eigenschaf
     <>
       <div className="werkzeugleiste nicht-drucken">
         <div className="werkzeugleiste__inhalt">
-          <button type="button" className="knopf" onClick={onSchliessen}>
+          <Button variant="default" onClick={onSchliessen}>
             ← Zurück zur Berechnung
-          </button>
-          <span className="knopfreihe">
-            <button type="button" className="knopf" onClick={herunterladen}>
+          </Button>
+          <Group gap="sm">
+            <Button variant="default" onClick={herunterladen}>
               Als JSON herunterladen
-            </button>
-            <button type="button" className="knopf knopf--haupt" onClick={() => window.print()}>
-              Drucken oder als PDF sichern
-            </button>
-          </span>
+            </Button>
+            <Button onClick={() => window.print()}>Drucken oder als PDF sichern</Button>
+          </Group>
         </div>
       </div>
 
       <article className="mappe">
-        <header className="mappe__kopf">
-          <p className="mappe__warnung">Prototyp — synthetische Daten — kein Verwaltungsakt</p>
-          <h1>Nachweis der Bemessung</h1>
-          <p style={{ marginTop: '8px', maxWidth: '78ch' }}>{mappe.runde.zweck}</p>
+        <Paper withBorder p="lg" radius="sm" bg="white" style={{ borderColor: 'var(--tinte)' }}>
+          <Text
+            size="xs"
+            fw={700}
+            tt="uppercase"
+            lts="0.08em"
+            c="ocker.9"
+            mb="xs"
+            className="mono"
+          >
+            Prototyp — synthetische Daten — kein Verwaltungsakt
+          </Text>
+          <Title order={1}>Nachweis der Bemessung</Title>
+          <Text className="bescheid" mt="sm" maw="78ch">
+            {mappe.runde.zweck}
+          </Text>
 
-          <dl className="paare" style={{ marginTop: '18px' }}>
-            <div>
-              <dt className="paar__begriff">Runde</dt>
-              <dd className="paar__wert">{mappe.runde.id}</dd>
-            </div>
-            <div>
-              <dt className="paar__begriff">Förderzeitraum</dt>
-              <dd className="paar__wert">
-                {datum(mappe.runde.zeitraum.von)} – {datum(mappe.runde.zeitraum.bis)}
-              </dd>
-            </div>
-            <div>
-              <dt className="paar__begriff">Erstellt am</dt>
-              <dd className="paar__wert">{zeitpunkt(mappe.erzeugtAm)}</dd>
-            </div>
-            <div>
-              <dt className="paar__begriff">Fassung der Bemessungsregel</dt>
-              <dd className="paar__wert">{mappe.formelVersion}</dd>
-            </div>
-            <div>
-              <dt className="paar__begriff">Fördertopf</dt>
-              <dd className="paar__wert">{euro(mappe.summen.poolCent)}</dd>
-            </div>
-            <div>
-              <dt className="paar__begriff">Höchstbetrag je Vorhaben</dt>
-              <dd className="paar__wert">
-                {mappe.runde.hoechstbetragJeVorhabenCent === null
-                  ? 'nicht festgelegt'
-                  : euro(mappe.runde.hoechstbetragJeVorhabenCent)}
-              </dd>
-            </div>
-          </dl>
+          <Group gap="xl" mt="lg" wrap="wrap">
+            <Kennwert name="Runde">{mappe.runde.id}</Kennwert>
+            <Kennwert name="Förderzeitraum">
+              {datum(mappe.runde.zeitraum.von)} – {datum(mappe.runde.zeitraum.bis)}
+            </Kennwert>
+            <Kennwert name="Erstellt am">{zeitpunkt(mappe.erzeugtAm)}</Kennwert>
+            <Kennwert name="Fassung der Bemessungsregel">{mappe.formelVersion}</Kennwert>
+            <Kennwert name="Fördertopf">{euro(mappe.summen.poolCent)}</Kennwert>
+            <Kennwert name="Höchstbetrag je Vorhaben">
+              {mappe.runde.hoechstbetragJeVorhabenCent === null
+                ? 'nicht festgelegt'
+                : euro(mappe.runde.hoechstbetragJeVorhabenCent)}
+            </Kennwert>
+          </Group>
 
-          <p style={{ margin: '16px 0 0' }}>
-            <span className="paar__begriff" style={{ display: 'block' }}>
-              Prüfsumme der Eingangsdaten (SHA-256)
-            </span>
-            <span className="pruefsumme">{mappe.pruefsummeEingangsdaten}</span>
-          </p>
+          <Text size="xs" c="dimmed" tt="uppercase" fw={600} lts="0.06em" mt="md">
+            Prüfsumme der Eingangsdaten (SHA-256)
+          </Text>
+          <Text className="mono" size="xs" style={{ overflowWrap: 'anywhere' }}>
+            {mappe.pruefsummeEingangsdaten}
+          </Text>
 
           <p className="notiz" style={{ marginBottom: 0 }}>
             {mappe.hinweis}
           </p>
 
           {mappe.istProbeberechnung && (
-            <div className="notiz notiz--hinweis" style={{ marginBottom: 0 }}>
-              <strong>Probeberechnung, keine Festlegung.</strong> Die Eingangsgrößen weichen
-              von der veröffentlichten Runde ab:
-              <ul>
+            <Alert color="ocker" variant="light" mt="md" title="Probeberechnung, keine Festlegung">
+              Die Eingangsgrößen weichen von der Ausgangsrunde ab:
+              <ul style={{ margin: '6px 0 0', paddingLeft: '1.15em' }}>
                 {mappe.abweichungen.map((text) => (
                   <li key={text}>{text}</li>
                 ))}
               </ul>
-            </div>
+            </Alert>
           )}
-        </header>
+        </Paper>
 
-        <section className="mappe__abschnitt">
-          <h2>1. Bemessungsregel in Kurzfassung</h2>
-          <ol style={{ maxWidth: '80ch' }}>
+        <Abschnitt titel="1. Bemessungsregel in Kurzfassung">
+          <ol className="bescheid" style={{ maxWidth: '80ch', paddingLeft: '1.3em' }}>
             {mappe.bemessungsregel.kurzfassung.map((satz) => (
-              <li key={satz}>{satz}</li>
+              <li key={satz} style={{ marginBottom: '4px' }}>
+                {satz}
+              </li>
             ))}
           </ol>
-          <p>
+          <Text size="sm">
             Maßgeblich ist der vollständige Wortlaut in der Datei{' '}
-            <strong>{mappe.bemessungsregel.verweis}</strong> in der Fassung{' '}
-            {mappe.formelVersion}.
-          </p>
-        </section>
+            <strong>{mappe.bemessungsregel.verweis}</strong> in der Fassung {mappe.formelVersion}.
+          </Text>
+        </Abschnitt>
 
-        <section className="mappe__abschnitt">
-          <h2>2. Zuteilungstabelle</h2>
+        <Abschnitt titel="2. Zuteilungstabelle">
           <div className="tabellenrahmen">
-            <table>
-              <thead>
-                <tr>
-                  <th scope="col">Vorhaben</th>
-                  <th scope="col" className="zahl">
-                    Beitragende
-                  </th>
-                  <th scope="col" className="zahl">
-                    Beitragssumme
-                  </th>
-                  <th scope="col" className="zahl">
-                    Bemessungswert
-                  </th>
-                  <th scope="col" className="zahl">
-                    Anteil
-                  </th>
-                  <th scope="col" className="zahl">
-                    Zuteilung
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
+            <Table withRowBorders>
+              <Table.Thead>
+                <Table.Tr>
+                  <Table.Th>Vorhaben</Table.Th>
+                  <Table.Th ta="right">Beitragende</Table.Th>
+                  <Table.Th ta="right">Beitragssumme</Table.Th>
+                  <Table.Th ta="right">Bemessungswert</Table.Th>
+                  <Table.Th ta="right">Anteil</Table.Th>
+                  <Table.Th ta="right">Zuteilung</Table.Th>
+                </Table.Tr>
+              </Table.Thead>
+              <Table.Tbody>
                 {mappe.zuteilungen.map((zeile) => (
-                  <tr key={zeile.vorhabenId}>
-                    <th scope="row">
+                  <Table.Tr key={zeile.vorhabenId}>
+                    <Table.Th scope="row" fw={500}>
                       {zeile.titel}
                       <span className="traeger">{zeile.traeger}</span>
-                    </th>
-                    <td className="zahl">{zeile.beitragendeAnzahl}</td>
-                    <td className="zahl">{euro(zeile.beitragssummeCent)}</td>
-                    <td className="zahl">{zahl(zeile.bemessungswert, 2)}</td>
-                    <td className="zahl">{prozent(zeile.anteilAmBemessungswert)}</td>
-                    <td className="zahl zahl--akzent">{euro(zeile.zuteilungCent)}</td>
-                  </tr>
+                    </Table.Th>
+                    <Table.Td className="zahl">{zeile.beitragendeAnzahl}</Table.Td>
+                    <Table.Td className="zahl">{euro(zeile.beitragssummeCent)}</Table.Td>
+                    <Table.Td className="zahl">{zahl(zeile.bemessungswert, 2)}</Table.Td>
+                    <Table.Td className="zahl">{prozent(zeile.anteilAmBemessungswert)}</Table.Td>
+                    <Table.Td className="zahl zahl--amt">{euro(zeile.zuteilungCent)}</Table.Td>
+                  </Table.Tr>
                 ))}
-              </tbody>
-              <tfoot>
-                <tr>
-                  <th scope="row">Summe</th>
-                  <td className="zahl" />
-                  <td className="zahl">
-                    {euro(
-                      mappe.zuteilungen.reduce((a, z) => a + z.beitragssummeCent, 0),
-                    )}
-                  </td>
-                  <td className="zahl">{zahl(mappe.summen.gesamtbemessungswert, 2)}</td>
-                  <td className="zahl" />
-                  <td className="zahl">{euro(mappe.summen.zugeteiltCent)}</td>
-                </tr>
-              </tfoot>
-            </table>
+              </Table.Tbody>
+              <Table.Tfoot>
+                <Table.Tr>
+                  <Table.Th scope="row">Summe</Table.Th>
+                  <Table.Td />
+                  <Table.Td className="zahl">
+                    {euro(mappe.zuteilungen.reduce((a, z) => a + z.beitragssummeCent, 0))}
+                  </Table.Td>
+                  <Table.Td className="zahl">{zahl(mappe.summen.gesamtbemessungswert, 2)}</Table.Td>
+                  <Table.Td />
+                  <Table.Td className="zahl">{euro(mappe.summen.zugeteiltCent)}</Table.Td>
+                </Table.Tr>
+              </Table.Tfoot>
+            </Table>
           </div>
-          <p style={{ marginTop: '12px' }}>
-            Fördertopf {euro(mappe.summen.poolCent)}, zugeteilt{' '}
-            {euro(mappe.summen.zugeteiltCent)}, nicht ausgeschöpft{' '}
-            <strong>{euro(mappe.summen.nichtAusgeschoepftCent)}</strong>. Die Verteilung
-            erforderte {mappe.summen.iterationen}{' '}
+          <Text size="sm" mt="sm">
+            Fördertopf {euro(mappe.summen.poolCent)}, zugeteilt {euro(mappe.summen.zugeteiltCent)},
+            nicht ausgeschöpft <strong>{euro(mappe.summen.nichtAusgeschoepftCent)}</strong>. Die
+            Verteilung erforderte {mappe.summen.iterationen}{' '}
             {mappe.summen.iterationen === 1 ? 'Durchlauf' : 'Durchläufe'}.
-          </p>
-        </section>
+          </Text>
+        </Abschnitt>
 
-        <section className="mappe__abschnitt">
-          <h2>3. Begründung je Zuteilung</h2>
+        <Abschnitt titel="3. Begründung je Zuteilung">
           {mappe.zuteilungen.map((zeile) => (
             <div className="begruendung" key={zeile.vorhabenId}>
-              <p className="begruendung__titel">
+              <Text fw={600} size="sm" mb={2}>
                 {zeile.titel} — {euro(zeile.zuteilungCent)}
+              </Text>
+              <p className="bescheid" style={{ margin: 0 }}>
+                {zeile.begruendung}
               </p>
-              <p style={{ margin: 0 }}>{zeile.begruendung}</p>
             </div>
           ))}
-        </section>
+        </Abschnitt>
 
-        <section className="mappe__abschnitt">
-          <h2>4. Vergleichsrechnung</h2>
-          <p style={{ maxWidth: '80ch' }}>
-            Wirtschaftlichkeit ist ein Vergleichsbegriff. Dieselben Eingangsdaten, derselbe
-            Topf, dieselben Höchstbeträge, fünf Verteilregeln.
-          </p>
+        <Abschnitt titel="4. Vergleichsrechnung">
+          <Text size="sm" maw="80ch" mb="sm">
+            Wirtschaftlichkeit ist ein Vergleichsbegriff. Dieselben Eingangsdaten, derselbe Topf,
+            dieselben Höchstbeträge, fünf Verteilregeln.
+          </Text>
           <div className="tabellenrahmen">
-            <table>
-              <thead>
-                <tr>
-                  <th scope="col">Vorhaben</th>
+            <Table withRowBorders>
+              <Table.Thead>
+                <Table.Tr>
+                  <Table.Th>Vorhaben</Table.Th>
                   {mappe.vergleichsrechnung.map((v) => (
-                    <th key={v.verfahren} scope="col" className="zahl">
+                    <Table.Th key={v.verfahren} ta="right">
                       {v.bezeichnung}
                       {v.modelliert && <span className="traeger">modelliert</span>}
-                    </th>
+                    </Table.Th>
                   ))}
-                </tr>
-              </thead>
-              <tbody>
+                </Table.Tr>
+              </Table.Thead>
+              <Table.Tbody>
                 {mappe.zuteilungen.map((zeile) => (
-                  <tr key={zeile.vorhabenId}>
-                    <th scope="row">{zeile.titel}</th>
+                  <Table.Tr key={zeile.vorhabenId}>
+                    <Table.Th scope="row" fw={500}>
+                      {zeile.titel}
+                    </Table.Th>
                     {mappe.vergleichsrechnung.map((v) => (
-                      <td key={v.verfahren} className="zahl">
+                      <Table.Td key={v.verfahren} className="zahl">
                         {euro(v.zuteilungCent[zeile.vorhabenId] ?? 0)}
-                      </td>
+                      </Table.Td>
                     ))}
-                  </tr>
+                  </Table.Tr>
                 ))}
-              </tbody>
-            </table>
+              </Table.Tbody>
+            </Table>
           </div>
 
-          <h3 style={{ marginTop: '22px' }}>Kennzahlen</h3>
+          <Title order={3} mt="lg" mb="xs">
+            Kennzahlen
+          </Title>
           <div className="tabellenrahmen">
-            <table>
-              <thead>
-                <tr>
-                  <th scope="col">Verfahren</th>
-                  <th scope="col" className="zahl">
-                    Erreichte Beitragende
-                  </th>
-                  <th scope="col" className="zahl">
-                    Geförderte Vorhaben
-                  </th>
-                  <th scope="col" className="zahl">
-                    Median
-                  </th>
-                  <th scope="col" className="zahl">
-                    Gini
-                  </th>
-                  <th scope="col" className="zahl">
-                    Nicht ausgeschöpft
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
+            <Table withRowBorders>
+              <Table.Thead>
+                <Table.Tr>
+                  <Table.Th>Verfahren</Table.Th>
+                  <Table.Th ta="right">Erreichte Beitragende</Table.Th>
+                  <Table.Th ta="right">Geförderte Vorhaben</Table.Th>
+                  <Table.Th ta="right">Median</Table.Th>
+                  <Table.Th ta="right">Gini</Table.Th>
+                  <Table.Th ta="right">Nicht ausgeschöpft</Table.Th>
+                </Table.Tr>
+              </Table.Thead>
+              <Table.Tbody>
                 {mappe.vergleichsrechnung.map((v) => (
-                  <tr key={v.verfahren}>
-                    <th scope="row">{v.bezeichnung}</th>
-                    <td className="zahl">
-                      {v.kennzahlen.beitragendeMitTreffer} von{' '}
-                      {v.kennzahlen.beitragendeGesamt}
-                    </td>
-                    <td className="zahl">{v.kennzahlen.gefoerderteVorhaben}</td>
-                    <td className="zahl">{euro(v.kennzahlen.medianZuteilungCent)}</td>
-                    <td className="zahl">{zahl(v.kennzahlen.gini, 3)}</td>
-                    <td className="zahl">{euro(v.kennzahlen.nichtAusgeschoepftCent)}</td>
-                  </tr>
+                  <Table.Tr key={v.verfahren}>
+                    <Table.Th scope="row" fw={500}>
+                      {v.bezeichnung}
+                    </Table.Th>
+                    <Table.Td className="zahl">
+                      {v.kennzahlen.beitragendeMitTreffer} von {v.kennzahlen.beitragendeGesamt}
+                    </Table.Td>
+                    <Table.Td className="zahl">{v.kennzahlen.gefoerderteVorhaben}</Table.Td>
+                    <Table.Td className="zahl">{euro(v.kennzahlen.medianZuteilungCent)}</Table.Td>
+                    <Table.Td className="zahl">{zahl(v.kennzahlen.gini, 3)}</Table.Td>
+                    <Table.Td className="zahl">
+                      {euro(v.kennzahlen.nichtAusgeschoepftCent)}
+                    </Table.Td>
+                  </Table.Tr>
                 ))}
-              </tbody>
-            </table>
+              </Table.Tbody>
+            </Table>
           </div>
           <p className="notiz">{mappe.modellierungshinweis}</p>
-        </section>
+        </Abschnitt>
 
-        <section className="mappe__abschnitt">
-          <h2>5. Rechenprotokoll</h2>
+        <Abschnitt titel="5. Rechenprotokoll">
           <div className="tabellenrahmen">
-            <table>
-              <thead>
-                <tr>
-                  <th scope="col">Vorhaben</th>
-                  <th scope="col" className="zahl">
-                    Beitragssumme E
-                  </th>
-                  <th scope="col" className="zahl">
-                    Wurzelsumme W
-                  </th>
-                  <th scope="col" className="zahl">
-                    Q = W²
-                  </th>
-                  <th scope="col" className="zahl">
-                    R = Q − E
-                  </th>
-                  <th scope="col" className="zahl">
-                    Obergrenze
-                  </th>
-                  <th scope="col" className="zahl">
-                    Vor Kürzung
-                  </th>
-                  <th scope="col" className="zahl">
-                    Zuteilung
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
+            <Table withRowBorders>
+              <Table.Thead>
+                <Table.Tr>
+                  <Table.Th>Vorhaben</Table.Th>
+                  <Table.Th ta="right">Beitragssumme E</Table.Th>
+                  <Table.Th ta="right">Wurzelsumme W</Table.Th>
+                  <Table.Th ta="right">Q = W²</Table.Th>
+                  <Table.Th ta="right">R = Q − E</Table.Th>
+                  <Table.Th ta="right">Obergrenze</Table.Th>
+                  <Table.Th ta="right">Vor Kürzung</Table.Th>
+                  <Table.Th ta="right">Zuteilung</Table.Th>
+                </Table.Tr>
+              </Table.Thead>
+              <Table.Tbody>
                 {mappe.zuteilungen.map((zeile) => (
-                  <tr key={zeile.vorhabenId}>
-                    <th scope="row">{zeile.titel}</th>
-                    <td className="zahl">{euro(zeile.beitragssummeCent)}</td>
-                    <td className="zahl">{zahl(zeile.wurzelsumme, 6)}</td>
-                    <td className="zahl">{zahl(zeile.quadrat, 4)}</td>
-                    <td className="zahl">{zahl(zeile.bemessungswert, 4)}</td>
-                    <td className="zahl">{euro(zeile.deckelCent)}</td>
-                    <td className="zahl">{euro(Math.round(zeile.vorlaeufigCent))}</td>
-                    <td className="zahl zahl--akzent">{euro(zeile.zuteilungCent)}</td>
-                  </tr>
+                  <Table.Tr key={zeile.vorhabenId}>
+                    <Table.Th scope="row" fw={500}>
+                      {zeile.titel}
+                    </Table.Th>
+                    <Table.Td className="zahl">{euro(zeile.beitragssummeCent)}</Table.Td>
+                    <Table.Td className="zahl">{zahl(zeile.wurzelsumme, 6)}</Table.Td>
+                    <Table.Td className="zahl">{zahl(zeile.quadrat, 4)}</Table.Td>
+                    <Table.Td className="zahl">{zahl(zeile.bemessungswert, 4)}</Table.Td>
+                    <Table.Td className="zahl">{euro(zeile.deckelCent)}</Table.Td>
+                    <Table.Td className="zahl">{euro(Math.round(zeile.vorlaeufigCent))}</Table.Td>
+                    <Table.Td className="zahl zahl--amt">{euro(zeile.zuteilungCent)}</Table.Td>
+                  </Table.Tr>
                 ))}
-              </tbody>
-            </table>
+              </Table.Tbody>
+            </Table>
           </div>
-        </section>
+        </Abschnitt>
 
-        <section className="mappe__abschnitt">
-          <h2>6. Eingangsdaten (pseudonymisiert)</h2>
-          <h3>Vorhaben</h3>
+        <Abschnitt titel="6. Eingangsdaten (pseudonymisiert)">
+          <Title order={3} mb="xs">
+            Vorhaben
+          </Title>
           <div className="tabellenrahmen">
-            <table>
-              <thead>
-                <tr>
-                  <th scope="col">Kennung</th>
-                  <th scope="col">Titel</th>
-                  <th scope="col">Träger</th>
-                  <th scope="col" className="zahl">
-                    Kostenplan
-                  </th>
-                  <th scope="col">Antragseingang</th>
-                  <th scope="col" className="zahl">
-                    Jurypunkte
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
+            <Table withRowBorders>
+              <Table.Thead>
+                <Table.Tr>
+                  <Table.Th>Kennung</Table.Th>
+                  <Table.Th>Titel</Table.Th>
+                  <Table.Th>Träger</Table.Th>
+                  <Table.Th ta="right">Kostenplan</Table.Th>
+                  <Table.Th>Antragseingang</Table.Th>
+                  <Table.Th ta="right">Jurypunkte</Table.Th>
+                </Table.Tr>
+              </Table.Thead>
+              <Table.Tbody>
                 {mappe.eingangsdatenPseudonymisiert.vorhaben.map((v) => (
-                  <tr key={v.id}>
-                    <th scope="row" style={{ fontWeight: 400 }}>
+                  <Table.Tr key={v.id}>
+                    <Table.Td className="mono" fz="xs">
                       {v.id}
-                    </th>
-                    <td>{v.titel}</td>
-                    <td>{v.traeger}</td>
-                    <td className="zahl">{euro(v.beantragtCent)}</td>
-                    <td>{datum(v.eingangZeitpunkt)}</td>
-                    <td className="zahl">{v.jurypunkte}</td>
-                  </tr>
+                    </Table.Td>
+                    <Table.Td>{v.titel}</Table.Td>
+                    <Table.Td>{v.traeger}</Table.Td>
+                    <Table.Td className="zahl">{euro(v.beantragtCent)}</Table.Td>
+                    <Table.Td className="mono" fz="xs">
+                      {datum(v.eingangZeitpunkt)}
+                    </Table.Td>
+                    <Table.Td className="zahl">{v.jurypunkte}</Table.Td>
+                  </Table.Tr>
                 ))}
-              </tbody>
-            </table>
+              </Table.Tbody>
+            </Table>
           </div>
 
-          <h3 style={{ marginTop: '22px' }}>
+          <Title order={3} mt="lg" mb="xs">
             Beiträge ({mappe.eingangsdatenPseudonymisiert.beitraege.length})
-          </h3>
+          </Title>
           <div className="tabellenrahmen">
-            <table>
-              <thead>
-                <tr>
-                  <th scope="col">Vorhaben</th>
-                  <th scope="col">Kennung</th>
-                  <th scope="col" className="zahl">
-                    Betrag
-                  </th>
-                  <th scope="col">Zeitpunkt</th>
-                  <th scope="col">Region</th>
-                  <th scope="col">Altersgruppe</th>
-                </tr>
-              </thead>
-              <tbody>
+            <Table withRowBorders>
+              <Table.Thead>
+                <Table.Tr>
+                  <Table.Th>Vorhaben</Table.Th>
+                  <Table.Th>Kennung</Table.Th>
+                  <Table.Th ta="right">Betrag</Table.Th>
+                  <Table.Th>Zeitpunkt</Table.Th>
+                  <Table.Th>Region</Table.Th>
+                  <Table.Th>Altersgruppe</Table.Th>
+                </Table.Tr>
+              </Table.Thead>
+              <Table.Tbody>
                 {mappe.eingangsdatenPseudonymisiert.beitraege.map((b, index) => (
-                  <tr key={`${b.vorhabenId}-${b.beitragendeId}-${index}`}>
-                    <td>{b.vorhabenId}</td>
-                    <td>{b.beitragendeId}</td>
-                    <td className="zahl">{euro(b.betragCent)}</td>
-                    <td>{datum(b.zeitpunkt)}</td>
-                    <td>{b.merkmal.region}</td>
-                    <td>{b.merkmal.altersgruppe}</td>
-                  </tr>
+                  <Table.Tr key={`${b.vorhabenId}-${b.beitragendeId}-${index}`}>
+                    <Table.Td className="mono" fz="xs">
+                      {b.vorhabenId}
+                    </Table.Td>
+                    <Table.Td className="mono" fz="xs">
+                      {b.beitragendeId}
+                    </Table.Td>
+                    <Table.Td className="zahl">{euro(b.betragCent)}</Table.Td>
+                    <Table.Td className="mono" fz="xs">
+                      {datum(b.zeitpunkt)}
+                    </Table.Td>
+                    <Table.Td>{b.merkmal.region}</Table.Td>
+                    <Table.Td>{b.merkmal.altersgruppe}</Table.Td>
+                  </Table.Tr>
                 ))}
-              </tbody>
-            </table>
+              </Table.Tbody>
+            </Table>
           </div>
-        </section>
+        </Abschnitt>
 
-        <section className="mappe__abschnitt">
-          <h2>7. Reproduzierbarkeit</h2>
-          <dl className="paare">
-            <div>
-              <dt className="paar__begriff">Fassung der Bemessungsregel</dt>
-              <dd className="paar__wert">{mappe.reproduzierbarkeit.formelVersion}</dd>
-            </div>
-            <div>
-              <dt className="paar__begriff">Prüfsumme der Eingangsdaten</dt>
-              <dd className="paar__wert pruefsumme" style={{ fontSize: '0.85rem' }}>
-                {mappe.reproduzierbarkeit.pruefsummeEingangsdaten}
-              </dd>
-            </div>
-          </dl>
-          <h3 style={{ marginTop: '18px' }}>So wird nachgerechnet</h3>
-          <ol style={{ maxWidth: '80ch' }}>
+        <Abschnitt titel="7. Reproduzierbarkeit">
+          <Group gap="xl" wrap="wrap" mb="md">
+            <Kennwert name="Fassung der Bemessungsregel">
+              {mappe.reproduzierbarkeit.formelVersion}
+            </Kennwert>
+          </Group>
+          <Text size="xs" c="dimmed" tt="uppercase" fw={600} lts="0.06em">
+            Prüfsumme der Eingangsdaten
+          </Text>
+          <Text className="mono" size="xs" mb="md" style={{ overflowWrap: 'anywhere' }}>
+            {mappe.reproduzierbarkeit.pruefsummeEingangsdaten}
+          </Text>
+
+          <Title order={3} mb="xs">
+            So wird nachgerechnet
+          </Title>
+          <ol className="bescheid" style={{ maxWidth: '80ch', paddingLeft: '1.3em' }}>
             {mappe.reproduzierbarkeit.anleitung.map((satz) => (
-              <li key={satz}>{satz}</li>
+              <li key={satz} style={{ marginBottom: '4px' }}>
+                {satz}
+              </li>
             ))}
           </ol>
           <p className="notiz">{mappe.hinweis}</p>
-        </section>
+        </Abschnitt>
       </article>
     </>
   );

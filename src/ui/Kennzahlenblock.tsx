@@ -1,3 +1,4 @@
+import { Accordion, Badge, Table, Text, Title } from '@mantine/core';
 import { euro, prozent, zahl } from '../format';
 import type { Rundendaten } from '../kern/typen';
 import type { VerfahrenId, Verfahrensergebnis } from '../kern/vergleich';
@@ -57,72 +58,90 @@ export default function Kennzahlenblock({ daten, verfahren }: Eigenschaften) {
   return (
     <section className="abschnitt" aria-labelledby="ueberschrift-kennzahlen">
       <div className="abschnitt__kopf">
-        <span className="abschnitt__nummer">3</span>
-        <h2 id="ueberschrift-kennzahlen">Kennzahlen je Verfahren</h2>
+        <Title order={2} id="ueberschrift-kennzahlen">
+          Was die Verfahren unterscheidet
+        </Title>
       </div>
 
-      <p className="abschnitt__einleitung">
+      <Text c="dimmed" maw="76ch" mb="md">
         Wirtschaftlichkeit ist ein Vergleichsbegriff. Dieselben Eingangsdaten, derselbe Topf,
         dieselben Höchstbeträge, fünf Verteilregeln. Die erste Zeile ist die aussagekräftigste:
         Sie zählt, wie viele Menschen am Ergebnis beteiligt sind.
-      </p>
+      </Text>
 
       <div className="tabellenrahmen">
-        <table>
-          <thead>
-            <tr>
-              <th scope="col">Kennzahl</th>
+        <Table withRowBorders>
+          <Table.Thead>
+            <Table.Tr>
+              <Table.Th>Kennzahl</Table.Th>
               {VERFAHREN_IDS.map((id) => (
-                <th key={id} scope="col" className="zahl">
+                <Table.Th key={id} ta="right">
                   {VERFAHREN[id].bezeichnung}
                   {VERFAHREN[id].modelliert && (
                     <>
                       <br />
-                      <span className="marke marke--modelliert">modelliert</span>
+                      <Badge
+                        size="xs"
+                        variant="outline"
+                        color="ocker"
+                        styles={{ root: { borderStyle: 'dashed', textTransform: 'none' } }}
+                      >
+                        modelliert
+                      </Badge>
                     </>
                   )}
-                </th>
+                </Table.Th>
               ))}
-            </tr>
-          </thead>
-          <tbody>
+            </Table.Tr>
+          </Table.Thead>
+          <Table.Tbody>
             {zeilen.map((zeile) => (
-              <tr key={zeile.name}>
-                <th scope="row">
+              <Table.Tr key={zeile.name}>
+                <Table.Th scope="row" fw={500} miw={240}>
                   {zeile.name}
                   <span className="traeger">{zeile.erklaerung}</span>
-                </th>
+                </Table.Th>
                 {VERFAHREN_IDS.map((id) => (
-                  <td
+                  <Table.Td
                     key={id}
-                    className={zeile.hervorheben && id === 'qf' ? 'zahl zahl--akzent' : 'zahl'}
+                    className={
+                      zeile.hervorheben && id === 'qf' ? 'zahl zahl--amt' : 'zahl'
+                    }
                   >
                     {zeile.wert(verfahren[id])}
-                  </td>
+                  </Table.Td>
                 ))}
-              </tr>
+              </Table.Tr>
             ))}
-          </tbody>
-        </table>
+          </Table.Tbody>
+        </Table>
       </div>
 
-      <p className="notiz notiz--hinweis">{MODELLIERUNGSHINWEIS}</p>
+      <p className="notiz notiz--ocker">{MODELLIERUNGSHINWEIS}</p>
 
-      <details>
-        <summary style={{ padding: '10px 14px', cursor: 'pointer', fontWeight: 560 }}>
-          Die fünf Verteilregeln im Wortlaut
-        </summary>
-        <dl className="paare" style={{ padding: '14px' }}>
-          {VERFAHREN_IDS.map((id) => (
-            <div key={id}>
-              <dt className="paar__begriff">{VERFAHREN[id].bezeichnung}</dt>
-              <dd className="paar__wert" style={{ fontSize: '0.9rem' }}>
-                {VERFAHREN[id].regel}
-              </dd>
-            </div>
-          ))}
-        </dl>
-      </details>
+      <Accordion variant="separated" mt="md">
+        <Accordion.Item value="regeln">
+          <Accordion.Control>Die fünf Verteilregeln im Wortlaut</Accordion.Control>
+          <Accordion.Panel>
+            <dl style={{ margin: 0 }}>
+              {VERFAHREN_IDS.map((id) => (
+                <div key={id} style={{ marginBottom: '14px' }}>
+                  <dt>
+                    <Text fw={600} size="sm">
+                      {VERFAHREN[id].bezeichnung}
+                    </Text>
+                  </dt>
+                  <dd style={{ margin: 0 }}>
+                    <Text size="sm" c="dimmed" maw="80ch">
+                      {VERFAHREN[id].regel}
+                    </Text>
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          </Accordion.Panel>
+        </Accordion.Item>
+      </Accordion>
     </section>
   );
 }

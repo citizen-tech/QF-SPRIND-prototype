@@ -1,40 +1,26 @@
-/* Nüchtern-behördlich, Hellmodus. Keine Verläufe, kein Neon, keine
-   Wallet-Anmutung. Hierarchie über Größe und Weißraum, nicht über Farbe. */
+/* Eigene Schicht über Mantine. Enthält nur, was die Bibliothek nicht abdeckt:
+   Papier und Linien, die Zifferndarstellung, die Dreibalken-Signatur, die
+   Bescheid-Typografie der Begründungstexte und die Druckansicht. */
 
 :root {
-  --grund: #fbfaf8;
+  --papier: #f6f7f8;
   --flaeche: #ffffff;
-  --flaeche-still: #f4f2ee;
-  --flaeche-auf: #f7f6f2;
-  --text: #14161a;
-  --text-still: #575d66;
-  --linie: #ddd8cf;
-  --linie-kraeftig: #b3aca0;
+  --flaeche-stumpf: #f1f3f5;
+  --tinte: #101418;
+  --tinte-still: #5b6570;
+  --linie: #dfe3e7;
+  --linie-kraeftig: #b9c1c9;
 
-  /* Einzige kräftige Farbe. Trägt ausschließlich QF-Werte. */
-  --akzent: #0f4c81;
-  --akzent-flaeche: #e6eef6;
-  /* Vergleichsverfahren bleiben grau. */
-  --neutral: #6b7280;
-  --neutral-flaeche: #e2e0dc;
-  /* Hinweise und Deckelmarkierungen. */
-  --hinweis: #7a4d05;
-  --hinweis-flaeche: #f8f0dd;
-  --hinweis-linie: #d8b96a;
+  --amt: #12456d;
+  --amt-flaeche: #eaf1f7;
+  --ocker: #8a5a0b;
+  --ocker-flaeche: #f9f2e2;
+  --ocker-linie: #ddc186;
+  --graphit: #59626e;
 
-  --fokus: #0f4c81;
+  --serif: 'IBM Plex Serif', Georgia, 'Times New Roman', serif;
 
-  --schrift: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-
-  --rand: 6px;
-  --spalte: 1240px;
-}
-
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
+  --spalte: 1260px;
 }
 
 html {
@@ -42,51 +28,64 @@ html {
 }
 
 body {
-  margin: 0;
-  background: var(--grund);
-  color: var(--text);
-  font-family: var(--schrift);
-  font-size: 16px;
+  background: var(--papier);
+  color: var(--tinte);
+  font-size: 15.5px;
   line-height: 1.55;
-  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
 }
 
-:where(a) {
-  color: var(--akzent);
-  text-underline-offset: 2px;
+/* --- Kopfleiste --------------------------------------------------------- */
+
+.masthead {
+  border-bottom: 1px solid var(--linie);
+  background: var(--flaeche);
 }
 
-:focus-visible {
-  outline: 3px solid var(--fokus);
-  outline-offset: 2px;
-  border-radius: 2px;
+.masthead__inhalt {
+  max-width: var(--spalte);
+  margin: 0 auto;
+  padding: 26px 24px 22px;
 }
 
-h1,
-h2,
-h3,
-h4 {
-  line-height: 1.25;
-  margin: 0;
-  font-weight: 640;
-  letter-spacing: -0.011em;
+/* Der Kennstreifen: Fassung und Prüfsumme, durchgehend in Mono.
+   Er ist die Seriennummer des Messgeräts, nicht Dekoration. */
+.kennstreifen {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
+  margin-top: 18px;
+  border: 1px solid var(--linie);
+  border-radius: 3px;
+  overflow: hidden;
+  font-family: var(--mantine-font-family-monospace);
+  font-size: 0.78rem;
 }
 
-h1 {
-  font-size: 1.75rem;
-}
-h2 {
-  font-size: 1.25rem;
-}
-h3 {
-  font-size: 1rem;
-}
-h4 {
-  font-size: 0.9rem;
+.kennstreifen__feld {
+  padding: 7px 14px;
+  border-right: 1px solid var(--linie);
+  display: flex;
+  gap: 9px;
+  align-items: baseline;
+  min-width: 0;
 }
 
-p {
-  margin: 0 0 0.85em;
+.kennstreifen__feld:last-child {
+  border-right: none;
+}
+
+.kennstreifen__name {
+  color: var(--tinte-still);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 0.68rem;
+  white-space: nowrap;
+}
+
+.kennstreifen__wert {
+  color: var(--tinte);
+  overflow-wrap: anywhere;
 }
 
 /* --- Gerüst ------------------------------------------------------------- */
@@ -94,115 +93,125 @@ p {
 .huelle {
   max-width: var(--spalte);
   margin: 0 auto;
-  padding: 0 20px 80px;
-}
-
-.band {
-  background: var(--hinweis-flaeche);
-  border-bottom: 1px solid var(--hinweis-linie);
-  color: var(--hinweis);
-  padding: 10px 20px;
-  font-size: 0.87rem;
-}
-
-.band__inhalt {
-  max-width: var(--spalte);
-  margin: 0 auto;
-}
-
-.kopf {
-  padding: 36px 0 4px;
-}
-
-.kopf__unterzeile {
-  color: var(--text-still);
-  font-size: 0.97rem;
-  margin-top: 8px;
-  max-width: 68ch;
+  padding: 0 24px 96px;
 }
 
 .abschnitt {
-  margin-top: 40px;
+  margin-top: 52px;
 }
 
 .abschnitt__kopf {
   display: flex;
   align-items: baseline;
-  gap: 12px;
+  gap: 14px;
   flex-wrap: wrap;
-  border-bottom: 2px solid var(--linie-kraeftig);
-  padding-bottom: 8px;
-  margin-bottom: 16px;
+  border-bottom: 1px solid var(--tinte);
+  padding-bottom: 7px;
+  margin-bottom: 18px;
 }
 
-.abschnitt__nummer {
+/* --- Zahlen ------------------------------------------------------------- */
+
+.zahl {
+  text-align: right;
+  font-family: var(--mantine-font-family-monospace);
   font-variant-numeric: tabular-nums;
-  color: var(--text-still);
-  font-weight: 640;
+  font-size: 0.86rem;
+  white-space: nowrap;
 }
 
-.abschnitt__einleitung {
-  color: var(--text-still);
-  max-width: 76ch;
-  margin: 0 0 14px;
+.zahl--amt {
+  color: var(--amt);
+  font-weight: 500;
 }
 
-.tafel {
-  background: var(--flaeche);
-  border: 1px solid var(--linie);
-  border-radius: var(--rand);
-  padding: 18px 20px;
+.zahl--still {
+  color: var(--tinte-still);
 }
+
+.mono {
+  font-family: var(--mantine-font-family-monospace);
+  font-variant-numeric: tabular-nums;
+}
+
+/* --- Dreibalken: Köpfe, Euro, Zuteilung --------------------------------- */
+
+/* Die Aussage der Seite als Zeichen. Wo der Euro-Balken lang und der
+   Kopf-Balken kurz ist, fällt die Zuteilung klein aus — und umgekehrt. */
+.dreibalken {
+  display: grid;
+  grid-template-columns: 2.6em 1fr;
+  gap: 2px 7px;
+  align-items: center;
+  min-width: 132px;
+}
+
+.dreibalken__name {
+  font-family: var(--mantine-font-family-monospace);
+  font-size: 0.62rem;
+  letter-spacing: 0.04em;
+  color: var(--tinte-still);
+  text-transform: uppercase;
+}
+
+.dreibalken__spur {
+  height: 6px;
+  background: var(--flaeche-stumpf);
+  border-radius: 1px;
+  overflow: hidden;
+}
+
+.dreibalken__wert {
+  display: block;
+  height: 100%;
+  background: var(--graphit);
+}
+
+.dreibalken__wert--amt {
+  background: var(--amt);
+}
+
+.dreibalken__spur--stark {
+  height: 9px;
+}
+
+/* --- Bescheid-Stimme ---------------------------------------------------- */
+
+/* Serif ausschließlich für Rechtstext: Begründungen und die Rechenregel.
+   Die Oberfläche spricht Sans, der Bescheid spricht Serif. */
+.bescheid {
+  font-family: var(--serif);
+  font-size: 0.96rem;
+  line-height: 1.62;
+}
+
+.begruendung {
+  border-left: 2px solid var(--linie-kraeftig);
+  padding-left: 16px;
+  margin: 0 0 20px;
+  max-width: 78ch;
+  break-inside: avoid;
+}
+
+/* --- Hinweise ----------------------------------------------------------- */
 
 .notiz {
-  border-left: 3px solid var(--linie-kraeftig);
-  padding: 2px 0 2px 14px;
-  color: var(--text-still);
-  font-size: 0.92rem;
-  margin: 14px 0;
-  max-width: 80ch;
+  border-left: 2px solid var(--linie-kraeftig);
+  padding: 1px 0 1px 14px;
+  color: var(--tinte-still);
+  font-size: 0.9rem;
+  margin: 16px 0;
+  max-width: 82ch;
 }
 
-.notiz--hinweis {
-  border-left-color: var(--hinweis-linie);
-  color: var(--hinweis);
+.notiz--ocker {
+  border-left-color: var(--ocker-linie);
+  color: var(--ocker);
 }
 
 .notiz ul {
   margin: 6px 0 0;
-  padding-left: 1.2em;
-}
-
-/* --- Kennwertpaare ------------------------------------------------------ */
-
-.paare {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
-  gap: 14px 24px;
-  margin: 0;
-}
-
-.paar__begriff {
-  font-size: 0.76rem;
-  text-transform: uppercase;
-  letter-spacing: 0.055em;
-  color: var(--text-still);
-  margin: 0 0 2px;
-}
-
-.paar__wert {
-  margin: 0;
-  font-size: 1.02rem;
-  font-variant-numeric: tabular-nums;
-}
-
-.paar__wert--gross {
-  font-size: 1.4rem;
-  font-weight: 640;
-}
-
-.paar__wert--akzent {
-  color: var(--akzent);
+  padding-left: 1.15em;
 }
 
 /* --- Tabellen ----------------------------------------------------------- */
@@ -210,80 +219,34 @@ p {
 .tabellenrahmen {
   overflow-x: auto;
   border: 1px solid var(--linie);
-  border-radius: var(--rand);
+  border-radius: 3px;
   background: var(--flaeche);
 }
 
-table {
-  border-collapse: collapse;
-  width: 100%;
-  font-size: 0.92rem;
+.tabellenrahmen table {
+  font-size: 0.9rem;
 }
 
-caption {
-  text-align: left;
-  padding: 12px 14px;
-  color: var(--text-still);
-  font-size: 0.87rem;
-  border-bottom: 1px solid var(--linie);
-}
-
-th,
-td {
-  padding: 9px 12px;
-  text-align: left;
-  border-bottom: 1px solid var(--linie);
-  vertical-align: top;
-}
-
-thead th {
-  font-size: 0.75rem;
+.tabellenrahmen thead th {
+  font-size: 0.68rem;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--text-still);
-  font-weight: 640;
-  background: var(--flaeche-still);
+  letter-spacing: 0.06em;
+  color: var(--tinte-still);
+  font-weight: 600;
+  background: var(--flaeche-stumpf);
   white-space: nowrap;
   vertical-align: bottom;
 }
 
-tbody tr:last-child > td,
-tbody tr:last-child > th {
-  border-bottom: none;
-}
-
-tfoot td,
-tfoot th {
-  border-top: 2px solid var(--linie-kraeftig);
-  border-bottom: none;
-  font-weight: 620;
-  background: var(--flaeche-still);
-}
-
-.zahl {
-  text-align: right;
-  font-variant-numeric: tabular-nums;
-  white-space: nowrap;
-}
-
-.zahl--akzent {
-  color: var(--akzent);
-  font-weight: 620;
-}
-
-.zahl--still,
-.zahl--null {
-  color: var(--text-still);
-}
-
-th[scope='row'] {
-  font-weight: 560;
+.tabellenrahmen th,
+.tabellenrahmen td {
+  vertical-align: top;
 }
 
 .traeger {
   display: block;
-  color: var(--text-still);
-  font-size: 0.84rem;
+  color: var(--tinte-still);
+  font-size: 0.82rem;
   font-weight: 400;
 }
 
@@ -291,31 +254,28 @@ th[scope='row'] {
 
 .aufklapp {
   font: inherit;
-  font-size: 0.92rem;
-  font-weight: 560;
+  font-weight: 500;
   text-align: left;
   background: none;
   border: none;
   padding: 0;
-  margin: 0;
-  color: var(--text);
+  color: var(--tinte);
   cursor: pointer;
   display: flex;
-  gap: 8px;
+  gap: 9px;
   align-items: baseline;
   width: 100%;
 }
 
 .aufklapp:hover {
-  color: var(--akzent);
+  color: var(--amt);
 }
 
 .aufklapp__pfeil {
-  color: var(--text-still);
-  font-size: 0.72rem;
-  line-height: 1.9;
-  transition: transform 0.12s ease;
+  color: var(--tinte-still);
+  font-size: 0.6rem;
   flex: none;
+  transition: transform 0.14s ease;
 }
 
 .aufklapp[aria-expanded='true'] .aufklapp__pfeil {
@@ -324,310 +284,88 @@ th[scope='row'] {
 
 tr.zeile--offen > th,
 tr.zeile--offen > td {
-  background: var(--flaeche-auf);
-  border-bottom-color: transparent;
+  background: var(--amt-flaeche);
 }
 
 tr.detailzeile > td {
-  background: var(--flaeche-auf);
-  padding: 4px 16px 20px 34px;
-  border-bottom: 1px solid var(--linie);
+  background: var(--flaeche-stumpf);
+  padding: 6px 20px 22px 38px;
 }
 
 .detail {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 24px;
+  grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+  gap: 28px;
   align-items: start;
 }
-
-/* --- Markierungen ------------------------------------------------------- */
-
-.marke {
-  display: inline-block;
-  font-size: 0.72rem;
-  letter-spacing: 0.03em;
-  padding: 1px 7px;
-  border-radius: 999px;
-  border: 1px solid var(--linie-kraeftig);
-  color: var(--text-still);
-  white-space: nowrap;
-  font-weight: 400;
-}
-
-.marke--deckel {
-  border-color: var(--hinweis-linie);
-  background: var(--hinweis-flaeche);
-  color: var(--hinweis);
-}
-
-.marke--modelliert {
-  border-style: dashed;
-}
-
-/* --- Balken ------------------------------------------------------------- */
-
-.balken {
-  display: block;
-  height: 9px;
-  min-width: 80px;
-  background: var(--neutral-flaeche);
-  border-radius: 2px;
-  overflow: hidden;
-}
-
-.balken__fuellung {
-  display: block;
-  height: 100%;
-  background: var(--akzent);
-}
-
-/* --- Bedienelemente ----------------------------------------------------- */
-
-.knopf {
-  font: inherit;
-  font-size: 0.92rem;
-  font-weight: 560;
-  padding: 8px 16px;
-  border-radius: var(--rand);
-  border: 1px solid var(--linie-kraeftig);
-  background: var(--flaeche);
-  color: var(--text);
-  cursor: pointer;
-}
-
-.knopf:hover {
-  background: var(--flaeche-still);
-}
-
-.knopf--haupt {
-  background: var(--akzent);
-  border-color: var(--akzent);
-  color: #fff;
-}
-
-.knopf--haupt:hover {
-  filter: brightness(1.12);
-  background: var(--akzent);
-}
-
-.knopf--klein {
-  font-size: 0.82rem;
-  padding: 4px 10px;
-}
-
-.knopf:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-.knopfreihe {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  align-items: center;
-}
-
-select,
-input[type='number'],
-input[type='text'],
-input[type='date'] {
-  font: inherit;
-  font-size: 0.9rem;
-  padding: 6px 8px;
-  border-radius: var(--rand);
-  border: 1px solid var(--linie-kraeftig);
-  background: var(--flaeche);
-  color: var(--text);
-  max-width: 100%;
-  width: 100%;
-}
-
-input[type='number'] {
-  font-variant-numeric: tabular-nums;
-}
-
-.feld {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.feld__name {
-  font-size: 0.76rem;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--text-still);
-}
-
-.feld__hinweis {
-  font-size: 0.78rem;
-  color: var(--text-still);
-}
-
-.felder {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
-  gap: 16px 20px;
-}
-
-.schalter {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 0.9rem;
-  cursor: pointer;
-}
-
-.schalter input {
-  width: auto;
-  accent-color: var(--akzent);
-  margin: 0;
-  flex: none;
-}
-
-.schalterreihe {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px 22px;
-  align-items: center;
-  padding: 12px 14px;
-  background: var(--flaeche);
-  border: 1px solid var(--linie);
-  border-radius: var(--rand);
-  margin-bottom: 12px;
-}
-
-.trenner {
-  border: none;
-  border-top: 1px solid var(--linie);
-  margin: 22px 0 18px;
-}
-
-/* --- Rechenschritte ----------------------------------------------------- */
 
 .rechenschritte {
   margin: 0;
   display: grid;
   grid-template-columns: 1fr auto;
-  font-variant-numeric: tabular-nums;
-  font-size: 0.87rem;
+  font-size: 0.84rem;
 }
 
 .rechenschritte dt {
   padding: 4px 0;
-  border-bottom: 1px dotted var(--linie);
-  color: var(--text-still);
+  border-bottom: 1px solid var(--linie);
+  color: var(--tinte-still);
 }
 
 .rechenschritte dd {
   margin: 0;
   padding: 4px 0 4px 18px;
-  border-bottom: 1px dotted var(--linie);
+  border-bottom: 1px solid var(--linie);
   text-align: right;
+  font-family: var(--mantine-font-family-monospace);
+  font-variant-numeric: tabular-nums;
 }
 
 .rechenschritte dt.ergebnis,
 .rechenschritte dd.ergebnis {
   border-bottom: none;
-  border-top: 2px solid var(--linie-kraeftig);
-  font-weight: 640;
-  color: var(--text);
+  border-top: 1px solid var(--tinte);
+  font-weight: 600;
+  color: var(--tinte);
   padding-top: 7px;
 }
 
 .beitragsliste {
-  max-height: 240px;
+  max-height: 250px;
   overflow-y: auto;
   border: 1px solid var(--linie);
-  border-radius: var(--rand);
+  border-radius: 3px;
   background: var(--flaeche);
 }
 
 .beitragsliste table {
-  font-size: 0.83rem;
-}
-
-.beitragsliste th,
-.beitragsliste td {
-  padding: 5px 10px;
-}
-
-/* --- Fußbereich --------------------------------------------------------- */
-
-.fuss {
-  margin-top: 56px;
-  padding-top: 20px;
-  border-top: 1px solid var(--linie);
-  color: var(--text-still);
-  font-size: 0.87rem;
-}
-
-.pruefsumme {
-  font-family: var(--mono);
-  font-size: 0.85em;
-  word-break: break-all;
-}
-
-/* --- Nachweismappe ------------------------------------------------------ */
-
-.mappe {
-  max-width: 920px;
-  margin: 0 auto;
-  padding: 0 20px 80px;
-}
-
-.mappe__kopf {
-  border: 2px solid var(--linie-kraeftig);
-  border-radius: var(--rand);
-  padding: 18px 20px;
-  margin-bottom: 26px;
-}
-
-.mappe__warnung {
-  font-weight: 660;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
   font-size: 0.8rem;
-  color: var(--hinweis);
-  margin: 0 0 10px;
 }
 
-.mappe__abschnitt {
-  margin-top: 34px;
+/* --- Auftritt des Ergebnisses ------------------------------------------- */
+
+.auftritt {
+  animation: auftritt 0.34s ease-out both;
 }
 
-.begruendung {
-  border-left: 3px solid var(--linie-kraeftig);
-  padding-left: 14px;
-  margin: 0 0 18px;
-  max-width: 82ch;
-  break-inside: avoid;
+@keyframes auftritt {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }
 
-.begruendung__titel {
-  font-weight: 620;
-  margin-bottom: 2px;
-}
-
-.werkzeugleiste {
-  position: sticky;
-  top: 0;
-  z-index: 2;
-  background: var(--grund);
-  border-bottom: 1px solid var(--linie);
-  padding: 12px 20px;
-  margin-bottom: 26px;
-}
-
-.werkzeugleiste__inhalt {
-  max-width: 920px;
-  margin: 0 auto;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  align-items: center;
-  justify-content: space-between;
+@media (prefers-reduced-motion: reduce) {
+  .auftritt {
+    animation: none;
+  }
+  .aufklapp__pfeil {
+    transition: none;
+  }
 }
 
 /* --- Nur für Bildschirmleser -------------------------------------------- */
@@ -644,31 +382,60 @@ input[type='number'] {
   border: 0;
 }
 
+/* --- Nachweismappe ------------------------------------------------------ */
+
+.mappe {
+  max-width: 940px;
+  margin: 0 auto;
+  padding: 0 24px 96px;
+}
+
+.werkzeugleiste {
+  position: sticky;
+  top: 0;
+  z-index: 3;
+  background: var(--papier);
+  border-bottom: 1px solid var(--linie);
+  padding: 12px 24px;
+  margin-bottom: 28px;
+}
+
+.werkzeugleiste__inhalt {
+  max-width: 940px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  justify-content: space-between;
+}
+
 /* --- Druck -------------------------------------------------------------- */
 
 @media print {
   :root {
-    --grund: #fff;
+    --papier: #fff;
     --flaeche: #fff;
-    --flaeche-still: #fff;
-    --flaeche-auf: #fff;
-    --text: #000;
-    --text-still: #333;
+    --flaeche-stumpf: #fff;
+    --tinte: #000;
+    --tinte-still: #333;
     --linie: #999;
     --linie-kraeftig: #333;
-    --akzent: #000;
-    --neutral: #666;
-    --hinweis: #000;
-    --hinweis-flaeche: #fff;
-    --hinweis-linie: #333;
+    --amt: #000;
+    --amt-flaeche: #fff;
+    --ocker: #000;
+    --ocker-flaeche: #fff;
+    --ocker-linie: #333;
+    --graphit: #666;
   }
 
   body {
+    background: #fff;
     font-size: 10.5pt;
   }
 
   .werkzeugleiste,
-  .band,
+  .masthead,
   .nicht-drucken {
     display: none !important;
   }
@@ -682,13 +449,13 @@ input[type='number'] {
     break-after: avoid;
   }
 
-  table {
-    font-size: 9pt;
-  }
-
   .tabellenrahmen {
     overflow: visible;
     border: none;
+  }
+
+  .tabellenrahmen table {
+    font-size: 9pt;
   }
 
   thead {
@@ -708,5 +475,9 @@ input[type='number'] {
   .beitragsliste {
     max-height: none;
     overflow: visible;
+  }
+
+  .auftritt {
+    animation: none;
   }
 }

@@ -1,3 +1,4 @@
+import { Alert, Button, Checkbox, Group, Paper, Stack, Text, Title } from '@mantine/core';
 import { useEffect, useMemo, useState } from 'react';
 import { datum, euro, kurzePruefsumme } from '../format';
 import { berechneHebel } from '../kern/hebel';
@@ -7,38 +8,48 @@ import { berechneVorhabenwerte } from '../kern/qf';
 import type { Simulationseinstellungen } from '../kern/simulation';
 import { erzeugeRunde, STANDARD_EINSTELLUNGEN } from '../kern/simulation';
 import { alleVerfahren } from '../kern/vergleich';
+import { FORMEL_VERSION } from '../kern/version';
 import { baueNachweismappe } from '../nachweis/mappe';
 import NachweismappeAnsicht from '../nachweis/Nachweismappe';
+import Einrichtung from './Einrichtung';
 import Ergebnistabelle from './Ergebnistabelle';
 import Kennzahlenblock from './Kennzahlenblock';
 import Kopplungsgruppen from './Kopplungsgruppen';
-import SimulationseinstellungenAnsicht from './Simulationseinstellungen';
 
-function gleicheEinstellungen(a: Simulationseinstellungen, b: Simulationseinstellungen): boolean {
+function gleich(a: Simulationseinstellungen, b: Simulationseinstellungen): boolean {
   return JSON.stringify(a) === JSON.stringify(b);
 }
 
 export default function App() {
-  // Entwurf ist, was in den Feldern steht. Angewandt ist, was gerechnet wird.
   const [entwurf, setEntwurf] = useState<Simulationseinstellungen>(STANDARD_EINSTELLUNGEN);
-  const [angewandt, setAngewandt] = useState<Simulationseinstellungen>(STANDARD_EINSTELLUNGEN);
+  // Null bis zum ersten Knopfdruck: vorher wird nichts gerechnet und nichts gezeigt.
+  const [angewandt, setAngewandt] = useState<Simulationseinstellungen | null>(null);
 
-  const [einstellungenOffen, setEinstellungenOffen] = useState(true);
   const [zeigeVergleich, setZeigeVergleich] = useState(true);
   const [zeigeKopplung, setZeigeKopplung] = useState(false);
   const [mappeOffen, setMappeOffen] = useState(false);
   const [pruefsumme, setPruefsumme] = useState('');
 
-  const daten = useMemo(() => erzeugeRunde(angewandt), [angewandt]);
-  const werte = useMemo(() => berechneVorhabenwerte(daten), [daten]);
-  const verfahren = useMemo(() => alleVerfahren(daten, werte), [daten, werte]);
-  const hebel = useMemo(() => berechneHebel(daten), [daten]);
+  const daten = useMemo(() => (angewandt ? erzeugeRunde(angewandt) : null), [angewandt]);
+  const werte = useMemo(() => (daten ? berechneVorhabenwerte(daten) : null), [daten]);
+  const verfahren = useMemo(
+    () => (daten && werte ? alleVerfahren(daten, werte) : null),
+    [daten, werte],
+  );
+  const hebel = useMemo(() => (daten ? berechneHebel(daten) : null), [daten]);
   const kopplung = useMemo(
-    () => (zeigeKopplung ? berechneQfMitKopplung(daten, werte, KOPPLUNGSPARAMETER_M) : null),
+    () =>
+      zeigeKopplung && daten && werte
+        ? berechneQfMitKopplung(daten, werte, KOPPLUNGSPARAMETER_M)
+        : null,
     [zeigeKopplung, daten, werte],
   );
 
   useEffect(() => {
+    if (!daten) {
+      setPruefsumme('');
+      return;
+    }
     let verworfen = false;
     setPruefsumme('');
     berechnePruefsumme(daten).then((wert) => {
@@ -49,23 +60,25 @@ export default function App() {
     };
   }, [daten]);
 
-  const entwurfGeaendert = !gleicheEinstellungen(entwurf, angewandt);
-  const vomStandardAbweichend = !gleicheEinstellungen(angewandt, STANDARD_EINSTELLUNGEN);
+  const vomStandardAbweichend = !gleich(entwurf, STANDARD_EINSTELLUNGEN);
+  const entwurfNichtAngewandt = angewandt !== null && !gleich(entwurf, angewandt);
 
   const abweichungen = useMemo(() => {
-    if (!vomStandardAbweichend) return [];
-    const liste: string[] = [];
+    if (!angewandt || gleich(angewandt, STANDARD_EINSTELLUNGEN)) return [];
     const s = STANDARD_EINSTELLUNGEN;
+    const liste: string[] = [];
     if (angewandt.seed !== s.seed) liste.push(`Seed ${angewandt.seed} statt ${s.seed}.`);
     if (angewandt.poolCent !== s.poolCent) {
       liste.push(`Fördertopf ${euro(angewandt.poolCent)} statt ${euro(s.poolCent)}.`);
     }
     if (angewandt.hoechstbetragJeVorhabenCent !== s.hoechstbetragJeVorhabenCent) {
-      const jetzt =
-        angewandt.hoechstbetragJeVorhabenCent === null
-          ? 'ohne Höchstbetrag'
-          : euro(angewandt.hoechstbetragJeVorhabenCent);
-      liste.push(`Höchstbetrag je Vorhaben: ${jetzt}.`);
+      liste.push(
+        `Höchstbetrag je Vorhaben: ${
+          angewandt.hoechstbetragJeVorhabenCent === null
+            ? 'ohne Höchstbetrag'
+            : euro(angewandt.hoechstbetragJeVorhabenCent)
+        }.`,
+      );
     }
     if (angewandt.vorhaben.length !== s.vorhaben.length) {
       liste.push(`${angewandt.vorhaben.length} Vorhaben statt ${s.vorhaben.length}.`);
@@ -75,9 +88,9 @@ export default function App() {
     }
     if (liste.length === 0) liste.push('Die Einstellungen weichen von der Ausgangsrunde ab.');
     return liste;
-  }, [angewandt, vomStandardAbweichend]);
+  }, [angewandt]);
 
-  if (mappeOffen) {
+  if (mappeOffen && daten && werte && verfahren) {
     const mappe = baueNachweismappe({
       daten,
       werte,
@@ -91,206 +104,226 @@ export default function App() {
 
   return (
     <>
-      <div className="band">
-        <div className="band__inhalt">
-          Prototyp mit <strong>synthetischen Demodaten</strong>. Kein Zahlungsverkehr, keine
-          echten Vorhaben, keine echten Personen. Der Rechenkern ist derselbe, der später
-          produktiv laufen soll.
-        </div>
-      </div>
-
-      <main className="huelle">
-        <header className="kopf">
-          <h1>Bemessungsrechnung für einen Fördertopf</h1>
-          <p className="kopf__unterzeile">
+      <header className="masthead">
+        <div className="masthead__inhalt">
+          <Title order={1} maw="24ch">
+            Bemessungsrechnung für einen Fördertopf
+          </Title>
+          <Text c="dimmed" mt="sm" maw="70ch">
             Budgetbeschränktes Quadratic Funding, gegenübergestellt mit vier herkömmlichen
             Verteilregeln. Das Werkzeug bemisst und dokumentiert. Es entscheidet nicht und
             bescheidet nicht — das bleibt Sache der Behörde.
-          </p>
-        </header>
+          </Text>
 
-        <SimulationseinstellungenAnsicht
+          <div className="kennstreifen">
+            <span className="kennstreifen__feld">
+              <span className="kennstreifen__name">Fassung</span>
+              <span className="kennstreifen__wert">{FORMEL_VERSION}</span>
+            </span>
+            <span className="kennstreifen__feld">
+              <span className="kennstreifen__name">Seed</span>
+              <span className="kennstreifen__wert">{angewandt ? angewandt.seed : '—'}</span>
+            </span>
+            <span className="kennstreifen__feld" style={{ flex: 1 }}>
+              <span className="kennstreifen__name">Prüfsumme</span>
+              <span className="kennstreifen__wert" title={pruefsumme || undefined}>
+                {daten ? (pruefsumme ? kurzePruefsumme(pruefsumme) : 'wird berechnet …') : '—'}
+              </span>
+            </span>
+            <span className="kennstreifen__feld">
+              <span className="kennstreifen__name">Daten</span>
+              <span className="kennstreifen__wert" style={{ color: 'var(--ocker)' }}>
+                synthetisch
+              </span>
+            </span>
+          </div>
+
+          <Text size="xs" c="dimmed" mt={10} maw="88ch">
+            Prototyp mit synthetischen Demodaten. Kein Zahlungsverkehr, keine echten Vorhaben,
+            keine echten Personen. Der Rechenkern ist derselbe, der später produktiv laufen soll.
+          </Text>
+        </div>
+      </header>
+
+      <main className="huelle">
+        <Einrichtung
           entwurf={entwurf}
-          offen={einstellungenOffen}
-          geaendert={entwurfGeaendert || vomStandardAbweichend}
+          ersterLauf={angewandt === null}
+          vomStandardAbweichend={vomStandardAbweichend}
           onEntwurf={setEntwurf}
-          onUmschalten={() => setEinstellungenOffen((x) => !x)}
-          onStarten={() => {
-            setAngewandt(entwurf);
-            setEinstellungenOffen(false);
-          }}
+          onStarten={() => setAngewandt(entwurf)}
           onZuruecksetzen={() => {
             setEntwurf(STANDARD_EINSTELLUNGEN);
-            setAngewandt(STANDARD_EINSTELLUNGEN);
+            setAngewandt(null);
           }}
         />
 
-        <section className="abschnitt" aria-labelledby="ueberschrift-ergebnis">
-          <div className="abschnitt__kopf">
-            <span className="abschnitt__nummer">2</span>
-            <h2 id="ueberschrift-ergebnis">Ergebnis der Runde</h2>
-          </div>
+        {!daten && (
+          <Paper withBorder p="xl" radius="sm" mt="xl" bg="white">
+            <Text c="dimmed" maw="60ch">
+              Noch nichts gerechnet. Starten Sie die Simulation, um Zuteilung,
+              Vergleichsrechnung und Nachweismappe zu erhalten.
+            </Text>
+          </Paper>
+        )}
 
-          {entwurfGeaendert && (
-            <p className="notiz notiz--hinweis" role="status">
-              Die Einstellungen wurden geändert, aber noch nicht angewandt. Die Tabelle zeigt
-              weiterhin die zuletzt gerechnete Runde.
-            </p>
-          )}
+        {daten && werte && verfahren && hebel && (
+          <div className="auftritt">
+            <section className="abschnitt" aria-labelledby="ueberschrift-ergebnis">
+              <div className="abschnitt__kopf">
+                <Title order={2} id="ueberschrift-ergebnis">
+                  Ergebnis der Runde
+                </Title>
+              </div>
 
-          <div className="tafel" style={{ marginBottom: '18px' }}>
-            <p style={{ maxWidth: '78ch' }}>{daten.runde.zweck}</p>
-            <dl className="paare">
-              <div>
-                <dt className="paar__begriff">Förderzeitraum</dt>
-                <dd className="paar__wert">
-                  {datum(daten.runde.zeitraum.von)} – {datum(daten.runde.zeitraum.bis)}
-                </dd>
-              </div>
-              <div>
-                <dt className="paar__begriff">Fördertopf</dt>
-                <dd className="paar__wert paar__wert--gross paar__wert--akzent">
-                  {euro(daten.runde.poolCent)}
-                </dd>
-              </div>
-              <div>
-                <dt className="paar__begriff">Höchstbetrag je Vorhaben</dt>
-                <dd className="paar__wert">
-                  {daten.runde.hoechstbetragJeVorhabenCent === null
-                    ? 'nicht festgelegt'
-                    : euro(daten.runde.hoechstbetragJeVorhabenCent)}
-                </dd>
-              </div>
-              <div>
-                <dt className="paar__begriff">Beitragende</dt>
-                <dd className="paar__wert">{verfahren.qf.kennzahlen.beitragendeGesamt}</dd>
-              </div>
-              <div>
-                <dt className="paar__begriff">Seed</dt>
-                <dd className="paar__wert">{angewandt.seed}</dd>
-              </div>
-              <div>
-                <dt className="paar__begriff">Fassung der Bemessungsregel</dt>
-                <dd className="paar__wert">{daten.runde.formelVersion}</dd>
-              </div>
-              <div>
-                <dt className="paar__begriff">Prüfsumme der Eingangsdaten</dt>
-                <dd className="paar__wert">
-                  <span className="pruefsumme" title={pruefsumme || undefined}>
-                    {pruefsumme ? kurzePruefsumme(pruefsumme) : 'wird berechnet …'}
-                  </span>
-                </dd>
-              </div>
-            </dl>
+              {entwurfNichtAngewandt && (
+                <Alert color="ocker" variant="light" mb="md" role="status">
+                  Die Einstellungen wurden geändert, aber noch nicht angewandt. Die Tabelle zeigt
+                  weiterhin die zuletzt gerechnete Runde.
+                </Alert>
+              )}
 
-            {pruefsumme && (
-              <p className="notiz" style={{ marginBottom: 0 }}>
-                Vollständige Prüfsumme (SHA-256):{' '}
-                <span className="pruefsumme">{pruefsumme}</span>
-                <br />
-                Seed {angewandt.seed} und diese Einstellungen erzeugen dieselbe Runde erneut —
-                und damit dieselbe Prüfsumme.
-              </p>
-            )}
+              <Paper withBorder p="lg" radius="sm" mb="lg" bg="white">
+                <Stack gap="md">
+                  <Text className="bescheid" maw="76ch">
+                    {daten.runde.zweck}
+                  </Text>
 
-            {vomStandardAbweichend && (
-              <div className="notiz notiz--hinweis" role="status" style={{ marginBottom: 0 }}>
-                <strong>Probeberechnung.</strong> Die Eingangsgrößen weichen von der
-                Ausgangsrunde ab. Eine jetzt erzeugte Nachweismappe weist eine Probeberechnung
-                aus, keine Festlegung.
-                <ul>
-                  {abweichungen.map((text) => (
-                    <li key={text}>{text}</li>
-                  ))}
-                </ul>
-              </div>
-            )}
-          </div>
+                  <Group gap="xl" wrap="wrap">
+                    <div>
+                      <Text size="xs" c="dimmed" tt="uppercase" fw={600} lts="0.06em">
+                        Förderzeitraum
+                      </Text>
+                      <Text className="mono">
+                        {datum(daten.runde.zeitraum.von)} – {datum(daten.runde.zeitraum.bis)}
+                      </Text>
+                    </div>
+                    <div>
+                      <Text size="xs" c="dimmed" tt="uppercase" fw={600} lts="0.06em">
+                        Fördertopf
+                      </Text>
+                      <Text className="mono" fz="1.5rem" fw={600} c="amt.9" lh={1.2}>
+                        {euro(daten.runde.poolCent)}
+                      </Text>
+                    </div>
+                    <div>
+                      <Text size="xs" c="dimmed" tt="uppercase" fw={600} lts="0.06em">
+                        Höchstbetrag je Vorhaben
+                      </Text>
+                      <Text className="mono">
+                        {daten.runde.hoechstbetragJeVorhabenCent === null
+                          ? 'nicht festgelegt'
+                          : euro(daten.runde.hoechstbetragJeVorhabenCent)}
+                      </Text>
+                    </div>
+                    <div>
+                      <Text size="xs" c="dimmed" tt="uppercase" fw={600} lts="0.06em">
+                        Beitragende
+                      </Text>
+                      <Text className="mono">{verfahren.qf.kennzahlen.beitragendeGesamt}</Text>
+                    </div>
+                  </Group>
 
-          <div className="schalterreihe">
-            <span className="feld__name" style={{ marginRight: '4px' }}>
-              Spalten
-            </span>
-            <label className="schalter">
-              <input
-                type="checkbox"
-                checked={zeigeVergleich}
-                onChange={(e) => setZeigeVergleich(e.target.checked)}
+                  {pruefsumme && (
+                    <Text size="sm" c="dimmed">
+                      Prüfsumme der Eingangsdaten (SHA-256):{' '}
+                      <Text span className="mono" fz="xs" c="var(--tinte)" inherit={false}>
+                        {pruefsumme}
+                      </Text>
+                      <br />
+                      Seed {angewandt?.seed} und dieselben Einstellungen erzeugen diese Runde
+                      erneut — und damit dieselbe Prüfsumme.
+                    </Text>
+                  )}
+
+                  {abweichungen.length > 0 && (
+                    <Alert color="ocker" variant="light" title="Probeberechnung" role="status">
+                      Die Eingangsgrößen weichen von der Ausgangsrunde ab. Eine jetzt erzeugte
+                      Nachweismappe weist eine Probeberechnung aus, keine Festlegung.
+                      <ul style={{ margin: '6px 0 0', paddingLeft: '1.15em' }}>
+                        {abweichungen.map((text) => (
+                          <li key={text}>{text}</li>
+                        ))}
+                      </ul>
+                    </Alert>
+                  )}
+                </Stack>
+              </Paper>
+
+              <Group gap="xl" mb="sm" wrap="wrap">
+                <Checkbox
+                  label="Vergleichsverfahren als Spalten"
+                  checked={zeigeVergleich}
+                  onChange={(e) => setZeigeVergleich(e.currentTarget.checked)}
+                />
+                <Checkbox
+                  label="Kopplungsabschlag als Spalte"
+                  checked={zeigeKopplung}
+                  onChange={(e) => setZeigeKopplung(e.currentTarget.checked)}
+                />
+              </Group>
+
+              <Ergebnistabelle
+                daten={daten}
+                werte={werte}
+                verfahren={verfahren}
+                hebel={hebel}
+                kopplung={kopplung}
+                zeigeVergleich={zeigeVergleich}
+                zeigeKopplung={zeigeKopplung}
               />
-              Vergleichsverfahren (Gießkanne, Windhund, Jury, anteilig nach Euro)
-            </label>
-            <label className="schalter">
-              <input
-                type="checkbox"
-                checked={zeigeKopplung}
-                onChange={(e) => setZeigeKopplung(e.target.checked)}
-              />
-              Kopplungsabschlag (Zusatzverfahren)
-            </label>
+
+              {verfahren.qf.nichtAusgeschoepftCent > 0 && (
+                <p className="notiz notiz--ocker">
+                  <strong>Nicht ausgeschöpft: {euro(verfahren.qf.nichtAusgeschoepftCent)}.</strong>{' '}
+                  Der Betrag konnte nicht verteilt werden, weil alle verbleibenden Vorhaben ihre
+                  Obergrenze erreicht haben. Das ist kein Rundungsfehler, sondern eine
+                  haushaltsrechtlich erhebliche Größe.
+                </p>
+              )}
+
+              {werte.some((w) => w.beitragendeAnzahl <= 1) && (
+                <p className="notiz">
+                  <strong>Vorhaben mit höchstens einer beitragenden Person erhalten null.</strong>{' '}
+                  Die Regel bemisst die Mitträgerschaft durch mehrere Personen; bei einer
+                  einzelnen Person sind Gesamtfinanzierungswert und Beitragssumme rechnerisch
+                  gleich groß. Das ist der von der Regel vorgesehene Fall und kein Rechenfehler.
+                </p>
+              )}
+
+              {zeigeKopplung && kopplung && <Kopplungsgruppen kopplung={kopplung.kopplung} />}
+            </section>
+
+            <Kennzahlenblock daten={daten} verfahren={verfahren} />
+
+            <section className="abschnitt" aria-labelledby="ueberschrift-nachweis">
+              <div className="abschnitt__kopf">
+                <Title order={2} id="ueberschrift-nachweis">
+                  Nachweismappe
+                </Title>
+              </div>
+              <Text c="dimmed" maw="76ch" mb="md">
+                Druckfähige Zusammenstellung: Rechenregel, Zuteilungstabelle, Begründungstext je
+                Zuteilung, Vergleichsrechnung, Rechenprotokoll und die pseudonymisierten
+                Eingangsdaten. Zusätzlich als JSON herunterladbar.
+              </Text>
+              <Group>
+                <Button onClick={() => setMappeOffen(true)} disabled={pruefsumme === ''}>
+                  Nachweismappe erzeugen
+                </Button>
+                {pruefsumme === '' && (
+                  <Text size="sm" c="dimmed">
+                    Prüfsumme wird berechnet …
+                  </Text>
+                )}
+              </Group>
+            </section>
           </div>
+        )}
 
-          <Ergebnistabelle
-            daten={daten}
-            werte={werte}
-            verfahren={verfahren}
-            hebel={hebel}
-            kopplung={kopplung}
-            zeigeVergleich={zeigeVergleich}
-            zeigeKopplung={zeigeKopplung}
-          />
-
-          {verfahren.qf.nichtAusgeschoepftCent > 0 && (
-            <p className="notiz notiz--hinweis">
-              <strong>
-                Nicht ausgeschöpft: {euro(verfahren.qf.nichtAusgeschoepftCent)}.
-              </strong>{' '}
-              Der Betrag konnte nicht verteilt werden, weil alle verbleibenden Vorhaben ihre
-              Obergrenze erreicht haben. Das ist kein Rundungsfehler, sondern eine
-              haushaltsrechtlich erhebliche Größe.
-            </p>
-          )}
-
-          {werte.some((w) => w.beitragendeAnzahl <= 1) && (
-            <p className="notiz">
-              <strong>Vorhaben mit höchstens einer beitragenden Person erhalten null.</strong>{' '}
-              Die Regel bemisst die Mitträgerschaft durch mehrere Personen; bei einer einzelnen
-              Person sind Gesamtfinanzierungswert und Beitragssumme rechnerisch gleich groß. Das
-              ist der von der Regel vorgesehene Fall und kein Rechenfehler.
-            </p>
-          )}
-
-          {zeigeKopplung && kopplung && <Kopplungsgruppen kopplung={kopplung.kopplung} />}
-        </section>
-
-        <Kennzahlenblock daten={daten} verfahren={verfahren} />
-
-        <section className="abschnitt" aria-labelledby="ueberschrift-nachweis">
-          <div className="abschnitt__kopf">
-            <span className="abschnitt__nummer">4</span>
-            <h2 id="ueberschrift-nachweis">Nachweismappe</h2>
-          </div>
-          <p className="abschnitt__einleitung">
-            Druckfähige Zusammenstellung: Rechenregel, Zuteilungstabelle, Begründungstext je
-            Zuteilung, Vergleichsrechnung, Rechenprotokoll und die pseudonymisierten
-            Eingangsdaten. Zusätzlich als JSON herunterladbar.
-          </p>
-          <div className="knopfreihe">
-            <button
-              type="button"
-              className="knopf knopf--haupt"
-              onClick={() => setMappeOffen(true)}
-              disabled={pruefsumme === ''}
-            >
-              Nachweismappe erzeugen
-            </button>
-            {pruefsumme === '' && <span className="feld__hinweis">Prüfsumme wird berechnet …</span>}
-          </div>
-        </section>
-
-        <footer className="fuss">
-          <p>
-            Bemessungsregel in der Fassung <strong>{daten.runde.formelVersion}</strong>. Die
-            veröffentlichte Rechenregel steht in{' '}
+        <footer style={{ marginTop: '72px', borderTop: '1px solid var(--linie)', paddingTop: 18 }}>
+          <Text size="sm" c="dimmed" maw="82ch">
+            Die veröffentlichte Rechenregel steht in{' '}
             <a href="https://github.com/citizen-tech/QF-SPRIND-prototype/blob/main/FORMEL.md">
               FORMEL.md
             </a>
@@ -298,12 +331,9 @@ export default function App() {
             <a href="https://github.com/citizen-tech/QF-SPRIND-prototype">
               github.com/citizen-tech/QF-SPRIND-prototype
             </a>
-            . Lizenz EUPL-1.2.
-          </p>
-          <p>
-            Sämtliche Daten dieser Seite sind synthetisch erzeugt. Es besteht keine Verbindung
-            zu tatsächlichen Vereinen, Vorhaben oder Personen.
-          </p>
+            . Lizenz EUPL-1.2. Sämtliche Daten dieser Seite sind synthetisch erzeugt; es besteht
+            keine Verbindung zu tatsächlichen Vereinen, Vorhaben oder Personen.
+          </Text>
         </footer>
       </main>
     </>
