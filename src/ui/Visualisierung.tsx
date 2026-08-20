@@ -6,15 +6,19 @@ import { berechneVorhabenwerte } from '../kern/qf';
 import type { Rundendaten } from '../kern/typen';
 import Hinweis from './Hinweis';
 
-type Eigenschaften = { daten: Rundendaten };
+type Eigenschaften = {
+  daten: Rundendaten;
+  /** Vorauswahl, wenn aus einer Zeile der Ergebnistabelle hierher gewechselt wurde. */
+  startVorhabenId?: string;
+};
 
 const HOEHE = 300;
 const BREITE = 900;
 const RAND = { oben: 18, rechts: 20, unten: 42, links: 84 };
 
-export default function Visualisierung({ daten }: Eigenschaften) {
+export default function Visualisierung({ daten, startVorhabenId }: Eigenschaften) {
   const werte = useMemo(() => berechneVorhabenwerte(daten), [daten]);
-  const [gewaehlt, setGewaehlt] = useState(daten.vorhaben[0]?.id ?? '');
+  const [gewaehlt, setGewaehlt] = useState(startVorhabenId ?? daten.vorhaben[0]?.id ?? '');
 
   // Bis zum Achtfachen des größten Einzelbeitrags der Runde — weit genug, um
   // das Abflachen der Kurve zu zeigen.

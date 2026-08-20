@@ -72,6 +72,7 @@ export default function App() {
   const [zeigeKopplung, setZeigeKopplung] = useState(false);
   const [mappeOffen, setMappeOffen] = useState(false);
   const [ansicht, setAnsicht] = useState<'prototyp' | 'visualisierung'>('prototyp');
+  const [sichtVorhaben, setSichtVorhaben] = useState<string | undefined>(undefined);
   const scrollMerker = useRef(0);
   const [pruefsumme, setPruefsumme] = useState('');
 
@@ -292,6 +293,7 @@ export default function App() {
               aria-current={ansicht === kennung ? 'page' : undefined}
               onClick={() => {
                 setAnsicht(kennung);
+                if (kennung === 'visualisierung') setSichtVorhaben(undefined);
                 window.scrollTo(0, 0);
               }}
             >
@@ -302,7 +304,13 @@ export default function App() {
       </nav>
 
       <main className="huelle">
-        {ansicht === 'visualisierung' && <Visualisierung daten={sichtdaten} />}
+        {ansicht === 'visualisierung' && (
+          <Visualisierung
+            key={sichtVorhaben ?? 'erstes'}
+            daten={sichtdaten}
+            startVorhabenId={sichtVorhaben}
+          />
+        )}
 
         {ansicht === 'prototyp' && (
         <>
@@ -521,6 +529,11 @@ export default function App() {
                 kopplung={kopplung}
                 zeigeVergleich={zeigeVergleich}
                 zeigeKopplung={zeigeKopplung}
+                onZurVisualisierung={(vorhabenId) => {
+                  setSichtVorhaben(vorhabenId);
+                  setAnsicht('visualisierung');
+                  window.scrollTo(0, 0);
+                }}
               />
 
               {verfahren.qf.nichtAusgeschoepftCent > 0 && (

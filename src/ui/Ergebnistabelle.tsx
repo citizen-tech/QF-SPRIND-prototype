@@ -18,6 +18,7 @@ type Eigenschaften = {
   kopplung: Kopplungsverfahren | null;
   zeigeVergleich: boolean;
   zeigeKopplung: boolean;
+  onZurVisualisierung: (vorhabenId: string) => void;
 };
 
 const VERGLEICHSSPALTEN: VerfahrenId[] = ['giesskanne', 'windhund', 'jury', 'anteilig'];
@@ -99,6 +100,7 @@ export default function Ergebnistabelle({
   kopplung,
   zeigeVergleich,
   zeigeKopplung,
+  onZurVisualisierung,
 }: Eigenschaften) {
   const [offen, setOffen] = useState<ReadonlySet<string>>(new Set());
 
@@ -330,6 +332,18 @@ export default function Ergebnistabelle({
                               </>
                             )}
                           </Text>
+
+                          {/* In Beträgen lässt sich das erst sagen, wenn die Runde
+                              abgeschlossen ist. Genau das leistet die Visualisierung —
+                              deshalb der Weg dorthin statt einer Zahl an dieser Stelle. */}
+                          <Button
+                            variant="default"
+                            size="compact-sm"
+                            mt="sm"
+                            onClick={() => onZurVisualisierung(vorhaben.id)}
+                          >
+                            In Beträgen nachrechnen →
+                          </Button>
                         </div>
 
                         <div>
