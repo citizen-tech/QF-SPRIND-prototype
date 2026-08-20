@@ -140,6 +140,90 @@ body {
   overflow-wrap: anywhere;
 }
 
+/* --- Hauptnavigation ---------------------------------------------------- */
+
+.hauptnavigation {
+  background: var(--flaeche);
+  border-bottom: 1px solid var(--linie);
+}
+
+.hauptnavigation__inhalt {
+  max-width: var(--spalte);
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  gap: 4px;
+}
+
+.hauptnavigation__punkt {
+  font: inherit;
+  font-size: 0.94rem;
+  font-weight: 500;
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  padding: 12px 14px;
+  margin-bottom: -1px;
+  color: var(--tinte-still);
+  cursor: pointer;
+}
+
+.hauptnavigation__punkt:hover {
+  color: var(--amt);
+}
+
+.hauptnavigation__punkt[aria-current='page'] {
+  color: var(--amt);
+  border-bottom-color: var(--amt);
+}
+
+/* --- Kurve -------------------------------------------------------------- */
+
+.kurve {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.kurve__gitter {
+  stroke: var(--linie);
+  stroke-width: 1;
+}
+
+.kurve__linie {
+  fill: none;
+  stroke: var(--amt);
+  stroke-width: 2.5;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.kurve__lot {
+  stroke: var(--linie-kraeftig);
+  stroke-width: 1;
+  stroke-dasharray: 3 3;
+}
+
+.kurve__punkt {
+  fill: var(--amt);
+  stroke: var(--flaeche);
+  stroke-width: 2.5;
+}
+
+.kurve__marke,
+.kurve__achse {
+  font-family: var(--mantine-font-family-monospace);
+  font-size: 11px;
+  fill: var(--tinte-still);
+}
+
+.kurve__achse {
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 10px;
+}
+
 /* --- Gerüst ------------------------------------------------------------- */
 
 .huelle {

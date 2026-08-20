@@ -20,6 +20,12 @@ Bund und Ländern finanziertes Programm mit 110 beitragenden Stellen und 8 Mio. 
 Beide rechnen mit **derselben Bemessungsregel in derselben Fassung** — das ist der
 Beleg für die Skalierbarkeit, nicht ein zweites Werkzeug.
 
+Ein zweiter Bereich zeigt dieselbe Runde **aus Sicht der Beitragenden**: Wie
+ändert sich die Zuteilung, wenn eine weitere Person mitträgt? Die Beträge dort
+sind ausdrücklich die **Nachrechnung einer abgeschlossenen Runde**, keine
+Vorhersage auf eine laufende — bei gedeckeltem Topf hängt die Wirkung eines
+Beitrags von allen übrigen ab und stünde erst am Rundenende fest.
+
 Der Satz, den die Seite belegen soll:
 
 > Bei gleicher Eingabe kommt immer dasselbe heraus, jede Fassung trägt eine
@@ -78,7 +84,8 @@ src/kern/        reine Rechenbibliothek — keine React-, DOM- oder UI-Importe
                  (Formel, Verteilung, Vergleichsverfahren, Kennzahlen,
                   Prüfsumme, Hebel, Kopplungsabschlag, Rundenerzeuger,
                   Runde als Link)
-src/ui/          Oberfläche: Einstellungen, eine Ergebnistabelle, Kennzahlen
+src/ui/          Oberfläche: Einstellungen, eine Ergebnistabelle, Kennzahlen,
+                 Visualisierung aus Sicht der Beitragenden
 src/nachweis/    Nachweismappe: Objektaufbau, Begründungstexte, Druckansicht
 src/daten/       erzeugte Demodaten (eingecheckt)
 tools/           schreibt Demodaten und Golden-Datei

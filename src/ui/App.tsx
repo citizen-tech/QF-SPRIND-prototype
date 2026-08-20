@@ -40,6 +40,7 @@ import Kennzahlenblock from './Kennzahlenblock';
 import Hinweis, { ERKLAERUNG } from './Hinweis';
 import Kopplungsgruppen from './Kopplungsgruppen';
 import Simulationslauf, { LAUFDAUER_MS, LAUFSCHRITTE } from './Simulationslauf';
+import Visualisierung from './Visualisierung';
 
 function gleich(a: Simulationseinstellungen, b: Simulationseinstellungen): boolean {
   return JSON.stringify(a) === JSON.stringify(b);
@@ -70,10 +71,18 @@ export default function App() {
   const [zeigeVergleich, setZeigeVergleich] = useState(false);
   const [zeigeKopplung, setZeigeKopplung] = useState(false);
   const [mappeOffen, setMappeOffen] = useState(false);
+  const [ansicht, setAnsicht] = useState<'prototyp' | 'visualisierung'>('prototyp');
   const scrollMerker = useRef(0);
   const [pruefsumme, setPruefsumme] = useState('');
 
   const daten = useMemo(() => (angewandt ? erzeugeRunde(angewandt) : null), [angewandt]);
+
+  // Die Visualisierung steht für sich: Wer sie ohne vorherige Simulation
+  // aufruft, bekommt die Ausgangsrunde von Bund und Ländern zu sehen.
+  const sichtdaten = useMemo(
+    () => daten ?? erzeugeRunde(AUSGANGSRUNDEN.bund),
+    [daten],
+  );
   const werte = useMemo(() => (daten ? berechneVorhabenwerte(daten) : null), [daten]);
   const verfahren = useMemo(
     () => (daten && werte ? alleVerfahren(daten, werte) : null),
@@ -268,7 +277,35 @@ export default function App() {
         </div>
       </header>
 
+      <nav className="hauptnavigation" aria-label="Hauptbereiche">
+        <div className="hauptnavigation__inhalt">
+          {(
+            [
+              ['prototyp', 'Prototyp'],
+              ['visualisierung', 'Visualisierung'],
+            ] as const
+          ).map(([kennung, beschriftung]) => (
+            <button
+              key={kennung}
+              type="button"
+              className="hauptnavigation__punkt"
+              aria-current={ansicht === kennung ? 'page' : undefined}
+              onClick={() => {
+                setAnsicht(kennung);
+                window.scrollTo(0, 0);
+              }}
+            >
+              {beschriftung}
+            </button>
+          ))}
+        </div>
+      </nav>
+
       <main className="huelle">
+        {ansicht === 'visualisierung' && <Visualisierung daten={sichtdaten} />}
+
+        {ansicht === 'prototyp' && (
+        <>
         <section className="abschnitt" aria-labelledby="ueberschrift-programmtyp">
           <div className="abschnitt__kopf">
             <Title order={2} id="ueberschrift-programmtyp">
@@ -535,6 +572,9 @@ export default function App() {
               </Group>
             </section>
           </div>
+        )}
+
+        </>
         )}
 
         <footer style={{ marginTop: '72px', borderTop: '1px solid var(--linie)', paddingTop: 18 }}>
