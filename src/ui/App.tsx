@@ -32,7 +32,6 @@ const PROGRAMMTYP_IDS: Programmtyp[] = ['bund', 'buerger'];
 import { ausLink, nachLink } from '../kern/rundenlink';
 import { alleVerfahren } from '../kern/vergleich';
 import { FORMEL_VERSION } from '../kern/version';
-import { abweichungenVonAusgangsrunde, rundenwerteGleich } from '../nachweis/abweichungen';
 import { baueNachweismappe } from '../nachweis/mappe';
 import NachweismappeAnsicht from '../nachweis/Nachweismappe';
 import Einrichtung from './Einrichtung';
@@ -179,15 +178,14 @@ export default function App() {
   }
 
   const ausgangsrunde = entwurf ? AUSGANGSRUNDEN[entwurf.programmtyp] : null;
+  // Nur dafür da, den Zurücksetzen-Knopf zu sperren, solange nichts zurückzusetzen ist.
   const rundenwerteAbweichend =
-    entwurf !== null && ausgangsrunde !== null && !rundenwerteGleich(entwurf, ausgangsrunde);
+    entwurf !== null &&
+    ausgangsrunde !== null &&
+    JSON.stringify({ ...entwurf, vorhaben: [], seed: 0 }) !==
+      JSON.stringify({ ...ausgangsrunde, vorhaben: [], seed: 0 });
   const entwurfNichtAngewandt =
     angewandt !== null && entwurf !== null && !gleich(entwurf, angewandt);
-
-  const abweichungen = useMemo(
-    () => (angewandt ? abweichungenVonAusgangsrunde(angewandt) : []),
-    [angewandt],
-  );
 
   if (mappeOffen && daten && werte && verfahren) {
     const mappe = baueNachweismappe({
@@ -196,7 +194,6 @@ export default function App() {
       verfahren,
       pruefsumme,
       erzeugtAm: new Date().toISOString(),
-      abweichungen,
       merkmalsnamen: PROGRAMMTYPEN[angewandt!.programmtyp].merkmalsnamen,
     });
     return <NachweismappeAnsicht mappe={mappe} onSchliessen={mappeSchliessen} />;
@@ -362,9 +359,15 @@ export default function App() {
               </div>
 
               {entwurfNichtAngewandt && (
-                <Alert color="ocker" variant="light" mb="md" role="status">
-                  Die Einstellungen wurden geändert, aber noch nicht angewandt. Die Tabelle zeigt
-                  weiterhin die zuletzt gerechnete Runde.
+                <Alert
+                  color="ocker"
+                  variant="light"
+                  mb="md"
+                  role="status"
+                  title="Änderungen noch nicht gerechnet"
+                >
+                  Unten steht die zuletzt gerechnete Runde. Um die geänderten Einstellungen zu
+                  sehen, oben auf „Simulation erneut starten“ drücken.
                 </Alert>
               )}
 
@@ -445,17 +448,10 @@ export default function App() {
                     </Group>
                   )}
 
-                  {abweichungen.length > 0 && (
-                    <Alert color="ocker" variant="light" title="Probeberechnung" role="status">
-                      Die Eingangsgrößen weichen von der Ausgangsrunde ab. Eine jetzt erzeugte
-                      Nachweismappe weist eine Probeberechnung aus, keine Festlegung.
-                      <ul style={{ margin: '6px 0 0', paddingLeft: '1.15em' }}>
-                        {abweichungen.map((text) => (
-                          <li key={text}>{text}</li>
-                        ))}
-                      </ul>
-                    </Alert>
-                  )}
+                  <Text size="sm" c="var(--tinte-lese)">
+                    Simulierte Runde. Die Nachweismappe weist sie als Probeberechnung aus,
+                    nicht als Festlegung.
+                  </Text>
                 </Stack>
               </Paper>
 

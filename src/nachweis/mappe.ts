@@ -7,6 +7,11 @@ import type { VerfahrenId, Verfahrensergebnis } from '../kern/vergleich';
 import { VERFAHREN, VERFAHREN_IDS } from '../kern/vergleich';
 import { begruendung } from './begruendung';
 
+export const HINWEIS_PROBEBERECHNUNG =
+  'Diese Zusammenstellung dokumentiert eine simulierte Runde und weist damit eine ' +
+  'Probeberechnung aus, keine Festlegung. Vorhaben, Träger und Beiträge sind synthetisch ' +
+  'erzeugt; die Eingangsgrößen wurden für diese Vorführung gewählt.';
+
 export const HINWEIS_PROTOTYP =
   'Prototyp — synthetische Daten — kein Verwaltungsakt. ' +
   'Diese Zusammenstellung dient allein der Demonstration der Nachrechenbarkeit. ' +
@@ -36,7 +41,7 @@ export type Nachweismappe = {
   erzeugtAm: string;
   hinweis: string;
   istProbeberechnung: boolean;
-  abweichungen: string[];
+  hinweisProbeberechnung: string;
   formelVersion: string;
   pruefsummeEingangsdaten: string;
   runde: Rundendaten['runde'];
@@ -100,11 +105,9 @@ export function baueNachweismappe(argumente: {
   verfahren: Record<VerfahrenId, Verfahrensergebnis>;
   pruefsumme: string;
   erzeugtAm: string;
-  abweichungen: string[];
   merkmalsnamen: { region: string; altersgruppe: string };
 }): Nachweismappe {
-  const { daten, werte, verfahren, pruefsumme, erzeugtAm, abweichungen, merkmalsnamen } =
-    argumente;
+  const { daten, werte, verfahren, pruefsumme, erzeugtAm, merkmalsnamen } = argumente;
 
   const qf = verfahren.qf;
   const werteNachId = new Map(werte.map((w) => [w.vorhabenId, w]));
@@ -147,8 +150,10 @@ export function baueNachweismappe(argumente: {
   return {
     erzeugtAm,
     hinweis: HINWEIS_PROTOTYP,
-    istProbeberechnung: abweichungen.length > 0,
-    abweichungen,
+    // Jede hier gerechnete Runde ist simuliert. Der Hinweis gilt deshalb immer,
+    // nicht nur bei Abweichung von irgendwelchen Voreinstellungen.
+    istProbeberechnung: true,
+    hinweisProbeberechnung: HINWEIS_PROBEBERECHNUNG,
     formelVersion: daten.runde.formelVersion,
     pruefsummeEingangsdaten: pruefsumme,
     runde: daten.runde,

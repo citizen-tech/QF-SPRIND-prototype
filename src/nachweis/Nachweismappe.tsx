@@ -117,12 +117,7 @@ export default function NachweismappeAnsicht({ mappe, onSchliessen }: Eigenschaf
 
           {mappe.istProbeberechnung && (
             <Alert color="ocker" variant="light" mt="md" title="Probeberechnung, keine Festlegung">
-              Die Eingangsgrößen weichen von der Ausgangsrunde ab:
-              <ul style={{ margin: '6px 0 0', paddingLeft: '1.15em' }}>
-                {mappe.abweichungen.map((text) => (
-                  <li key={text}>{text}</li>
-                ))}
-              </ul>
+              {mappe.hinweisProbeberechnung}
             </Alert>
           )}
         </Paper>
