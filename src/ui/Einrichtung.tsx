@@ -19,7 +19,12 @@ import {
 } from '@mantine/core';
 import { euro } from '../format';
 import type { Simulationseinstellungen, Vorhabenrolle } from '../kern/simulation';
-import { AUSGANGSRUNDEN, PROGRAMMTYPEN, rollennamen, vorhabenvorgabe } from '../kern/simulation';
+import {
+  AUSGANGSRUNDEN,
+  PROGRAMMTYPEN,
+  ROLLENNAMEN,
+  vorhabenvorgabe,
+} from '../kern/simulation';
 import Hinweis, { ERKLAERUNG } from './Hinweis';
 import {
   centZuSchieber,
@@ -41,7 +46,7 @@ type Eigenschaften = {
   laeuft: boolean;
 };
 
-const ROLLEN: Vorhabenrolle[] = ['normal', 'wenige-grosse', 'allein', 'absprache'];
+const ROLLEN: Vorhabenrolle[] = ['normal', 'wenige-grosse', 'absprache'];
 
 export default function Einrichtung({
   entwurf,
@@ -78,7 +83,6 @@ export default function Einrichtung({
     });
 
   const welt = PROGRAMMTYPEN[entwurf.programmtyp];
-  const musternamen = rollennamen(entwurf.programmtyp);
   const ohneHoechstbetrag = entwurf.hoechstbetragJeVorhabenCent === null;
   const abspracheVorhaben = entwurf.vorhaben.filter((v) => v.rolle === 'absprache').length;
 
@@ -370,7 +374,7 @@ export default function Einrichtung({
                           aria-label={`Muster für Vorhaben ${index + 1}`}
                           data={ROLLEN.map((rolle) => ({
                             value: rolle,
-                            label: musternamen[rolle],
+                            label: ROLLENNAMEN[rolle],
                           }))}
                           value={v.rolle}
                           onChange={(wert) =>

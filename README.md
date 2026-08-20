@@ -9,6 +9,12 @@ Die Simulation ist **seed-gesteuert**: Gleicher Seed und gleiche Einstellungen e
 dieselbe Runde und damit dieselbe Prüfsumme. Zufällig ist nur, wie die Runde zustande
 kommt, nie, was daraus gerechnet wird.
 
+Zwei **Programmtypen** stehen zur Wahl, vier Größenordnungen auseinander: eine
+Bürgerbeteiligung mit 180 Personen und einem Topf von 2.500 €, und ein gemeinsam von
+Bund und Ländern finanziertes Programm mit 110 beitragenden Stellen und 8 Mio. €.
+Beide rechnen mit **derselben Bemessungsregel in derselben Fassung** — das ist der
+Beleg für die Skalierbarkeit, nicht ein zweites Werkzeug.
+
 Der Satz, den die Seite belegen soll:
 
 > Bei gleicher Eingabe kommt immer dasselbe heraus, jede Fassung trägt eine

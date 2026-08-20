@@ -47,9 +47,9 @@ export const ERKLAERUNG = {
   jurypunkte:
     '0 bis 100. Wird ausschließlich für die Vergleichsrechnung „Jury-Ranking“ verwendet und geht nicht in die Bemessung ein.',
   muster:
-    'Setzt gezielt die Fälle, an denen sich die Verfahren unterscheiden: breite Unterstützung, wenige große Beiträge, nur eine beitragende Person oder Mitträgerschaft durch die Absprachegruppe.',
+    'Setzt gezielt die Fälle, an denen sich die Verfahren unterscheiden: breite Unterstützung, wenige große Beiträge oder Mitträgerschaft durch die Absprachegruppe.',
   wuerfeln:
-    'Zieht einen neuen Seed und leitet daraus sechs bis zehn Vorhaben mit Titel, Träger, Kostenplan, Zuspruch, Jurypunkten und Muster ab. Die Rundenwerte darüber bleiben unverändert; die Kostenpläne richten sich nach ihnen, damit der Fördertopf knapp bleibt.',
+    'Zieht einen neuen Seed und leitet daraus einen vollständigen Satz Vorhaben mit Titel, Träger, Kostenplan, Zuspruch, Jurypunkten und Muster ab. Die Rundenwerte darüber bleiben unverändert; die Kostenpläne richten sich nach ihnen, damit der Fördertopf knapp bleibt.',
 
   // Ergebnisteil
   foerderzeitraum:
@@ -95,7 +95,4 @@ export const ERKLAERUNG = {
     'Differenz zwischen Fördertopf und Summe der Zuteilungen. Haushaltsrechtlich erheblich und kein Rundungsfehler.',
   kennDurchlaeufe:
     'Zahl der Durchläufe im Verteilverfahren. Mehr als einer bedeutet, dass mindestens ein Vorhaben auf seine Obergrenze gekürzt und der Rest weiterverteilt wurde.',
-
-  nachweismappe:
-    'Druckfähige Zusammenstellung mit Rechenregel, Zuteilungstabelle, Begründung je Zuteilung, Vergleichsrechnung, Rechenprotokoll und pseudonymisierten Eingangsdaten. Kein Zuwendungsbescheid.',
 } as const;

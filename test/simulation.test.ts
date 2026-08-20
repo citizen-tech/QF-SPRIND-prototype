@@ -93,19 +93,21 @@ describe('Einstellungen wirken', () => {
     expect(Math.max(0, ...gruppen.values())).toBeLessThan(5);
   });
 
-  it('setzt die Rolle "Nur eine beitragende Person" um', () => {
+  it('setzt die Rolle "Wenige große Beiträge" um', () => {
     const daten = erzeugeRunde({
       ...STANDARD_EINSTELLUNGEN,
-      vorhaben: [
-        vorhabenvorgabe(0),
-        vorhabenvorgabe(1),
-        { ...vorhabenvorgabe(2, 'allein') },
-      ],
+      vorhaben: [vorhabenvorgabe(0), vorhabenvorgabe(1), vorhabenvorgabe(2, 'wenige-grosse')],
     });
     const werte = berechneVorhabenwerte(daten);
-    const allein = werte.find((w) => w.vorhabenId === 'v-3')!;
-    expect(allein.beitragendeAnzahl).toBe(1);
-    expect(allein.rohEuro).toBe(0);
+    const gross = werte.find((w) => w.vorhabenId === 'v-3')!;
+    const breit = werte.find((w) => w.vorhabenId === 'v-1')!;
+    expect(gross.beitragendeAnzahl).toBe(3);
+    // Der einzelne Beitrag ist ein Vielfaches eines gewöhnlichen …
+    expect(gross.eigenCent / gross.beitragendeAnzahl).toBeGreaterThan(
+      (breit.eigenCent / breit.beitragendeAnzahl) * 5,
+    );
+    // … und trotzdem fällt der Bemessungswert kleiner aus, weil Köpfe zählen.
+    expect(gross.rohEuro).toBeLessThan(breit.rohEuro);
   });
 });
 
@@ -186,9 +188,11 @@ describe('Ausgewürfelte Vorhaben sind plausibel', () => {
     }
   });
 
-  it('lässt höchstens ein Vorhaben mit einer einzigen beitragenden Person zu', () => {
+  it('lässt kein Vorhaben mit einer einzigen beitragenden Seite entstehen', () => {
+    // Ein solches Vorhaben erhält null und liest sich in der Gegenüberstellung
+    // wie ein Nachteil des Verfahrens, obwohl es nur die Regel anwendet.
     for (const { werte } of runden) {
-      expect(werte.filter((w) => w.beitragendeAnzahl <= 1).length).toBeLessThanOrEqual(1);
+      expect(werte.every((w) => w.beitragendeAnzahl > 1)).toBe(true);
     }
   });
 

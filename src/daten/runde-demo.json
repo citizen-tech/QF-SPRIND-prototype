@@ -23,7 +23,7 @@
       "titel": "Material für eine Kartierungsaktion zu Gehwegschäden",
       "traeger": "Initiative Gehwegcheck e. V.",
       "beantragtCent": 100000,
-      "eingangZeitpunkt": "2026-06-24T21:36:00.000Z",
+      "eingangZeitpunkt": "2026-06-24T00:22:00.000Z",
       "jurypunkte": 74
     },
     {
@@ -31,7 +31,7 @@
       "titel": "Anschaffung eines mobilen Verkehrszählgeräts",
       "traeger": "Verkehrswende Nordkiez e. V.",
       "beantragtCent": 100000,
-      "eingangZeitpunkt": "2026-06-03T12:19:00.000Z",
+      "eingangZeitpunkt": "2026-06-03T13:03:00.000Z",
       "jurypunkte": 92
     },
     {
@@ -39,7 +39,7 @@
       "titel": "Entsiegelungs- und Pflanzaktion am Quartiersplatz",
       "traeger": "Quartiersgrün Süd e. V.",
       "beantragtCent": 100000,
-      "eingangZeitpunkt": "2026-06-21T13:03:00.000Z",
+      "eingangZeitpunkt": "2026-06-21T14:53:00.000Z",
       "jurypunkte": 88
     },
     {
@@ -47,15 +47,15 @@
       "titel": "Workshop zur Schulwegsicherheit",
       "traeger": "Elternnetzwerk Ostkiez e. V.",
       "beantragtCent": 80000,
-      "eingangZeitpunkt": "2026-06-18T22:51:00.000Z",
+      "eingangZeitpunkt": "2026-06-18T09:48:00.000Z",
       "jurypunkte": 81
     },
     {
       "id": "v-5",
       "titel": "Übersetzung von Infomaterial zur Verkehrssicherheit",
       "traeger": "Nachbarschaftsforum West e. V.",
-      "beantragtCent": 20000,
-      "eingangZeitpunkt": "2026-06-06T08:38:00.000Z",
+      "beantragtCent": 30000,
+      "eingangZeitpunkt": "2026-06-06T21:36:00.000Z",
       "jurypunkte": 44
     },
     {
@@ -63,7 +63,7 @@
       "titel": "Wetterschutz an der Haltestelle Nordstraße",
       "traeger": "Initiative Haltestelle Nord e. V.",
       "beantragtCent": 70000,
-      "eingangZeitpunkt": "2026-06-12T02:32:00.000Z",
+      "eingangZeitpunkt": "2026-06-12T18:01:00.000Z",
       "jurypunkte": 63
     },
     {
@@ -71,7 +71,7 @@
       "titel": "Offene Reparaturwerkstatt für Fahrräder",
       "traeger": "Radwerkstatt Kiezmitte e. V.",
       "beantragtCent": 65000,
-      "eingangZeitpunkt": "2026-06-09T19:40:00.000Z",
+      "eingangZeitpunkt": "2026-06-09T06:04:00.000Z",
       "jurypunkte": 69
     },
     {
@@ -79,7 +79,7 @@
       "titel": "Beleuchtung des Wegs zwischen Park und Bahnhof",
       "traeger": "Wegelicht Initiative e. V.",
       "beantragtCent": 60000,
-      "eingangZeitpunkt": "2026-06-15T02:43:00.000Z",
+      "eingangZeitpunkt": "2026-06-15T07:46:00.000Z",
       "jurypunkte": 57
     }
   ],
@@ -87,8 +87,8 @@
     {
       "vorhabenId": "v-1",
       "beitragendeId": "b-0002",
-      "betragCent": 909,
-      "zeitpunkt": "2026-09-13T13:00:00.000Z",
+      "betragCent": 829,
+      "zeitpunkt": "2026-08-25T23:35:00.000Z",
       "merkmal": {
         "region": "Berlin-Ost",
         "altersgruppe": "30-44"
@@ -97,88 +97,48 @@
     {
       "vorhabenId": "v-1",
       "beitragendeId": "b-0003",
-      "betragCent": 796,
-      "zeitpunkt": "2026-08-31T16:03:00.000Z",
+      "betragCent": 751,
+      "zeitpunkt": "2026-09-21T04:29:00.000Z",
       "merkmal": {
         "region": "Berlin-Ost",
-        "altersgruppe": "30-44"
+        "altersgruppe": "60 und älter"
       }
     },
     {
       "vorhabenId": "v-1",
       "beitragendeId": "b-0005",
-      "betragCent": 657,
-      "zeitpunkt": "2026-07-30T12:12:00.000Z",
+      "betragCent": 767,
+      "zeitpunkt": "2026-09-29T04:44:00.000Z",
       "merkmal": {
-        "region": "Berlin-West",
-        "altersgruppe": "unter 30"
+        "region": "Berlin-Nord",
+        "altersgruppe": "30-44"
       }
     },
     {
       "vorhabenId": "v-1",
       "beitragendeId": "b-0010",
-      "betragCent": 570,
-      "zeitpunkt": "2026-08-16T07:46:00.000Z",
+      "betragCent": 925,
+      "zeitpunkt": "2026-07-01T01:55:00.000Z",
       "merkmal": {
-        "region": "Berlin-West",
-        "altersgruppe": "45-59"
+        "region": "Berlin-Süd",
+        "altersgruppe": "unter 30"
       }
     },
     {
       "vorhabenId": "v-1",
       "beitragendeId": "b-0013",
-      "betragCent": 940,
-      "zeitpunkt": "2026-07-02T10:05:00.000Z",
+      "betragCent": 1116,
+      "zeitpunkt": "2026-08-26T08:08:00.000Z",
       "merkmal": {
         "region": "Berlin-Süd",
-        "altersgruppe": "45-59"
-      }
-    },
-    {
-      "vorhabenId": "v-1",
-      "beitragendeId": "b-0027",
-      "betragCent": 677,
-      "zeitpunkt": "2026-09-14T02:16:00.000Z",
-      "merkmal": {
-        "region": "Berlin-Nord",
-        "altersgruppe": "unter 30"
+        "altersgruppe": "30-44"
       }
     },
     {
       "vorhabenId": "v-1",
       "beitragendeId": "b-0031",
-      "betragCent": 866,
-      "zeitpunkt": "2026-09-22T16:49:00.000Z",
-      "merkmal": {
-        "region": "Berlin-Süd",
-        "altersgruppe": "unter 30"
-      }
-    },
-    {
-      "vorhabenId": "v-1",
-      "beitragendeId": "b-0035",
-      "betragCent": 822,
-      "zeitpunkt": "2026-09-27T07:23:00.000Z",
-      "merkmal": {
-        "region": "Berlin-Ost",
-        "altersgruppe": "45-59"
-      }
-    },
-    {
-      "vorhabenId": "v-1",
-      "beitragendeId": "b-0041",
-      "betragCent": 619,
-      "zeitpunkt": "2026-09-12T04:19:00.000Z",
-      "merkmal": {
-        "region": "Berlin-Süd",
-        "altersgruppe": "30-44"
-      }
-    },
-    {
-      "vorhabenId": "v-1",
-      "beitragendeId": "b-0042",
-      "betragCent": 828,
-      "zeitpunkt": "2026-08-31T10:00:00.000Z",
+      "betragCent": 940,
+      "zeitpunkt": "2026-07-02T10:05:00.000Z",
       "merkmal": {
         "region": "Berlin-Nord",
         "altersgruppe": "30-44"
@@ -186,39 +146,79 @@
     },
     {
       "vorhabenId": "v-1",
-      "beitragendeId": "b-0043",
-      "betragCent": 953,
-      "zeitpunkt": "2026-07-16T04:54:00.000Z",
+      "beitragendeId": "b-0033",
+      "betragCent": 542,
+      "zeitpunkt": "2026-07-26T19:34:00.000Z",
       "merkmal": {
-        "region": "Berlin-West",
+        "region": "Berlin-Ost",
+        "altersgruppe": "unter 30"
+      }
+    },
+    {
+      "vorhabenId": "v-1",
+      "beitragendeId": "b-0038",
+      "betragCent": 828,
+      "zeitpunkt": "2026-08-31T10:00:00.000Z",
+      "merkmal": {
+        "region": "Berlin-Nord",
+        "altersgruppe": "45-59"
+      }
+    },
+    {
+      "vorhabenId": "v-1",
+      "beitragendeId": "b-0042",
+      "betragCent": 1050,
+      "zeitpunkt": "2026-07-07T23:10:00.000Z",
+      "merkmal": {
+        "region": "Berlin-Nord",
+        "altersgruppe": "60 und älter"
+      }
+    },
+    {
+      "vorhabenId": "v-1",
+      "beitragendeId": "b-0043",
+      "betragCent": 704,
+      "zeitpunkt": "2026-07-25T04:34:00.000Z",
+      "merkmal": {
+        "region": "Berlin-Ost",
         "altersgruppe": "30-44"
       }
     },
     {
       "vorhabenId": "v-1",
       "beitragendeId": "b-0047",
-      "betragCent": 829,
-      "zeitpunkt": "2026-08-25T23:35:00.000Z",
+      "betragCent": 1110,
+      "zeitpunkt": "2026-07-12T12:03:00.000Z",
       "merkmal": {
-        "region": "Berlin-Ost",
+        "region": "Berlin-Süd",
         "altersgruppe": "45-59"
       }
     },
     {
       "vorhabenId": "v-1",
       "beitragendeId": "b-0048",
-      "betragCent": 704,
-      "zeitpunkt": "2026-07-25T04:34:00.000Z",
+      "betragCent": 848,
+      "zeitpunkt": "2026-07-02T14:39:00.000Z",
+      "merkmal": {
+        "region": "Berlin-Nord",
+        "altersgruppe": "45-59"
+      }
+    },
+    {
+      "vorhabenId": "v-1",
+      "beitragendeId": "b-0053",
+      "betragCent": 1032,
+      "zeitpunkt": "2026-08-02T08:30:00.000Z",
       "merkmal": {
         "region": "Berlin-Süd",
-        "altersgruppe": "unter 30"
+        "altersgruppe": "60 und älter"
       }
     },
     {
       "vorhabenId": "v-1",
       "beitragendeId": "b-0059",
-      "betragCent": 1050,
-      "zeitpunkt": "2026-07-07T23:10:00.000Z",
+      "betragCent": 579,
+      "zeitpunkt": "2026-08-20T12:45:00.000Z",
       "merkmal": {
         "region": "Berlin-Ost",
         "altersgruppe": "30-44"
@@ -227,88 +227,88 @@
     {
       "vorhabenId": "v-1",
       "beitragendeId": "b-0060",
-      "betragCent": 538,
-      "zeitpunkt": "2026-08-13T20:57:00.000Z",
+      "betragCent": 652,
+      "zeitpunkt": "2026-08-16T19:47:00.000Z",
       "merkmal": {
         "region": "Berlin-Ost",
+        "altersgruppe": "unter 30"
+      }
+    },
+    {
+      "vorhabenId": "v-1",
+      "beitragendeId": "b-0067",
+      "betragCent": 822,
+      "zeitpunkt": "2026-08-22T12:06:00.000Z",
+      "merkmal": {
+        "region": "Berlin-Süd",
         "altersgruppe": "30-44"
       }
     },
     {
       "vorhabenId": "v-1",
-      "beitragendeId": "b-0069",
-      "betragCent": 608,
-      "zeitpunkt": "2026-09-02T20:23:00.000Z",
+      "beitragendeId": "b-0072",
+      "betragCent": 504,
+      "zeitpunkt": "2026-09-23T12:53:00.000Z",
       "merkmal": {
-        "region": "Berlin-Nord",
-        "altersgruppe": "unter 30"
-      }
-    },
-    {
-      "vorhabenId": "v-1",
-      "beitragendeId": "b-0071",
-      "betragCent": 690,
-      "zeitpunkt": "2026-09-17T07:14:00.000Z",
-      "merkmal": {
-        "region": "Berlin-Ost",
+        "region": "Berlin-West",
         "altersgruppe": "45-59"
       }
     },
     {
       "vorhabenId": "v-1",
-      "beitragendeId": "b-0072",
-      "betragCent": 927,
-      "zeitpunkt": "2026-07-08T09:42:00.000Z",
+      "beitragendeId": "b-0073",
+      "betragCent": 659,
+      "zeitpunkt": "2026-09-18T17:51:00.000Z",
       "merkmal": {
-        "region": "Berlin-West",
+        "region": "Berlin-Nord",
         "altersgruppe": "60 und älter"
       }
     },
     {
       "vorhabenId": "v-1",
-      "beitragendeId": "b-0076",
-      "betragCent": 954,
-      "zeitpunkt": "2026-07-03T07:30:00.000Z",
-      "merkmal": {
-        "region": "Berlin-Ost",
-        "altersgruppe": "unter 30"
-      }
-    },
-    {
-      "vorhabenId": "v-1",
       "beitragendeId": "b-0077",
-      "betragCent": 751,
-      "zeitpunkt": "2026-09-21T04:29:00.000Z",
+      "betragCent": 570,
+      "zeitpunkt": "2026-08-16T07:46:00.000Z",
       "merkmal": {
-        "region": "Berlin-Ost",
-        "altersgruppe": "unter 30"
-      }
-    },
-    {
-      "vorhabenId": "v-1",
-      "beitragendeId": "b-0079",
-      "betragCent": 536,
-      "zeitpunkt": "2026-08-07T07:27:00.000Z",
-      "merkmal": {
-        "region": "Berlin-Ost",
+        "region": "Berlin-Nord",
         "altersgruppe": "30-44"
       }
     },
     {
       "vorhabenId": "v-1",
       "beitragendeId": "b-0083",
-      "betragCent": 880,
-      "zeitpunkt": "2026-09-08T19:07:00.000Z",
+      "betragCent": 547,
+      "zeitpunkt": "2026-07-30T12:27:00.000Z",
       "merkmal": {
-        "region": "Berlin-West",
-        "altersgruppe": "45-59"
+        "region": "Berlin-Süd",
+        "altersgruppe": "30-44"
+      }
+    },
+    {
+      "vorhabenId": "v-1",
+      "beitragendeId": "b-0084",
+      "betragCent": 813,
+      "zeitpunkt": "2026-07-24T10:59:00.000Z",
+      "merkmal": {
+        "region": "Berlin-Süd",
+        "altersgruppe": "30-44"
       }
     },
     {
       "vorhabenId": "v-1",
       "beitragendeId": "b-0098",
-      "betragCent": 1136,
-      "zeitpunkt": "2026-08-27T16:27:00.000Z",
+      "betragCent": 880,
+      "zeitpunkt": "2026-09-08T19:07:00.000Z",
+      "merkmal": {
+        "region": "Berlin-Nord",
+        "altersgruppe": "30-44"
+      }
+    },
+    {
+      "vorhabenId": "v-1",
+      "beitragendeId": "b-0099",
+      "betragCent": 536,
+      "zeitpunkt": "2026-08-07T07:27:00.000Z",
       "merkmal": {
         "region": "Berlin-Nord",
         "altersgruppe": "unter 30"
@@ -316,29 +316,69 @@
     },
     {
       "vorhabenId": "v-1",
-      "beitragendeId": "b-0101",
-      "betragCent": 767,
-      "zeitpunkt": "2026-09-29T04:44:00.000Z",
+      "beitragendeId": "b-0104",
+      "betragCent": 796,
+      "zeitpunkt": "2026-08-31T16:03:00.000Z",
       "merkmal": {
-        "region": "Berlin-Süd",
+        "region": "Berlin-Nord",
         "altersgruppe": "45-59"
       }
     },
     {
       "vorhabenId": "v-1",
-      "beitragendeId": "b-0110",
-      "betragCent": 1032,
-      "zeitpunkt": "2026-08-02T08:30:00.000Z",
+      "beitragendeId": "b-0108",
+      "betragCent": 690,
+      "zeitpunkt": "2026-09-17T07:14:00.000Z",
       "merkmal": {
-        "region": "Berlin-Ost",
+        "region": "Berlin-Süd",
         "altersgruppe": "unter 30"
       }
     },
     {
       "vorhabenId": "v-1",
       "beitragendeId": "b-0111",
-      "betragCent": 848,
-      "zeitpunkt": "2026-07-02T14:39:00.000Z",
+      "betragCent": 866,
+      "zeitpunkt": "2026-09-22T16:49:00.000Z",
+      "merkmal": {
+        "region": "Berlin-West",
+        "altersgruppe": "unter 30"
+      }
+    },
+    {
+      "vorhabenId": "v-1",
+      "beitragendeId": "b-0113",
+      "betragCent": 1136,
+      "zeitpunkt": "2026-08-27T16:27:00.000Z",
+      "merkmal": {
+        "region": "Berlin-Ost",
+        "altersgruppe": "30-44"
+      }
+    },
+    {
+      "vorhabenId": "v-1",
+      "beitragendeId": "b-0118",
+      "betragCent": 822,
+      "zeitpunkt": "2026-09-27T07:23:00.000Z",
+      "merkmal": {
+        "region": "Berlin-Nord",
+        "altersgruppe": "45-59"
+      }
+    },
+    {
+      "vorhabenId": "v-1",
+      "beitragendeId": "b-0130",
+      "betragCent": 1018,
+      "zeitpunkt": "2026-09-23T09:03:00.000Z",
+      "merkmal": {
+        "region": "Berlin-West",
+        "altersgruppe": "30-44"
+      }
+    },
+    {
+      "vorhabenId": "v-1",
+      "beitragendeId": "b-0135",
+      "betragCent": 641,
+      "zeitpunkt": "2026-09-04T23:31:00.000Z",
       "merkmal": {
         "region": "Berlin-Ost",
         "altersgruppe": "60 und älter"
@@ -346,9 +386,49 @@
     },
     {
       "vorhabenId": "v-1",
-      "beitragendeId": "b-0112",
-      "betragCent": 813,
-      "zeitpunkt": "2026-07-24T10:59:00.000Z",
+      "beitragendeId": "b-0136",
+      "betragCent": 601,
+      "zeitpunkt": "2026-09-03T10:18:00.000Z",
+      "merkmal": {
+        "region": "Berlin-Ost",
+        "altersgruppe": "30-44"
+      }
+    },
+    {
+      "vorhabenId": "v-1",
+      "beitragendeId": "b-0138",
+      "betragCent": 927,
+      "zeitpunkt": "2026-07-08T09:42:00.000Z",
+      "merkmal": {
+        "region": "Berlin-Ost",
+        "altersgruppe": "unter 30"
+      }
+    },
+    {
+      "vorhabenId": "v-1",
+      "beitragendeId": "b-0139",
+      "betragCent": 619,
+      "zeitpunkt": "2026-09-12T04:19:00.000Z",
+      "merkmal": {
+        "region": "Berlin-Nord",
+        "altersgruppe": "45-59"
+      }
+    },
+    {
+      "vorhabenId": "v-1",
+      "beitragendeId": "b-0141",
+      "betragCent": 538,
+      "zeitpunkt": "2026-08-13T20:57:00.000Z",
+      "merkmal": {
+        "region": "Berlin-Nord",
+        "altersgruppe": "30-44"
+      }
+    },
+    {
+      "vorhabenId": "v-1",
+      "beitragendeId": "b-0142",
+      "betragCent": 834,
+      "zeitpunkt": "2026-07-16T10:41:00.000Z",
       "merkmal": {
         "region": "Berlin-Nord",
         "altersgruppe": "unter 30"
@@ -356,7 +436,7 @@
     },
     {
       "vorhabenId": "v-1",
-      "beitragendeId": "b-0119",
+      "beitragendeId": "b-0146",
       "betragCent": 651,
       "zeitpunkt": "2026-08-28T21:59:00.000Z",
       "merkmal": {
@@ -366,169 +446,29 @@
     },
     {
       "vorhabenId": "v-1",
-      "beitragendeId": "b-0123",
-      "betragCent": 1168,
-      "zeitpunkt": "2026-09-04T15:54:00.000Z",
-      "merkmal": {
-        "region": "Berlin-Süd",
-        "altersgruppe": "60 und älter"
-      }
-    },
-    {
-      "vorhabenId": "v-1",
-      "beitragendeId": "b-0129",
-      "betragCent": 1110,
-      "zeitpunkt": "2026-07-12T12:03:00.000Z",
-      "merkmal": {
-        "region": "Berlin-Süd",
-        "altersgruppe": "unter 30"
-      }
-    },
-    {
-      "vorhabenId": "v-1",
-      "beitragendeId": "b-0133",
-      "betragCent": 601,
-      "zeitpunkt": "2026-09-03T10:18:00.000Z",
-      "merkmal": {
-        "region": "Berlin-West",
-        "altersgruppe": "unter 30"
-      }
-    },
-    {
-      "vorhabenId": "v-1",
-      "beitragendeId": "b-0134",
-      "betragCent": 925,
-      "zeitpunkt": "2026-07-01T01:55:00.000Z",
-      "merkmal": {
-        "region": "Berlin-Nord",
-        "altersgruppe": "60 und älter"
-      }
-    },
-    {
-      "vorhabenId": "v-1",
-      "beitragendeId": "b-0135",
-      "betragCent": 652,
-      "zeitpunkt": "2026-08-16T19:47:00.000Z",
-      "merkmal": {
-        "region": "Berlin-Nord",
-        "altersgruppe": "30-44"
-      }
-    },
-    {
-      "vorhabenId": "v-1",
-      "beitragendeId": "b-0137",
-      "betragCent": 1018,
-      "zeitpunkt": "2026-09-23T09:03:00.000Z",
-      "merkmal": {
-        "region": "Berlin-Nord",
-        "altersgruppe": "45-59"
-      }
-    },
-    {
-      "vorhabenId": "v-1",
-      "beitragendeId": "b-0138",
-      "betragCent": 542,
-      "zeitpunkt": "2026-07-26T19:34:00.000Z",
-      "merkmal": {
-        "region": "Berlin-Süd",
-        "altersgruppe": "30-44"
-      }
-    },
-    {
-      "vorhabenId": "v-1",
-      "beitragendeId": "b-0141",
-      "betragCent": 641,
-      "zeitpunkt": "2026-09-04T23:31:00.000Z",
-      "merkmal": {
-        "region": "Berlin-Nord",
-        "altersgruppe": "unter 30"
-      }
-    },
-    {
-      "vorhabenId": "v-1",
-      "beitragendeId": "b-0143",
+      "beitragendeId": "b-0153",
       "betragCent": 652,
       "zeitpunkt": "2026-07-25T10:23:00.000Z",
       "merkmal": {
-        "region": "Berlin-Nord",
-        "altersgruppe": "30-44"
-      }
-    },
-    {
-      "vorhabenId": "v-1",
-      "beitragendeId": "b-0146",
-      "betragCent": 579,
-      "zeitpunkt": "2026-08-20T12:45:00.000Z",
-      "merkmal": {
-        "region": "Berlin-Nord",
-        "altersgruppe": "45-59"
-      }
-    },
-    {
-      "vorhabenId": "v-1",
-      "beitragendeId": "b-0152",
-      "betragCent": 822,
-      "zeitpunkt": "2026-08-22T12:06:00.000Z",
-      "merkmal": {
         "region": "Berlin-Ost",
         "altersgruppe": "45-59"
-      }
-    },
-    {
-      "vorhabenId": "v-1",
-      "beitragendeId": "b-0153",
-      "betragCent": 504,
-      "zeitpunkt": "2026-09-23T12:53:00.000Z",
-      "merkmal": {
-        "region": "Berlin-Ost",
-        "altersgruppe": "30-44"
       }
     },
     {
       "vorhabenId": "v-1",
       "beitragendeId": "b-0155",
-      "betragCent": 1116,
-      "zeitpunkt": "2026-08-26T08:08:00.000Z",
-      "merkmal": {
-        "region": "Berlin-Nord",
-        "altersgruppe": "unter 30"
-      }
-    },
-    {
-      "vorhabenId": "v-1",
-      "beitragendeId": "b-0160",
       "betragCent": 574,
       "zeitpunkt": "2026-09-20T14:19:00.000Z",
       "merkmal": {
-        "region": "Berlin-Ost",
+        "region": "Berlin-Nord",
         "altersgruppe": "30-44"
       }
     },
     {
       "vorhabenId": "v-1",
-      "beitragendeId": "b-0164",
-      "betragCent": 834,
-      "zeitpunkt": "2026-07-16T10:41:00.000Z",
-      "merkmal": {
-        "region": "Berlin-Nord",
-        "altersgruppe": "45-59"
-      }
-    },
-    {
-      "vorhabenId": "v-1",
-      "beitragendeId": "b-0166",
-      "betragCent": 659,
-      "zeitpunkt": "2026-09-18T17:51:00.000Z",
-      "merkmal": {
-        "region": "Berlin-Ost",
-        "altersgruppe": "unter 30"
-      }
-    },
-    {
-      "vorhabenId": "v-1",
-      "beitragendeId": "b-0174",
-      "betragCent": 1077,
-      "zeitpunkt": "2026-07-31T10:24:00.000Z",
+      "beitragendeId": "b-0156",
+      "betragCent": 909,
+      "zeitpunkt": "2026-09-13T13:00:00.000Z",
       "merkmal": {
         "region": "Berlin-Nord",
         "altersgruppe": "unter 30"
@@ -536,19 +476,69 @@
     },
     {
       "vorhabenId": "v-1",
-      "beitragendeId": "b-0177",
+      "beitragendeId": "b-0161",
+      "betragCent": 657,
+      "zeitpunkt": "2026-07-30T12:12:00.000Z",
+      "merkmal": {
+        "region": "Berlin-Nord",
+        "altersgruppe": "unter 30"
+      }
+    },
+    {
+      "vorhabenId": "v-1",
+      "beitragendeId": "b-0167",
       "betragCent": 977,
       "zeitpunkt": "2026-09-30T01:04:00.000Z",
       "merkmal": {
-        "region": "Berlin-Nord",
-        "altersgruppe": "45-59"
+        "region": "Berlin-Süd",
+        "altersgruppe": "unter 30"
       }
     },
     {
       "vorhabenId": "v-1",
-      "beitragendeId": "b-0179",
-      "betragCent": 547,
-      "zeitpunkt": "2026-07-30T12:27:00.000Z",
+      "beitragendeId": "b-0170",
+      "betragCent": 608,
+      "zeitpunkt": "2026-09-02T20:23:00.000Z",
+      "merkmal": {
+        "region": "Berlin-Nord",
+        "altersgruppe": "unter 30"
+      }
+    },
+    {
+      "vorhabenId": "v-1",
+      "beitragendeId": "b-0173",
+      "betragCent": 953,
+      "zeitpunkt": "2026-07-16T04:54:00.000Z",
+      "merkmal": {
+        "region": "Berlin-Nord",
+        "altersgruppe": "unter 30"
+      }
+    },
+    {
+      "vorhabenId": "v-1",
+      "beitragendeId": "b-0175",
+      "betragCent": 1168,
+      "zeitpunkt": "2026-09-04T15:54:00.000Z",
+      "merkmal": {
+        "region": "Berlin-Nord",
+        "altersgruppe": "unter 30"
+      }
+    },
+    {
+      "vorhabenId": "v-1",
+      "beitragendeId": "b-0178",
+      "betragCent": 1077,
+      "zeitpunkt": "2026-07-31T10:24:00.000Z",
+      "merkmal": {
+        "region": "Berlin-Süd",
+        "altersgruppe": "unter 30"
+      }
+    },
+    {
+      "vorhabenId": "v-2",
+      "beitragendeId": "b-0014",
+      "betragCent": 10810,
+      "zeitpunkt": "2026-09-14T02:16:00.000Z",
       "merkmal": {
         "region": "Berlin-Nord",
         "altersgruppe": "30-44"
@@ -556,7 +546,7 @@
     },
     {
       "vorhabenId": "v-2",
-      "beitragendeId": "b-0012",
+      "beitragendeId": "b-0055",
       "betragCent": 12515,
       "zeitpunkt": "2026-08-31T13:56:00.000Z",
       "merkmal": {
@@ -566,87 +556,157 @@
     },
     {
       "vorhabenId": "v-2",
-      "beitragendeId": "b-0045",
-      "betragCent": 12656,
-      "zeitpunkt": "2026-07-29T12:26:00.000Z",
-      "merkmal": {
-        "region": "Berlin-Ost",
-        "altersgruppe": "30-44"
-      }
-    },
-    {
-      "vorhabenId": "v-2",
-      "beitragendeId": "b-0063",
+      "beitragendeId": "b-0075",
       "betragCent": 10613,
       "zeitpunkt": "2026-08-10T06:19:00.000Z",
       "merkmal": {
-        "region": "Berlin-West",
-        "altersgruppe": "unter 30"
+        "region": "Berlin-Nord",
+        "altersgruppe": "30-44"
       }
     },
     {
       "vorhabenId": "v-3",
       "beitragendeId": "b-0007",
-      "betragCent": 596,
-      "zeitpunkt": "2026-08-24T05:18:00.000Z",
+      "betragCent": 855,
+      "zeitpunkt": "2026-08-28T04:15:00.000Z",
       "merkmal": {
-        "region": "Berlin-Nord",
-        "altersgruppe": "45-59"
+        "region": "Berlin-Süd",
+        "altersgruppe": "30-44"
       }
     },
     {
       "vorhabenId": "v-3",
-      "beitragendeId": "b-0018",
-      "betragCent": 578,
-      "zeitpunkt": "2026-09-07T10:40:00.000Z",
+      "beitragendeId": "b-0012",
+      "betragCent": 915,
+      "zeitpunkt": "2026-08-06T07:52:00.000Z",
       "merkmal": {
-        "region": "Berlin-Süd",
-        "altersgruppe": "30-44"
+        "region": "Berlin-West",
+        "altersgruppe": "45-59"
       }
     },
     {
       "vorhabenId": "v-3",
       "beitragendeId": "b-0019",
-      "betragCent": 778,
-      "zeitpunkt": "2026-09-14T04:41:00.000Z",
+      "betragCent": 1113,
+      "zeitpunkt": "2026-07-03T21:43:00.000Z",
       "merkmal": {
         "region": "Berlin-Ost",
-        "altersgruppe": "30-44"
-      }
-    },
-    {
-      "vorhabenId": "v-3",
-      "beitragendeId": "b-0020",
-      "betragCent": 1152,
-      "zeitpunkt": "2026-07-30T03:23:00.000Z",
-      "merkmal": {
-        "region": "Berlin-Süd",
-        "altersgruppe": "30-44"
-      }
-    },
-    {
-      "vorhabenId": "v-3",
-      "beitragendeId": "b-0022",
-      "betragCent": 810,
-      "zeitpunkt": "2026-09-01T05:42:00.000Z",
-      "merkmal": {
-        "region": "Berlin-Nord",
         "altersgruppe": "45-59"
       }
     },
     {
       "vorhabenId": "v-3",
-      "beitragendeId": "b-0025",
-      "betragCent": 1035,
-      "zeitpunkt": "2026-08-12T19:42:00.000Z",
+      "beitragendeId": "b-0020",
+      "betragCent": 902,
+      "zeitpunkt": "2026-09-27T18:53:00.000Z",
+      "merkmal": {
+        "region": "Berlin-Ost",
+        "altersgruppe": "45-59"
+      }
+    },
+    {
+      "vorhabenId": "v-3",
+      "beitragendeId": "b-0022",
+      "betragCent": 694,
+      "zeitpunkt": "2026-07-08T13:11:00.000Z",
       "merkmal": {
         "region": "Berlin-Süd",
+        "altersgruppe": "30-44"
+      }
+    },
+    {
+      "vorhabenId": "v-3",
+      "beitragendeId": "b-0025",
+      "betragCent": 736,
+      "zeitpunkt": "2026-07-11T19:29:00.000Z",
+      "merkmal": {
+        "region": "Berlin-Ost",
         "altersgruppe": "30-44"
       }
     },
     {
       "vorhabenId": "v-3",
       "beitragendeId": "b-0026",
+      "betragCent": 612,
+      "zeitpunkt": "2026-08-15T19:28:00.000Z",
+      "merkmal": {
+        "region": "Berlin-Süd",
+        "altersgruppe": "unter 30"
+      }
+    },
+    {
+      "vorhabenId": "v-3",
+      "beitragendeId": "b-0027",
+      "betragCent": 1014,
+      "zeitpunkt": "2026-09-20T03:27:00.000Z",
+      "merkmal": {
+        "region": "Berlin-Nord",
+        "altersgruppe": "60 und älter"
+      }
+    },
+    {
+      "vorhabenId": "v-3",
+      "beitragendeId": "b-0032",
+      "betragCent": 1098,
+      "zeitpunkt": "2026-07-26T14:51:00.000Z",
+      "merkmal": {
+        "region": "Berlin-Nord",
+        "altersgruppe": "45-59"
+      }
+    },
+    {
+      "vorhabenId": "v-3",
+      "beitragendeId": "b-0035",
+      "betragCent": 1049,
+      "zeitpunkt": "2026-07-04T21:26:00.000Z",
+      "merkmal": {
+        "region": "Berlin-Süd",
+        "altersgruppe": "unter 30"
+      }
+    },
+    {
+      "vorhabenId": "v-3",
+      "beitragendeId": "b-0041",
+      "betragCent": 1152,
+      "zeitpunkt": "2026-07-30T03:23:00.000Z",
+      "merkmal": {
+        "region": "Berlin-Ost",
+        "altersgruppe": "30-44"
+      }
+    },
+    {
+      "vorhabenId": "v-3",
+      "beitragendeId": "b-0045",
+      "betragCent": 662,
+      "zeitpunkt": "2026-09-25T06:02:00.000Z",
+      "merkmal": {
+        "region": "Berlin-Ost",
+        "altersgruppe": "unter 30"
+      }
+    },
+    {
+      "vorhabenId": "v-3",
+      "beitragendeId": "b-0049",
+      "betragCent": 725,
+      "zeitpunkt": "2026-08-06T18:45:00.000Z",
+      "merkmal": {
+        "region": "Berlin-Nord",
+        "altersgruppe": "30-44"
+      }
+    },
+    {
+      "vorhabenId": "v-3",
+      "beitragendeId": "b-0061",
+      "betragCent": 1020,
+      "zeitpunkt": "2026-07-14T20:41:00.000Z",
+      "merkmal": {
+        "region": "Berlin-Süd",
+        "altersgruppe": "unter 30"
+      }
+    },
+    {
+      "vorhabenId": "v-3",
+      "beitragendeId": "b-0069",
       "betragCent": 611,
       "zeitpunkt": "2026-09-24T08:26:00.000Z",
       "merkmal": {
@@ -656,237 +716,27 @@
     },
     {
       "vorhabenId": "v-3",
-      "beitragendeId": "b-0029",
-      "betragCent": 809,
-      "zeitpunkt": "2026-07-21T21:39:00.000Z",
-      "merkmal": {
-        "region": "Berlin-Ost",
-        "altersgruppe": "30-44"
-      }
-    },
-    {
-      "vorhabenId": "v-3",
-      "beitragendeId": "b-0030",
-      "betragCent": 1014,
-      "zeitpunkt": "2026-09-20T03:27:00.000Z",
-      "merkmal": {
-        "region": "Berlin-Ost",
-        "altersgruppe": "45-59"
-      }
-    },
-    {
-      "vorhabenId": "v-3",
-      "beitragendeId": "b-0032",
-      "betragCent": 1046,
-      "zeitpunkt": "2026-07-21T18:22:00.000Z",
-      "merkmal": {
-        "region": "Berlin-Nord",
-        "altersgruppe": "unter 30"
-      }
-    },
-    {
-      "vorhabenId": "v-3",
-      "beitragendeId": "b-0038",
-      "betragCent": 712,
-      "zeitpunkt": "2026-07-14T06:59:00.000Z",
-      "merkmal": {
-        "region": "Berlin-Ost",
-        "altersgruppe": "unter 30"
-      }
-    },
-    {
-      "vorhabenId": "v-3",
-      "beitragendeId": "b-0053",
-      "betragCent": 1120,
-      "zeitpunkt": "2026-08-31T04:06:00.000Z",
-      "merkmal": {
-        "region": "Berlin-Nord",
-        "altersgruppe": "45-59"
-      }
-    },
-    {
-      "vorhabenId": "v-3",
-      "beitragendeId": "b-0057",
+      "beitragendeId": "b-0074",
       "betragCent": 926,
       "zeitpunkt": "2026-09-01T07:19:00.000Z",
       "merkmal": {
-        "region": "Berlin-Ost",
-        "altersgruppe": "30-44"
-      }
-    },
-    {
-      "vorhabenId": "v-3",
-      "beitragendeId": "b-0061",
-      "betragCent": 694,
-      "zeitpunkt": "2026-07-08T13:11:00.000Z",
-      "merkmal": {
         "region": "Berlin-Nord",
         "altersgruppe": "45-59"
       }
     },
     {
       "vorhabenId": "v-3",
-      "beitragendeId": "b-0065",
-      "betragCent": 915,
-      "zeitpunkt": "2026-08-06T07:52:00.000Z",
-      "merkmal": {
-        "region": "Berlin-Süd",
-        "altersgruppe": "30-44"
-      }
-    },
-    {
-      "vorhabenId": "v-3",
-      "beitragendeId": "b-0067",
-      "betragCent": 927,
-      "zeitpunkt": "2026-08-26T00:17:00.000Z",
-      "merkmal": {
-        "region": "Berlin-Nord",
-        "altersgruppe": "45-59"
-      }
-    },
-    {
-      "vorhabenId": "v-3",
-      "beitragendeId": "b-0068",
-      "betragCent": 861,
-      "zeitpunkt": "2026-09-12T04:03:00.000Z",
-      "merkmal": {
-        "region": "Berlin-Ost",
-        "altersgruppe": "30-44"
-      }
-    },
-    {
-      "vorhabenId": "v-3",
-      "beitragendeId": "b-0073",
-      "betragCent": 736,
-      "zeitpunkt": "2026-07-11T19:29:00.000Z",
-      "merkmal": {
-        "region": "Berlin-Süd",
-        "altersgruppe": "30-44"
-      }
-    },
-    {
-      "vorhabenId": "v-3",
-      "beitragendeId": "b-0074",
+      "beitragendeId": "b-0076",
       "betragCent": 1002,
       "zeitpunkt": "2026-07-16T07:03:00.000Z",
       "merkmal": {
-        "region": "Berlin-West",
+        "region": "Berlin-Nord",
         "altersgruppe": "30-44"
-      }
-    },
-    {
-      "vorhabenId": "v-3",
-      "beitragendeId": "b-0075",
-      "betragCent": 951,
-      "zeitpunkt": "2026-09-08T19:57:00.000Z",
-      "merkmal": {
-        "region": "Berlin-Süd",
-        "altersgruppe": "unter 30"
       }
     },
     {
       "vorhabenId": "v-3",
       "beitragendeId": "b-0078",
-      "betragCent": 582,
-      "zeitpunkt": "2026-09-14T18:40:00.000Z",
-      "merkmal": {
-        "region": "Berlin-Ost",
-        "altersgruppe": "unter 30"
-      }
-    },
-    {
-      "vorhabenId": "v-3",
-      "beitragendeId": "b-0081",
-      "betragCent": 1025,
-      "zeitpunkt": "2026-07-29T11:24:00.000Z",
-      "merkmal": {
-        "region": "Berlin-Nord",
-        "altersgruppe": "unter 30"
-      }
-    },
-    {
-      "vorhabenId": "v-3",
-      "beitragendeId": "b-0100",
-      "betragCent": 1020,
-      "zeitpunkt": "2026-07-14T20:41:00.000Z",
-      "merkmal": {
-        "region": "Berlin-Nord",
-        "altersgruppe": "unter 30"
-      }
-    },
-    {
-      "vorhabenId": "v-3",
-      "beitragendeId": "b-0102",
-      "betragCent": 1064,
-      "zeitpunkt": "2026-08-08T11:54:00.000Z",
-      "merkmal": {
-        "region": "Berlin-Ost",
-        "altersgruppe": "45-59"
-      }
-    },
-    {
-      "vorhabenId": "v-3",
-      "beitragendeId": "b-0103",
-      "betragCent": 1049,
-      "zeitpunkt": "2026-07-04T21:26:00.000Z",
-      "merkmal": {
-        "region": "Berlin-Nord",
-        "altersgruppe": "30-44"
-      }
-    },
-    {
-      "vorhabenId": "v-3",
-      "beitragendeId": "b-0104",
-      "betragCent": 662,
-      "zeitpunkt": "2026-09-25T06:02:00.000Z",
-      "merkmal": {
-        "region": "Berlin-Nord",
-        "altersgruppe": "unter 30"
-      }
-    },
-    {
-      "vorhabenId": "v-3",
-      "beitragendeId": "b-0107",
-      "betragCent": 819,
-      "zeitpunkt": "2026-08-26T18:42:00.000Z",
-      "merkmal": {
-        "region": "Berlin-Ost",
-        "altersgruppe": "30-44"
-      }
-    },
-    {
-      "vorhabenId": "v-3",
-      "beitragendeId": "b-0108",
-      "betragCent": 929,
-      "zeitpunkt": "2026-08-01T04:46:00.000Z",
-      "merkmal": {
-        "region": "Berlin-Nord",
-        "altersgruppe": "45-59"
-      }
-    },
-    {
-      "vorhabenId": "v-3",
-      "beitragendeId": "b-0109",
-      "betragCent": 902,
-      "zeitpunkt": "2026-09-27T18:53:00.000Z",
-      "merkmal": {
-        "region": "Berlin-Nord",
-        "altersgruppe": "30-44"
-      }
-    },
-    {
-      "vorhabenId": "v-3",
-      "beitragendeId": "b-0116",
-      "betragCent": 878,
-      "zeitpunkt": "2026-09-02T01:33:00.000Z",
-      "merkmal": {
-        "region": "Berlin-Nord",
-        "altersgruppe": "45-59"
-      }
-    },
-    {
-      "vorhabenId": "v-3",
-      "beitragendeId": "b-0117",
       "betragCent": 876,
       "zeitpunkt": "2026-09-16T02:15:00.000Z",
       "merkmal": {
@@ -896,97 +746,27 @@
     },
     {
       "vorhabenId": "v-3",
-      "beitragendeId": "b-0132",
-      "betragCent": 612,
-      "zeitpunkt": "2026-08-15T19:28:00.000Z",
+      "beitragendeId": "b-0079",
+      "betragCent": 578,
+      "zeitpunkt": "2026-09-07T10:40:00.000Z",
       "merkmal": {
-        "region": "Berlin-Süd",
-        "altersgruppe": "30-44"
-      }
-    },
-    {
-      "vorhabenId": "v-3",
-      "beitragendeId": "b-0136",
-      "betragCent": 725,
-      "zeitpunkt": "2026-08-06T18:45:00.000Z",
-      "merkmal": {
-        "region": "Berlin-West",
-        "altersgruppe": "30-44"
-      }
-    },
-    {
-      "vorhabenId": "v-3",
-      "beitragendeId": "b-0148",
-      "betragCent": 1145,
-      "zeitpunkt": "2026-07-28T22:59:00.000Z",
-      "merkmal": {
-        "region": "Berlin-West",
-        "altersgruppe": "45-59"
-      }
-    },
-    {
-      "vorhabenId": "v-3",
-      "beitragendeId": "b-0151",
-      "betragCent": 819,
-      "zeitpunkt": "2026-07-02T22:05:00.000Z",
-      "merkmal": {
-        "region": "Berlin-West",
-        "altersgruppe": "unter 30"
-      }
-    },
-    {
-      "vorhabenId": "v-3",
-      "beitragendeId": "b-0154",
-      "betragCent": 855,
-      "zeitpunkt": "2026-08-28T04:15:00.000Z",
-      "merkmal": {
-        "region": "Berlin-Süd",
+        "region": "Berlin-Ost",
         "altersgruppe": "60 und älter"
       }
     },
     {
       "vorhabenId": "v-3",
-      "beitragendeId": "b-0156",
+      "beitragendeId": "b-0101",
       "betragCent": 1184,
       "zeitpunkt": "2026-08-08T23:45:00.000Z",
       "merkmal": {
-        "region": "Berlin-Ost",
-        "altersgruppe": "unter 30"
-      }
-    },
-    {
-      "vorhabenId": "v-3",
-      "beitragendeId": "b-0157",
-      "betragCent": 1113,
-      "zeitpunkt": "2026-07-03T21:43:00.000Z",
-      "merkmal": {
-        "region": "Berlin-Nord",
-        "altersgruppe": "45-59"
-      }
-    },
-    {
-      "vorhabenId": "v-3",
-      "beitragendeId": "b-0158",
-      "betragCent": 733,
-      "zeitpunkt": "2026-08-21T19:10:00.000Z",
-      "merkmal": {
-        "region": "Berlin-Ost",
+        "region": "Berlin-Süd",
         "altersgruppe": "30-44"
       }
     },
     {
       "vorhabenId": "v-3",
-      "beitragendeId": "b-0169",
-      "betragCent": 1098,
-      "zeitpunkt": "2026-07-26T14:51:00.000Z",
-      "merkmal": {
-        "region": "Berlin-Nord",
-        "altersgruppe": "unter 30"
-      }
-    },
-    {
-      "vorhabenId": "v-3",
-      "beitragendeId": "b-0175",
+      "beitragendeId": "b-0102",
       "betragCent": 936,
       "zeitpunkt": "2026-08-04T07:00:00.000Z",
       "merkmal": {
@@ -996,157 +776,207 @@
     },
     {
       "vorhabenId": "v-3",
-      "beitragendeId": "b-0178",
-      "betragCent": 509,
-      "zeitpunkt": "2026-09-01T13:40:00.000Z",
-      "merkmal": {
-        "region": "Berlin-Süd",
-        "altersgruppe": "45-59"
-      }
-    },
-    {
-      "vorhabenId": "v-4",
-      "beitragendeId": "b-0001",
-      "betragCent": 1112,
-      "zeitpunkt": "2026-09-28T19:04:00.000Z",
-      "merkmal": {
-        "region": "Berlin-Süd",
-        "altersgruppe": "60 und älter"
-      }
-    },
-    {
-      "vorhabenId": "v-4",
-      "beitragendeId": "b-0006",
-      "betragCent": 882,
-      "zeitpunkt": "2026-08-24T22:25:00.000Z",
+      "beitragendeId": "b-0103",
+      "betragCent": 733,
+      "zeitpunkt": "2026-08-21T19:10:00.000Z",
       "merkmal": {
         "region": "Berlin-Nord",
-        "altersgruppe": "unter 30"
-      }
-    },
-    {
-      "vorhabenId": "v-4",
-      "beitragendeId": "b-0008",
-      "betragCent": 862,
-      "zeitpunkt": "2026-07-10T06:42:00.000Z",
-      "merkmal": {
-        "region": "Berlin-Ost",
         "altersgruppe": "30-44"
       }
     },
     {
-      "vorhabenId": "v-4",
-      "beitragendeId": "b-0014",
-      "betragCent": 654,
-      "zeitpunkt": "2026-09-10T08:00:00.000Z",
+      "vorhabenId": "v-3",
+      "beitragendeId": "b-0105",
+      "betragCent": 1120,
+      "zeitpunkt": "2026-08-31T04:06:00.000Z",
       "merkmal": {
         "region": "Berlin-Ost",
         "altersgruppe": "unter 30"
       }
     },
     {
-      "vorhabenId": "v-4",
-      "beitragendeId": "b-0015",
-      "betragCent": 874,
-      "zeitpunkt": "2026-08-17T05:35:00.000Z",
-      "merkmal": {
-        "region": "Berlin-Nord",
-        "altersgruppe": "60 und älter"
-      }
-    },
-    {
-      "vorhabenId": "v-4",
-      "beitragendeId": "b-0021",
-      "betragCent": 1056,
-      "zeitpunkt": "2026-09-07T00:17:00.000Z",
-      "merkmal": {
-        "region": "Berlin-Süd",
-        "altersgruppe": "unter 30"
-      }
-    },
-    {
-      "vorhabenId": "v-4",
-      "beitragendeId": "b-0024",
-      "betragCent": 549,
-      "zeitpunkt": "2026-07-14T18:41:00.000Z",
-      "merkmal": {
-        "region": "Berlin-Nord",
-        "altersgruppe": "45-59"
-      }
-    },
-    {
-      "vorhabenId": "v-4",
-      "beitragendeId": "b-0033",
-      "betragCent": 946,
-      "zeitpunkt": "2026-09-14T14:13:00.000Z",
-      "merkmal": {
-        "region": "Berlin-Süd",
-        "altersgruppe": "30-44"
-      }
-    },
-    {
-      "vorhabenId": "v-4",
-      "beitragendeId": "b-0034",
-      "betragCent": 1098,
-      "zeitpunkt": "2026-07-07T03:41:00.000Z",
+      "vorhabenId": "v-3",
+      "beitragendeId": "b-0109",
+      "betragCent": 1064,
+      "zeitpunkt": "2026-08-08T11:54:00.000Z",
       "merkmal": {
         "region": "Berlin-Nord",
         "altersgruppe": "30-44"
       }
     },
     {
-      "vorhabenId": "v-4",
-      "beitragendeId": "b-0040",
-      "betragCent": 1107,
-      "zeitpunkt": "2026-07-17T17:46:00.000Z",
+      "vorhabenId": "v-3",
+      "beitragendeId": "b-0110",
+      "betragCent": 778,
+      "zeitpunkt": "2026-09-14T04:41:00.000Z",
+      "merkmal": {
+        "region": "Berlin-Nord",
+        "altersgruppe": "30-44"
+      }
+    },
+    {
+      "vorhabenId": "v-3",
+      "beitragendeId": "b-0112",
+      "betragCent": 1145,
+      "zeitpunkt": "2026-07-28T22:59:00.000Z",
       "merkmal": {
         "region": "Berlin-Nord",
         "altersgruppe": "45-59"
       }
     },
     {
-      "vorhabenId": "v-4",
-      "beitragendeId": "b-0049",
-      "betragCent": 961,
-      "zeitpunkt": "2026-08-05T13:15:00.000Z",
+      "vorhabenId": "v-3",
+      "beitragendeId": "b-0125",
+      "betragCent": 1035,
+      "zeitpunkt": "2026-08-12T19:42:00.000Z",
+      "merkmal": {
+        "region": "Berlin-Ost",
+        "altersgruppe": "30-44"
+      }
+    },
+    {
+      "vorhabenId": "v-3",
+      "beitragendeId": "b-0134",
+      "betragCent": 596,
+      "zeitpunkt": "2026-08-24T05:18:00.000Z",
       "merkmal": {
         "region": "Berlin-West",
         "altersgruppe": "30-44"
       }
     },
     {
-      "vorhabenId": "v-4",
-      "beitragendeId": "b-0050",
-      "betragCent": 647,
-      "zeitpunkt": "2026-08-14T20:41:00.000Z",
+      "vorhabenId": "v-3",
+      "beitragendeId": "b-0145",
+      "betragCent": 951,
+      "zeitpunkt": "2026-09-08T19:57:00.000Z",
       "merkmal": {
-        "region": "Berlin-Ost",
+        "region": "Berlin-Nord",
         "altersgruppe": "unter 30"
       }
     },
     {
-      "vorhabenId": "v-4",
-      "beitragendeId": "b-0051",
-      "betragCent": 962,
-      "zeitpunkt": "2026-08-30T04:45:00.000Z",
+      "vorhabenId": "v-3",
+      "beitragendeId": "b-0147",
+      "betragCent": 1025,
+      "zeitpunkt": "2026-07-29T11:24:00.000Z",
+      "merkmal": {
+        "region": "Berlin-Ost",
+        "altersgruppe": "60 und älter"
+      }
+    },
+    {
+      "vorhabenId": "v-3",
+      "beitragendeId": "b-0150",
+      "betragCent": 712,
+      "zeitpunkt": "2026-07-14T06:59:00.000Z",
+      "merkmal": {
+        "region": "Berlin-Ost",
+        "altersgruppe": "60 und älter"
+      }
+    },
+    {
+      "vorhabenId": "v-3",
+      "beitragendeId": "b-0151",
+      "betragCent": 819,
+      "zeitpunkt": "2026-07-02T22:05:00.000Z",
+      "merkmal": {
+        "region": "Berlin-Nord",
+        "altersgruppe": "30-44"
+      }
+    },
+    {
+      "vorhabenId": "v-3",
+      "beitragendeId": "b-0154",
+      "betragCent": 1046,
+      "zeitpunkt": "2026-07-21T18:22:00.000Z",
+      "merkmal": {
+        "region": "Berlin-West",
+        "altersgruppe": "unter 30"
+      }
+    },
+    {
+      "vorhabenId": "v-3",
+      "beitragendeId": "b-0157",
+      "betragCent": 509,
+      "zeitpunkt": "2026-09-01T13:40:00.000Z",
+      "merkmal": {
+        "region": "Berlin-Süd",
+        "altersgruppe": "30-44"
+      }
+    },
+    {
+      "vorhabenId": "v-3",
+      "beitragendeId": "b-0158",
+      "betragCent": 819,
+      "zeitpunkt": "2026-08-26T18:42:00.000Z",
+      "merkmal": {
+        "region": "Berlin-Ost",
+        "altersgruppe": "30-44"
+      }
+    },
+    {
+      "vorhabenId": "v-3",
+      "beitragendeId": "b-0160",
+      "betragCent": 1081,
+      "zeitpunkt": "2026-07-29T12:26:00.000Z",
       "merkmal": {
         "region": "Berlin-Nord",
         "altersgruppe": "45-59"
       }
     },
     {
-      "vorhabenId": "v-4",
-      "beitragendeId": "b-0096",
-      "betragCent": 817,
-      "zeitpunkt": "2026-07-12T06:13:00.000Z",
+      "vorhabenId": "v-3",
+      "beitragendeId": "b-0163",
+      "betragCent": 810,
+      "zeitpunkt": "2026-09-01T05:42:00.000Z",
+      "merkmal": {
+        "region": "Berlin-Nord",
+        "altersgruppe": "unter 30"
+      }
+    },
+    {
+      "vorhabenId": "v-3",
+      "beitragendeId": "b-0165",
+      "betragCent": 582,
+      "zeitpunkt": "2026-09-14T18:40:00.000Z",
+      "merkmal": {
+        "region": "Berlin-Nord",
+        "altersgruppe": "30-44"
+      }
+    },
+    {
+      "vorhabenId": "v-3",
+      "beitragendeId": "b-0179",
+      "betragCent": 809,
+      "zeitpunkt": "2026-07-21T21:39:00.000Z",
       "merkmal": {
         "region": "Berlin-Ost",
-        "altersgruppe": "45-59"
+        "altersgruppe": "30-44"
+      }
+    },
+    {
+      "vorhabenId": "v-3",
+      "beitragendeId": "b-0180",
+      "betragCent": 861,
+      "zeitpunkt": "2026-09-12T04:03:00.000Z",
+      "merkmal": {
+        "region": "Berlin-Nord",
+        "altersgruppe": "30-44"
       }
     },
     {
       "vorhabenId": "v-4",
-      "beitragendeId": "b-0099",
+      "beitragendeId": "b-0006",
+      "betragCent": 996,
+      "zeitpunkt": "2026-08-12T17:04:00.000Z",
+      "merkmal": {
+        "region": "Berlin-Nord",
+        "altersgruppe": "30-44"
+      }
+    },
+    {
+      "vorhabenId": "v-4",
+      "beitragendeId": "b-0008",
       "betragCent": 896,
       "zeitpunkt": "2026-09-16T00:02:00.000Z",
       "merkmal": {
@@ -1156,102 +986,202 @@
     },
     {
       "vorhabenId": "v-4",
-      "beitragendeId": "b-0105",
-      "betragCent": 651,
-      "zeitpunkt": "2026-09-29T12:35:00.000Z",
+      "beitragendeId": "b-0015",
+      "betragCent": 946,
+      "zeitpunkt": "2026-09-14T14:13:00.000Z",
+      "merkmal": {
+        "region": "Berlin-West",
+        "altersgruppe": "45-59"
+      }
+    },
+    {
+      "vorhabenId": "v-4",
+      "beitragendeId": "b-0018",
+      "betragCent": 927,
+      "zeitpunkt": "2026-08-26T00:17:00.000Z",
+      "merkmal": {
+        "region": "Berlin-Nord",
+        "altersgruppe": "30-44"
+      }
+    },
+    {
+      "vorhabenId": "v-4",
+      "beitragendeId": "b-0024",
+      "betragCent": 1033,
+      "zeitpunkt": "2026-09-06T04:44:00.000Z",
       "merkmal": {
         "region": "Berlin-Süd",
+        "altersgruppe": "45-59"
+      }
+    },
+    {
+      "vorhabenId": "v-4",
+      "beitragendeId": "b-0028",
+      "betragCent": 801,
+      "zeitpunkt": "2026-08-09T01:13:00.000Z",
+      "merkmal": {
+        "region": "Berlin-Nord",
         "altersgruppe": "30-44"
+      }
+    },
+    {
+      "vorhabenId": "v-4",
+      "beitragendeId": "b-0030",
+      "betragCent": 929,
+      "zeitpunkt": "2026-08-01T04:46:00.000Z",
+      "merkmal": {
+        "region": "Berlin-Süd",
+        "altersgruppe": "45-59"
+      }
+    },
+    {
+      "vorhabenId": "v-4",
+      "beitragendeId": "b-0034",
+      "betragCent": 1056,
+      "zeitpunkt": "2026-09-07T00:17:00.000Z",
+      "merkmal": {
+        "region": "Berlin-Ost",
+        "altersgruppe": "30-44"
+      }
+    },
+    {
+      "vorhabenId": "v-4",
+      "beitragendeId": "b-0051",
+      "betragCent": 817,
+      "zeitpunkt": "2026-07-12T06:13:00.000Z",
+      "merkmal": {
+        "region": "Berlin-Süd",
+        "altersgruppe": "unter 30"
+      }
+    },
+    {
+      "vorhabenId": "v-4",
+      "beitragendeId": "b-0062",
+      "betragCent": 722,
+      "zeitpunkt": "2026-08-07T18:16:00.000Z",
+      "merkmal": {
+        "region": "Berlin-Ost",
+        "altersgruppe": "45-59"
+      }
+    },
+    {
+      "vorhabenId": "v-4",
+      "beitragendeId": "b-0068",
+      "betragCent": 878,
+      "zeitpunkt": "2026-09-02T01:33:00.000Z",
+      "merkmal": {
+        "region": "Berlin-Ost",
+        "altersgruppe": "unter 30"
+      }
+    },
+    {
+      "vorhabenId": "v-4",
+      "beitragendeId": "b-0070",
+      "betragCent": 1143,
+      "zeitpunkt": "2026-07-21T14:50:00.000Z",
+      "merkmal": {
+        "region": "Berlin-Ost",
+        "altersgruppe": "30-44"
+      }
+    },
+    {
+      "vorhabenId": "v-4",
+      "beitragendeId": "b-0100",
+      "betragCent": 1137,
+      "zeitpunkt": "2026-08-11T01:11:00.000Z",
+      "merkmal": {
+        "region": "Berlin-Nord",
+        "altersgruppe": "45-59"
       }
     },
     {
       "vorhabenId": "v-4",
       "beitragendeId": "b-0106",
-      "betragCent": 996,
-      "zeitpunkt": "2026-08-12T17:04:00.000Z",
+      "betragCent": 941,
+      "zeitpunkt": "2026-08-21T06:24:00.000Z",
+      "merkmal": {
+        "region": "Berlin-West",
+        "altersgruppe": "30-44"
+      }
+    },
+    {
+      "vorhabenId": "v-4",
+      "beitragendeId": "b-0107",
+      "betragCent": 874,
+      "zeitpunkt": "2026-08-17T05:35:00.000Z",
       "merkmal": {
         "region": "Berlin-Nord",
+        "altersgruppe": "unter 30"
+      }
+    },
+    {
+      "vorhabenId": "v-4",
+      "beitragendeId": "b-0115",
+      "betragCent": 1159,
+      "zeitpunkt": "2026-09-28T17:31:00.000Z",
+      "merkmal": {
+        "region": "Berlin-Nord",
+        "altersgruppe": "unter 30"
+      }
+    },
+    {
+      "vorhabenId": "v-4",
+      "beitragendeId": "b-0117",
+      "betragCent": 1089,
+      "zeitpunkt": "2026-07-02T02:03:00.000Z",
+      "merkmal": {
+        "region": "Berlin-Ost",
+        "altersgruppe": "30-44"
+      }
+    },
+    {
+      "vorhabenId": "v-4",
+      "beitragendeId": "b-0121",
+      "betragCent": 654,
+      "zeitpunkt": "2026-09-10T08:00:00.000Z",
+      "merkmal": {
+        "region": "Berlin-West",
+        "altersgruppe": "30-44"
+      }
+    },
+    {
+      "vorhabenId": "v-4",
+      "beitragendeId": "b-0123",
+      "betragCent": 647,
+      "zeitpunkt": "2026-08-14T20:41:00.000Z",
+      "merkmal": {
+        "region": "Berlin-West",
         "altersgruppe": "60 und älter"
       }
     },
     {
       "vorhabenId": "v-4",
-      "beitragendeId": "b-0122",
-      "betragCent": 801,
-      "zeitpunkt": "2026-08-09T01:13:00.000Z",
+      "beitragendeId": "b-0133",
+      "betragCent": 961,
+      "zeitpunkt": "2026-08-05T13:15:00.000Z",
       "merkmal": {
         "region": "Berlin-Nord",
+        "altersgruppe": "unter 30"
+      }
+    },
+    {
+      "vorhabenId": "v-4",
+      "beitragendeId": "b-0137",
+      "betragCent": 1098,
+      "zeitpunkt": "2026-07-07T03:41:00.000Z",
+      "merkmal": {
+        "region": "Berlin-Süd",
         "altersgruppe": "45-59"
-      }
-    },
-    {
-      "vorhabenId": "v-4",
-      "beitragendeId": "b-0127",
-      "betragCent": 791,
-      "zeitpunkt": "2026-09-23T05:44:00.000Z",
-      "merkmal": {
-        "region": "Berlin-West",
-        "altersgruppe": "45-59"
-      }
-    },
-    {
-      "vorhabenId": "v-4",
-      "beitragendeId": "b-0139",
-      "betragCent": 941,
-      "zeitpunkt": "2026-08-21T06:24:00.000Z",
-      "merkmal": {
-        "region": "Berlin-Nord",
-        "altersgruppe": "unter 30"
-      }
-    },
-    {
-      "vorhabenId": "v-4",
-      "beitragendeId": "b-0142",
-      "betragCent": 746,
-      "zeitpunkt": "2026-09-29T02:29:00.000Z",
-      "merkmal": {
-        "region": "Berlin-Nord",
-        "altersgruppe": "unter 30"
-      }
-    },
-    {
-      "vorhabenId": "v-4",
-      "beitragendeId": "b-0145",
-      "betragCent": 1033,
-      "zeitpunkt": "2026-09-06T04:44:00.000Z",
-      "merkmal": {
-        "region": "Berlin-Nord",
-        "altersgruppe": "unter 30"
-      }
-    },
-    {
-      "vorhabenId": "v-4",
-      "beitragendeId": "b-0147",
-      "betragCent": 1137,
-      "zeitpunkt": "2026-08-11T01:11:00.000Z",
-      "merkmal": {
-        "region": "Berlin-West",
-        "altersgruppe": "30-44"
       }
     },
     {
       "vorhabenId": "v-4",
       "beitragendeId": "b-0149",
-      "betragCent": 1089,
-      "zeitpunkt": "2026-07-02T02:03:00.000Z",
+      "betragCent": 651,
+      "zeitpunkt": "2026-09-29T12:35:00.000Z",
       "merkmal": {
-        "region": "Berlin-West",
-        "altersgruppe": "45-59"
-      }
-    },
-    {
-      "vorhabenId": "v-4",
-      "beitragendeId": "b-0150",
-      "betragCent": 722,
-      "zeitpunkt": "2026-08-07T18:16:00.000Z",
-      "merkmal": {
-        "region": "Berlin-West",
-        "altersgruppe": "30-44"
+        "region": "Berlin-Süd",
+        "altersgruppe": "60 und älter"
       }
     },
     {
@@ -1260,15 +1190,35 @@
       "betragCent": 1051,
       "zeitpunkt": "2026-09-22T23:50:00.000Z",
       "merkmal": {
-        "region": "Berlin-Ost",
-        "altersgruppe": "60 und älter"
+        "region": "Berlin-West",
+        "altersgruppe": "30-44"
       }
     },
     {
       "vorhabenId": "v-4",
-      "beitragendeId": "b-0168",
-      "betragCent": 1159,
-      "zeitpunkt": "2026-09-28T17:31:00.000Z",
+      "beitragendeId": "b-0164",
+      "betragCent": 549,
+      "zeitpunkt": "2026-07-14T18:41:00.000Z",
+      "merkmal": {
+        "region": "Berlin-Süd",
+        "altersgruppe": "30-44"
+      }
+    },
+    {
+      "vorhabenId": "v-4",
+      "beitragendeId": "b-0169",
+      "betragCent": 962,
+      "zeitpunkt": "2026-08-30T04:45:00.000Z",
+      "merkmal": {
+        "region": "Berlin-Nord",
+        "altersgruppe": "unter 30"
+      }
+    },
+    {
+      "vorhabenId": "v-4",
+      "beitragendeId": "b-0174",
+      "betragCent": 882,
+      "zeitpunkt": "2026-08-24T22:25:00.000Z",
       "merkmal": {
         "region": "Berlin-Nord",
         "altersgruppe": "45-59"
@@ -1276,17 +1226,47 @@
     },
     {
       "vorhabenId": "v-4",
-      "beitragendeId": "b-0173",
-      "betragCent": 1143,
-      "zeitpunkt": "2026-07-21T14:50:00.000Z",
+      "beitragendeId": "b-0176",
+      "betragCent": 862,
+      "zeitpunkt": "2026-07-10T06:42:00.000Z",
+      "merkmal": {
+        "region": "Berlin-Nord",
+        "altersgruppe": "30-44"
+      }
+    },
+    {
+      "vorhabenId": "v-5",
+      "beitragendeId": "b-0001",
+      "betragCent": 1107,
+      "zeitpunkt": "2026-07-17T17:46:00.000Z",
       "merkmal": {
         "region": "Berlin-West",
+        "altersgruppe": "30-44"
+      }
+    },
+    {
+      "vorhabenId": "v-5",
+      "beitragendeId": "b-0021",
+      "betragCent": 746,
+      "zeitpunkt": "2026-09-29T02:29:00.000Z",
+      "merkmal": {
+        "region": "Berlin-Nord",
         "altersgruppe": "unter 30"
       }
     },
     {
       "vorhabenId": "v-5",
       "beitragendeId": "b-0039",
+      "betragCent": 1065,
+      "zeitpunkt": "2026-07-30T19:51:00.000Z",
+      "merkmal": {
+        "region": "Berlin-Süd",
+        "altersgruppe": "unter 30"
+      }
+    },
+    {
+      "vorhabenId": "v-5",
+      "beitragendeId": "b-0040",
       "betragCent": 906,
       "zeitpunkt": "2026-07-11T21:13:00.000Z",
       "merkmal": {
@@ -1295,58 +1275,48 @@
       }
     },
     {
-      "vorhabenId": "v-6",
-      "beitragendeId": "b-0011",
-      "betragCent": 886,
-      "zeitpunkt": "2026-08-08T09:46:00.000Z",
-      "merkmal": {
-        "region": "Berlin-Nord",
-        "altersgruppe": "unter 30"
-      }
-    },
-    {
-      "vorhabenId": "v-6",
-      "beitragendeId": "b-0017",
-      "betragCent": 735,
-      "zeitpunkt": "2026-07-17T12:59:00.000Z",
-      "merkmal": {
-        "region": "Berlin-West",
-        "altersgruppe": "45-59"
-      }
-    },
-    {
-      "vorhabenId": "v-6",
-      "beitragendeId": "b-0052",
-      "betragCent": 1149,
-      "zeitpunkt": "2026-08-23T05:05:00.000Z",
-      "merkmal": {
-        "region": "Berlin-Nord",
-        "altersgruppe": "unter 30"
-      }
-    },
-    {
-      "vorhabenId": "v-6",
-      "beitragendeId": "b-0054",
-      "betragCent": 1036,
-      "zeitpunkt": "2026-08-18T12:22:00.000Z",
-      "merkmal": {
-        "region": "Berlin-West",
-        "altersgruppe": "45-59"
-      }
-    },
-    {
-      "vorhabenId": "v-6",
-      "beitragendeId": "b-0055",
-      "betragCent": 1179,
-      "zeitpunkt": "2026-08-22T00:50:00.000Z",
+      "vorhabenId": "v-5",
+      "beitragendeId": "b-0050",
+      "betragCent": 1112,
+      "zeitpunkt": "2026-09-28T19:04:00.000Z",
       "merkmal": {
         "region": "Berlin-Nord",
         "altersgruppe": "30-44"
       }
     },
     {
-      "vorhabenId": "v-6",
+      "vorhabenId": "v-5",
       "beitragendeId": "b-0056",
+      "betragCent": 531,
+      "zeitpunkt": "2026-09-12T08:04:00.000Z",
+      "merkmal": {
+        "region": "Berlin-Ost",
+        "altersgruppe": "30-44"
+      }
+    },
+    {
+      "vorhabenId": "v-5",
+      "beitragendeId": "b-0143",
+      "betragCent": 791,
+      "zeitpunkt": "2026-09-23T05:44:00.000Z",
+      "merkmal": {
+        "region": "Berlin-Ost",
+        "altersgruppe": "30-44"
+      }
+    },
+    {
+      "vorhabenId": "v-5",
+      "beitragendeId": "b-0148",
+      "betragCent": 1179,
+      "zeitpunkt": "2026-08-22T00:50:00.000Z",
+      "merkmal": {
+        "region": "Berlin-Süd",
+        "altersgruppe": "60 und älter"
+      }
+    },
+    {
+      "vorhabenId": "v-5",
+      "beitragendeId": "b-0168",
       "betragCent": 1093,
       "zeitpunkt": "2026-08-31T20:16:00.000Z",
       "merkmal": {
@@ -1356,9 +1326,9 @@
     },
     {
       "vorhabenId": "v-6",
-      "beitragendeId": "b-0062",
-      "betragCent": 709,
-      "zeitpunkt": "2026-08-23T18:43:00.000Z",
+      "beitragendeId": "b-0011",
+      "betragCent": 1036,
+      "zeitpunkt": "2026-08-18T12:22:00.000Z",
       "merkmal": {
         "region": "Berlin-Nord",
         "altersgruppe": "30-44"
@@ -1366,19 +1336,69 @@
     },
     {
       "vorhabenId": "v-6",
-      "beitragendeId": "b-0084",
-      "betragCent": 1200,
-      "zeitpunkt": "2026-08-27T18:33:00.000Z",
+      "beitragendeId": "b-0017",
+      "betragCent": 763,
+      "zeitpunkt": "2026-09-29T05:04:00.000Z",
+      "merkmal": {
+        "region": "Berlin-West",
+        "altersgruppe": "45-59"
+      }
+    },
+    {
+      "vorhabenId": "v-6",
+      "beitragendeId": "b-0052",
+      "betragCent": 886,
+      "zeitpunkt": "2026-08-08T09:46:00.000Z",
+      "merkmal": {
+        "region": "Berlin-Nord",
+        "altersgruppe": "30-44"
+      }
+    },
+    {
+      "vorhabenId": "v-6",
+      "beitragendeId": "b-0054",
+      "betragCent": 935,
+      "zeitpunkt": "2026-09-10T19:51:00.000Z",
       "merkmal": {
         "region": "Berlin-Süd",
-        "altersgruppe": "60 und älter"
+        "altersgruppe": "30-44"
+      }
+    },
+    {
+      "vorhabenId": "v-6",
+      "beitragendeId": "b-0057",
+      "betragCent": 709,
+      "zeitpunkt": "2026-08-23T18:43:00.000Z",
+      "merkmal": {
+        "region": "Berlin-Ost",
+        "altersgruppe": "30-44"
+      }
+    },
+    {
+      "vorhabenId": "v-6",
+      "beitragendeId": "b-0063",
+      "betragCent": 1014,
+      "zeitpunkt": "2026-08-16T05:44:00.000Z",
+      "merkmal": {
+        "region": "Berlin-Nord",
+        "altersgruppe": "30-44"
+      }
+    },
+    {
+      "vorhabenId": "v-6",
+      "beitragendeId": "b-0081",
+      "betragCent": 600,
+      "zeitpunkt": "2026-07-19T23:40:00.000Z",
+      "merkmal": {
+        "region": "Berlin-Nord",
+        "altersgruppe": "30-44"
       }
     },
     {
       "vorhabenId": "v-6",
       "beitragendeId": "b-0085",
       "betragCent": 1200,
-      "zeitpunkt": "2026-09-15T22:47:00.000Z",
+      "zeitpunkt": "2026-08-19T18:07:00.000Z",
       "merkmal": {
         "region": "Berlin-Süd",
         "altersgruppe": "60 und älter"
@@ -1388,7 +1408,7 @@
       "vorhabenId": "v-6",
       "beitragendeId": "b-0086",
       "betragCent": 1200,
-      "zeitpunkt": "2026-07-31T00:04:00.000Z",
+      "zeitpunkt": "2026-09-22T00:45:00.000Z",
       "merkmal": {
         "region": "Berlin-Süd",
         "altersgruppe": "60 und älter"
@@ -1398,7 +1418,7 @@
       "vorhabenId": "v-6",
       "beitragendeId": "b-0087",
       "betragCent": 1200,
-      "zeitpunkt": "2026-07-16T11:21:00.000Z",
+      "zeitpunkt": "2026-09-05T17:55:00.000Z",
       "merkmal": {
         "region": "Berlin-Süd",
         "altersgruppe": "60 und älter"
@@ -1408,7 +1428,7 @@
       "vorhabenId": "v-6",
       "beitragendeId": "b-0088",
       "betragCent": 1200,
-      "zeitpunkt": "2026-09-21T12:51:00.000Z",
+      "zeitpunkt": "2026-07-18T14:06:00.000Z",
       "merkmal": {
         "region": "Berlin-Süd",
         "altersgruppe": "60 und älter"
@@ -1418,7 +1438,7 @@
       "vorhabenId": "v-6",
       "beitragendeId": "b-0089",
       "betragCent": 1200,
-      "zeitpunkt": "2026-09-08T21:53:00.000Z",
+      "zeitpunkt": "2026-09-24T21:08:00.000Z",
       "merkmal": {
         "region": "Berlin-Süd",
         "altersgruppe": "60 und älter"
@@ -1428,7 +1448,7 @@
       "vorhabenId": "v-6",
       "beitragendeId": "b-0090",
       "betragCent": 1200,
-      "zeitpunkt": "2026-07-03T17:14:00.000Z",
+      "zeitpunkt": "2026-08-03T19:47:00.000Z",
       "merkmal": {
         "region": "Berlin-Süd",
         "altersgruppe": "60 und älter"
@@ -1438,7 +1458,7 @@
       "vorhabenId": "v-6",
       "beitragendeId": "b-0091",
       "betragCent": 1200,
-      "zeitpunkt": "2026-09-07T04:29:00.000Z",
+      "zeitpunkt": "2026-08-04T13:22:00.000Z",
       "merkmal": {
         "region": "Berlin-Süd",
         "altersgruppe": "60 und älter"
@@ -1448,7 +1468,7 @@
       "vorhabenId": "v-6",
       "beitragendeId": "b-0092",
       "betragCent": 1200,
-      "zeitpunkt": "2026-08-24T22:13:00.000Z",
+      "zeitpunkt": "2026-07-01T04:34:00.000Z",
       "merkmal": {
         "region": "Berlin-Süd",
         "altersgruppe": "60 und älter"
@@ -1458,7 +1478,7 @@
       "vorhabenId": "v-6",
       "beitragendeId": "b-0093",
       "betragCent": 1200,
-      "zeitpunkt": "2026-09-20T08:51:00.000Z",
+      "zeitpunkt": "2026-09-11T16:39:00.000Z",
       "merkmal": {
         "region": "Berlin-Süd",
         "altersgruppe": "60 und älter"
@@ -1468,7 +1488,7 @@
       "vorhabenId": "v-6",
       "beitragendeId": "b-0094",
       "betragCent": 1200,
-      "zeitpunkt": "2026-09-14T08:58:00.000Z",
+      "zeitpunkt": "2026-08-15T08:03:00.000Z",
       "merkmal": {
         "region": "Berlin-Süd",
         "altersgruppe": "60 und älter"
@@ -1478,7 +1498,7 @@
       "vorhabenId": "v-6",
       "beitragendeId": "b-0095",
       "betragCent": 1200,
-      "zeitpunkt": "2026-08-21T00:04:00.000Z",
+      "zeitpunkt": "2026-08-09T12:43:00.000Z",
       "merkmal": {
         "region": "Berlin-Süd",
         "altersgruppe": "60 und älter"
@@ -1486,7 +1506,57 @@
     },
     {
       "vorhabenId": "v-6",
+      "beitragendeId": "b-0096",
+      "betragCent": 1200,
+      "zeitpunkt": "2026-07-30T13:59:00.000Z",
+      "merkmal": {
+        "region": "Berlin-Süd",
+        "altersgruppe": "60 und älter"
+      }
+    },
+    {
+      "vorhabenId": "v-6",
+      "beitragendeId": "b-0097",
+      "betragCent": 617,
+      "zeitpunkt": "2026-08-13T21:24:00.000Z",
+      "merkmal": {
+        "region": "Berlin-Süd",
+        "altersgruppe": "unter 30"
+      }
+    },
+    {
+      "vorhabenId": "v-6",
       "beitragendeId": "b-0120",
+      "betragCent": 609,
+      "zeitpunkt": "2026-09-13T21:11:00.000Z",
+      "merkmal": {
+        "region": "Berlin-Süd",
+        "altersgruppe": "30-44"
+      }
+    },
+    {
+      "vorhabenId": "v-6",
+      "beitragendeId": "b-0127",
+      "betragCent": 1165,
+      "zeitpunkt": "2026-07-31T00:04:00.000Z",
+      "merkmal": {
+        "region": "Berlin-Süd",
+        "altersgruppe": "60 und älter"
+      }
+    },
+    {
+      "vorhabenId": "v-6",
+      "beitragendeId": "b-0129",
+      "betragCent": 1149,
+      "zeitpunkt": "2026-08-23T05:05:00.000Z",
+      "merkmal": {
+        "region": "Berlin-Nord",
+        "altersgruppe": "unter 30"
+      }
+    },
+    {
+      "vorhabenId": "v-6",
+      "beitragendeId": "b-0131",
       "betragCent": 637,
       "zeitpunkt": "2026-07-19T14:27:00.000Z",
       "merkmal": {
@@ -1496,89 +1566,39 @@
     },
     {
       "vorhabenId": "v-6",
-      "beitragendeId": "b-0125",
-      "betragCent": 531,
-      "zeitpunkt": "2026-09-12T08:04:00.000Z",
-      "merkmal": {
-        "region": "Berlin-Nord",
-        "altersgruppe": "30-44"
-      }
-    },
-    {
-      "vorhabenId": "v-6",
-      "beitragendeId": "b-0130",
-      "betragCent": 600,
-      "zeitpunkt": "2026-07-19T23:40:00.000Z",
-      "merkmal": {
-        "region": "Berlin-Nord",
-        "altersgruppe": "60 und älter"
-      }
-    },
-    {
-      "vorhabenId": "v-6",
-      "beitragendeId": "b-0162",
-      "betragCent": 763,
-      "zeitpunkt": "2026-09-29T05:04:00.000Z",
-      "merkmal": {
-        "region": "Berlin-Nord",
-        "altersgruppe": "30-44"
-      }
-    },
-    {
-      "vorhabenId": "v-6",
-      "beitragendeId": "b-0167",
-      "betragCent": 1065,
-      "zeitpunkt": "2026-07-30T19:51:00.000Z",
+      "beitragendeId": "b-0171",
+      "betragCent": 735,
+      "zeitpunkt": "2026-07-17T12:59:00.000Z",
       "merkmal": {
         "region": "Berlin-Nord",
         "altersgruppe": "45-59"
       }
     },
     {
-      "vorhabenId": "v-6",
-      "beitragendeId": "b-0170",
-      "betragCent": 609,
-      "zeitpunkt": "2026-09-13T21:11:00.000Z",
+      "vorhabenId": "v-7",
+      "beitragendeId": "b-0004",
+      "betragCent": 867,
+      "zeitpunkt": "2026-08-04T04:55:00.000Z",
       "merkmal": {
         "region": "Berlin-Nord",
-        "altersgruppe": "30-44"
-      }
-    },
-    {
-      "vorhabenId": "v-6",
-      "beitragendeId": "b-0172",
-      "betragCent": 1014,
-      "zeitpunkt": "2026-08-16T05:44:00.000Z",
-      "merkmal": {
-        "region": "Berlin-Süd",
         "altersgruppe": "60 und älter"
       }
     },
     {
       "vorhabenId": "v-7",
-      "beitragendeId": "b-0004",
-      "betragCent": 1040,
-      "zeitpunkt": "2026-07-27T15:48:00.000Z",
-      "merkmal": {
-        "region": "Berlin-West",
-        "altersgruppe": "unter 30"
-      }
-    },
-    {
-      "vorhabenId": "v-7",
       "beitragendeId": "b-0009",
-      "betragCent": 1120,
-      "zeitpunkt": "2026-07-02T00:00:00.000Z",
+      "betragCent": 666,
+      "zeitpunkt": "2026-09-24T05:43:00.000Z",
       "merkmal": {
         "region": "Berlin-Nord",
-        "altersgruppe": "30-44"
+        "altersgruppe": "60 und älter"
       }
     },
     {
       "vorhabenId": "v-7",
-      "beitragendeId": "b-0044",
-      "betragCent": 575,
-      "zeitpunkt": "2026-09-03T08:29:00.000Z",
+      "beitragendeId": "b-0037",
+      "betragCent": 1160,
+      "zeitpunkt": "2026-08-21T08:41:00.000Z",
       "merkmal": {
         "region": "Berlin-Ost",
         "altersgruppe": "30-44"
@@ -1586,19 +1606,19 @@
     },
     {
       "vorhabenId": "v-7",
-      "beitragendeId": "b-0070",
-      "betragCent": 871,
-      "zeitpunkt": "2026-07-30T13:59:00.000Z",
+      "beitragendeId": "b-0044",
+      "betragCent": 624,
+      "zeitpunkt": "2026-07-18T03:23:00.000Z",
       "merkmal": {
-        "region": "Berlin-Süd",
+        "region": "Berlin-Ost",
         "altersgruppe": "30-44"
       }
     },
     {
       "vorhabenId": "v-7",
-      "beitragendeId": "b-0084",
-      "betragCent": 1200,
-      "zeitpunkt": "2026-07-22T22:16:00.000Z",
+      "beitragendeId": "b-0071",
+      "betragCent": 1040,
+      "zeitpunkt": "2026-07-27T15:48:00.000Z",
       "merkmal": {
         "region": "Berlin-Süd",
         "altersgruppe": "60 und älter"
@@ -1608,7 +1628,7 @@
       "vorhabenId": "v-7",
       "beitragendeId": "b-0085",
       "betragCent": 1200,
-      "zeitpunkt": "2026-07-22T04:14:00.000Z",
+      "zeitpunkt": "2026-07-07T12:30:00.000Z",
       "merkmal": {
         "region": "Berlin-Süd",
         "altersgruppe": "60 und älter"
@@ -1618,7 +1638,7 @@
       "vorhabenId": "v-7",
       "beitragendeId": "b-0086",
       "betragCent": 1200,
-      "zeitpunkt": "2026-07-18T03:23:00.000Z",
+      "zeitpunkt": "2026-09-25T03:36:00.000Z",
       "merkmal": {
         "region": "Berlin-Süd",
         "altersgruppe": "60 und älter"
@@ -1628,7 +1648,7 @@
       "vorhabenId": "v-7",
       "beitragendeId": "b-0087",
       "betragCent": 1200,
-      "zeitpunkt": "2026-09-25T13:26:00.000Z",
+      "zeitpunkt": "2026-09-10T04:08:00.000Z",
       "merkmal": {
         "region": "Berlin-Süd",
         "altersgruppe": "60 und älter"
@@ -1638,7 +1658,7 @@
       "vorhabenId": "v-7",
       "beitragendeId": "b-0088",
       "betragCent": 1200,
-      "zeitpunkt": "2026-08-03T01:47:00.000Z",
+      "zeitpunkt": "2026-07-10T04:38:00.000Z",
       "merkmal": {
         "region": "Berlin-Süd",
         "altersgruppe": "60 und älter"
@@ -1648,7 +1668,7 @@
       "vorhabenId": "v-7",
       "beitragendeId": "b-0089",
       "betragCent": 1200,
-      "zeitpunkt": "2026-08-17T22:35:00.000Z",
+      "zeitpunkt": "2026-09-04T14:51:00.000Z",
       "merkmal": {
         "region": "Berlin-Süd",
         "altersgruppe": "60 und älter"
@@ -1658,7 +1678,7 @@
       "vorhabenId": "v-7",
       "beitragendeId": "b-0090",
       "betragCent": 1200,
-      "zeitpunkt": "2026-07-14T18:42:00.000Z",
+      "zeitpunkt": "2026-07-01T01:24:00.000Z",
       "merkmal": {
         "region": "Berlin-Süd",
         "altersgruppe": "60 und älter"
@@ -1668,7 +1688,7 @@
       "vorhabenId": "v-7",
       "beitragendeId": "b-0091",
       "betragCent": 1200,
-      "zeitpunkt": "2026-07-16T02:22:00.000Z",
+      "zeitpunkt": "2026-09-04T13:35:00.000Z",
       "merkmal": {
         "region": "Berlin-Süd",
         "altersgruppe": "60 und älter"
@@ -1678,7 +1698,7 @@
       "vorhabenId": "v-7",
       "beitragendeId": "b-0092",
       "betragCent": 1200,
-      "zeitpunkt": "2026-07-18T17:02:00.000Z",
+      "zeitpunkt": "2026-08-04T20:52:00.000Z",
       "merkmal": {
         "region": "Berlin-Süd",
         "altersgruppe": "60 und älter"
@@ -1688,7 +1708,7 @@
       "vorhabenId": "v-7",
       "beitragendeId": "b-0093",
       "betragCent": 1200,
-      "zeitpunkt": "2026-08-26T00:04:00.000Z",
+      "zeitpunkt": "2026-07-25T08:01:00.000Z",
       "merkmal": {
         "region": "Berlin-Süd",
         "altersgruppe": "60 und älter"
@@ -1698,7 +1718,7 @@
       "vorhabenId": "v-7",
       "beitragendeId": "b-0094",
       "betragCent": 1200,
-      "zeitpunkt": "2026-07-06T16:59:00.000Z",
+      "zeitpunkt": "2026-09-28T09:45:00.000Z",
       "merkmal": {
         "region": "Berlin-Süd",
         "altersgruppe": "60 und älter"
@@ -1708,7 +1728,7 @@
       "vorhabenId": "v-7",
       "beitragendeId": "b-0095",
       "betragCent": 1200,
-      "zeitpunkt": "2026-08-22T08:58:00.000Z",
+      "zeitpunkt": "2026-07-28T21:31:00.000Z",
       "merkmal": {
         "region": "Berlin-Süd",
         "altersgruppe": "60 und älter"
@@ -1716,17 +1736,27 @@
     },
     {
       "vorhabenId": "v-7",
-      "beitragendeId": "b-0097",
-      "betragCent": 633,
-      "zeitpunkt": "2026-09-11T16:39:00.000Z",
+      "beitragendeId": "b-0096",
+      "betragCent": 1200,
+      "zeitpunkt": "2026-07-04T20:38:00.000Z",
       "merkmal": {
-        "region": "Berlin-Nord",
-        "altersgruppe": "45-59"
+        "region": "Berlin-Süd",
+        "altersgruppe": "60 und älter"
       }
     },
     {
       "vorhabenId": "v-7",
-      "beitragendeId": "b-0113",
+      "beitragendeId": "b-0114",
+      "betragCent": 987,
+      "zeitpunkt": "2026-09-05T16:18:00.000Z",
+      "merkmal": {
+        "region": "Berlin-Nord",
+        "altersgruppe": "unter 30"
+      }
+    },
+    {
+      "vorhabenId": "v-7",
+      "beitragendeId": "b-0152",
       "betragCent": 945,
       "zeitpunkt": "2026-07-10T15:23:00.000Z",
       "merkmal": {
@@ -1736,79 +1766,59 @@
     },
     {
       "vorhabenId": "v-7",
-      "beitragendeId": "b-0114",
-      "betragCent": 847,
-      "zeitpunkt": "2026-07-31T10:17:00.000Z",
+      "beitragendeId": "b-0162",
+      "betragCent": 575,
+      "zeitpunkt": "2026-09-03T08:29:00.000Z",
+      "merkmal": {
+        "region": "Berlin-Nord",
+        "altersgruppe": "unter 30"
+      }
+    },
+    {
+      "vorhabenId": "v-7",
+      "beitragendeId": "b-0177",
+      "betragCent": 1120,
+      "zeitpunkt": "2026-07-02T00:00:00.000Z",
+      "merkmal": {
+        "region": "Berlin-Süd",
+        "altersgruppe": "45-59"
+      }
+    },
+    {
+      "vorhabenId": "v-8",
+      "beitragendeId": "b-0016",
+      "betragCent": 741,
+      "zeitpunkt": "2026-09-15T02:45:00.000Z",
+      "merkmal": {
+        "region": "Berlin-Nord",
+        "altersgruppe": "60 und älter"
+      }
+    },
+    {
+      "vorhabenId": "v-8",
+      "beitragendeId": "b-0023",
+      "betragCent": 1101,
+      "zeitpunkt": "2026-08-23T15:31:00.000Z",
       "merkmal": {
         "region": "Berlin-Ost",
         "altersgruppe": "unter 30"
       }
     },
     {
-      "vorhabenId": "v-7",
-      "beitragendeId": "b-0161",
-      "betragCent": 867,
-      "zeitpunkt": "2026-08-04T04:55:00.000Z",
-      "merkmal": {
-        "region": "Berlin-Süd",
-        "altersgruppe": "unter 30"
-      }
-    },
-    {
-      "vorhabenId": "v-7",
-      "beitragendeId": "b-0176",
-      "betragCent": 987,
-      "zeitpunkt": "2026-09-05T16:18:00.000Z",
-      "merkmal": {
-        "region": "Berlin-Nord",
-        "altersgruppe": "unter 30"
-      }
-    },
-    {
       "vorhabenId": "v-8",
-      "beitragendeId": "b-0016",
-      "betragCent": 567,
-      "zeitpunkt": "2026-07-23T01:57:00.000Z",
+      "beitragendeId": "b-0029",
+      "betragCent": 627,
+      "zeitpunkt": "2026-09-25T11:50:00.000Z",
       "merkmal": {
-        "region": "Berlin-Süd",
-        "altersgruppe": "unter 30"
-      }
-    },
-    {
-      "vorhabenId": "v-8",
-      "beitragendeId": "b-0023",
-      "betragCent": 993,
-      "zeitpunkt": "2026-09-10T14:55:00.000Z",
-      "merkmal": {
-        "region": "Berlin-Nord",
-        "altersgruppe": "30-44"
-      }
-    },
-    {
-      "vorhabenId": "v-8",
-      "beitragendeId": "b-0028",
-      "betragCent": 861,
-      "zeitpunkt": "2026-07-07T05:48:00.000Z",
-      "merkmal": {
-        "region": "Berlin-West",
+        "region": "Berlin-Ost",
         "altersgruppe": "30-44"
       }
     },
     {
       "vorhabenId": "v-8",
       "beitragendeId": "b-0036",
-      "betragCent": 773,
-      "zeitpunkt": "2026-09-06T20:42:00.000Z",
-      "merkmal": {
-        "region": "Berlin-Nord",
-        "altersgruppe": "30-44"
-      }
-    },
-    {
-      "vorhabenId": "v-8",
-      "beitragendeId": "b-0037",
-      "betragCent": 1109,
-      "zeitpunkt": "2026-07-25T08:01:00.000Z",
+      "betragCent": 1060,
+      "zeitpunkt": "2026-07-30T04:17:00.000Z",
       "merkmal": {
         "region": "Berlin-Nord",
         "altersgruppe": "30-44"
@@ -1817,18 +1827,18 @@
     {
       "vorhabenId": "v-8",
       "beitragendeId": "b-0046",
-      "betragCent": 873,
-      "zeitpunkt": "2026-08-08T07:56:00.000Z",
+      "betragCent": 573,
+      "zeitpunkt": "2026-07-11T22:51:00.000Z",
       "merkmal": {
-        "region": "Berlin-Nord",
+        "region": "Berlin-Ost",
         "altersgruppe": "30-44"
       }
     },
     {
       "vorhabenId": "v-8",
       "beitragendeId": "b-0058",
-      "betragCent": 741,
-      "zeitpunkt": "2026-09-15T02:45:00.000Z",
+      "betragCent": 764,
+      "zeitpunkt": "2026-09-06T01:35:00.000Z",
       "merkmal": {
         "region": "Berlin-Ost",
         "altersgruppe": "30-44"
@@ -1837,28 +1847,108 @@
     {
       "vorhabenId": "v-8",
       "beitragendeId": "b-0064",
-      "betragCent": 940,
-      "zeitpunkt": "2026-08-08T21:51:00.000Z",
+      "betragCent": 1123,
+      "zeitpunkt": "2026-07-13T04:57:00.000Z",
       "merkmal": {
-        "region": "Berlin-Ost",
+        "region": "Berlin-Süd",
         "altersgruppe": "45-59"
       }
     },
     {
       "vorhabenId": "v-8",
-      "beitragendeId": "b-0066",
-      "betragCent": 764,
-      "zeitpunkt": "2026-09-06T01:35:00.000Z",
+      "beitragendeId": "b-0065",
+      "betragCent": 861,
+      "zeitpunkt": "2026-07-07T05:48:00.000Z",
       "merkmal": {
-        "region": "Berlin-West",
+        "region": "Berlin-Ost",
         "altersgruppe": "60 und älter"
       }
     },
     {
       "vorhabenId": "v-8",
+      "beitragendeId": "b-0066",
+      "betragCent": 859,
+      "zeitpunkt": "2026-08-03T19:40:00.000Z",
+      "merkmal": {
+        "region": "Berlin-West",
+        "altersgruppe": "unter 30"
+      }
+    },
+    {
+      "vorhabenId": "v-8",
       "beitragendeId": "b-0080",
+      "betragCent": 567,
+      "zeitpunkt": "2026-07-23T01:57:00.000Z",
+      "merkmal": {
+        "region": "Berlin-Süd",
+        "altersgruppe": "30-44"
+      }
+    },
+    {
+      "vorhabenId": "v-8",
+      "beitragendeId": "b-0082",
+      "betragCent": 940,
+      "zeitpunkt": "2026-08-08T21:51:00.000Z",
+      "merkmal": {
+        "region": "Berlin-Nord",
+        "altersgruppe": "60 und älter"
+      }
+    },
+    {
+      "vorhabenId": "v-8",
+      "beitragendeId": "b-0116",
+      "betragCent": 993,
+      "zeitpunkt": "2026-09-10T14:55:00.000Z",
+      "merkmal": {
+        "region": "Berlin-Süd",
+        "altersgruppe": "unter 30"
+      }
+    },
+    {
+      "vorhabenId": "v-8",
+      "beitragendeId": "b-0119",
+      "betragCent": 1113,
+      "zeitpunkt": "2026-07-02T07:43:00.000Z",
+      "merkmal": {
+        "region": "Berlin-West",
+        "altersgruppe": "30-44"
+      }
+    },
+    {
+      "vorhabenId": "v-8",
+      "beitragendeId": "b-0122",
+      "betragCent": 962,
+      "zeitpunkt": "2026-09-17T17:51:00.000Z",
+      "merkmal": {
+        "region": "Berlin-Süd",
+        "altersgruppe": "45-59"
+      }
+    },
+    {
+      "vorhabenId": "v-8",
+      "beitragendeId": "b-0124",
+      "betragCent": 625,
+      "zeitpunkt": "2026-08-14T05:34:00.000Z",
+      "merkmal": {
+        "region": "Berlin-West",
+        "altersgruppe": "unter 30"
+      }
+    },
+    {
+      "vorhabenId": "v-8",
+      "beitragendeId": "b-0126",
       "betragCent": 919,
       "zeitpunkt": "2026-09-07T22:41:00.000Z",
+      "merkmal": {
+        "region": "Berlin-Nord",
+        "altersgruppe": "45-59"
+      }
+    },
+    {
+      "vorhabenId": "v-8",
+      "beitragendeId": "b-0128",
+      "betragCent": 896,
+      "zeitpunkt": "2026-07-25T05:44:00.000Z",
       "merkmal": {
         "region": "Berlin-West",
         "altersgruppe": "45-59"
@@ -1866,27 +1956,17 @@
     },
     {
       "vorhabenId": "v-8",
-      "beitragendeId": "b-0082",
-      "betragCent": 1123,
-      "zeitpunkt": "2026-07-13T04:57:00.000Z",
+      "beitragendeId": "b-0132",
+      "betragCent": 990,
+      "zeitpunkt": "2026-08-09T07:24:00.000Z",
       "merkmal": {
         "region": "Berlin-Ost",
-        "altersgruppe": "unter 30"
+        "altersgruppe": "60 und älter"
       }
     },
     {
       "vorhabenId": "v-8",
-      "beitragendeId": "b-0115",
-      "betragCent": 962,
-      "zeitpunkt": "2026-09-17T17:51:00.000Z",
-      "merkmal": {
-        "region": "Berlin-Nord",
-        "altersgruppe": "unter 30"
-      }
-    },
-    {
-      "vorhabenId": "v-8",
-      "beitragendeId": "b-0118",
+      "beitragendeId": "b-0140",
       "betragCent": 543,
       "zeitpunkt": "2026-08-15T14:52:00.000Z",
       "merkmal": {
@@ -1896,102 +1976,32 @@
     },
     {
       "vorhabenId": "v-8",
-      "beitragendeId": "b-0121",
-      "betragCent": 627,
-      "zeitpunkt": "2026-09-25T11:50:00.000Z",
+      "beitragendeId": "b-0144",
+      "betragCent": 773,
+      "zeitpunkt": "2026-09-06T20:42:00.000Z",
       "merkmal": {
-        "region": "Berlin-Ost",
-        "altersgruppe": "45-59"
+        "region": "Berlin-Nord",
+        "altersgruppe": "unter 30"
       }
     },
     {
       "vorhabenId": "v-8",
-      "beitragendeId": "b-0124",
-      "betragCent": 990,
-      "zeitpunkt": "2026-08-09T07:24:00.000Z",
-      "merkmal": {
-        "region": "Berlin-West",
-        "altersgruppe": "60 und älter"
-      }
-    },
-    {
-      "vorhabenId": "v-8",
-      "beitragendeId": "b-0126",
+      "beitragendeId": "b-0166",
       "betragCent": 1185,
       "zeitpunkt": "2026-09-16T15:34:00.000Z",
       "merkmal": {
-        "region": "Berlin-Ost",
-        "altersgruppe": "30-44"
+        "region": "Berlin-Nord",
+        "altersgruppe": "unter 30"
       }
     },
     {
       "vorhabenId": "v-8",
-      "beitragendeId": "b-0128",
-      "betragCent": 1060,
-      "zeitpunkt": "2026-07-30T04:17:00.000Z",
+      "beitragendeId": "b-0172",
+      "betragCent": 873,
+      "zeitpunkt": "2026-08-08T07:56:00.000Z",
       "merkmal": {
         "region": "Berlin-West",
-        "altersgruppe": "60 und älter"
-      }
-    },
-    {
-      "vorhabenId": "v-8",
-      "beitragendeId": "b-0131",
-      "betragCent": 1101,
-      "zeitpunkt": "2026-08-23T15:31:00.000Z",
-      "merkmal": {
-        "region": "Berlin-Ost",
-        "altersgruppe": "30-44"
-      }
-    },
-    {
-      "vorhabenId": "v-8",
-      "beitragendeId": "b-0140",
-      "betragCent": 896,
-      "zeitpunkt": "2026-07-25T05:44:00.000Z",
-      "merkmal": {
-        "region": "Berlin-Süd",
-        "altersgruppe": "unter 30"
-      }
-    },
-    {
-      "vorhabenId": "v-8",
-      "beitragendeId": "b-0144",
-      "betragCent": 1181,
-      "zeitpunkt": "2026-08-07T07:05:00.000Z",
-      "merkmal": {
-        "region": "Berlin-Ost",
-        "altersgruppe": "unter 30"
-      }
-    },
-    {
-      "vorhabenId": "v-8",
-      "beitragendeId": "b-0163",
-      "betragCent": 1128,
-      "zeitpunkt": "2026-07-04T20:38:00.000Z",
-      "merkmal": {
-        "region": "Berlin-Nord",
-        "altersgruppe": "30-44"
-      }
-    },
-    {
-      "vorhabenId": "v-8",
-      "beitragendeId": "b-0165",
-      "betragCent": 1113,
-      "zeitpunkt": "2026-07-02T07:43:00.000Z",
-      "merkmal": {
-        "region": "Berlin-Ost",
-        "altersgruppe": "unter 30"
-      }
-    },
-    {
-      "vorhabenId": "v-8",
-      "beitragendeId": "b-0171",
-      "betragCent": 625,
-      "zeitpunkt": "2026-08-14T05:34:00.000Z",
-      "merkmal": {
-        "region": "Berlin-Nord",
-        "altersgruppe": "unter 30"
+        "altersgruppe": "45-59"
       }
     }
   ]

@@ -239,19 +239,13 @@ export const PROGRAMMTYPEN: Record<Programmtyp, Programmtypbeschreibung> = {
 export type Vorhabenrolle =
   | 'normal' // viele kleine Beiträge
   | 'wenige-grosse' // wenige, große Beiträge — verliert unter QF
-  | 'allein' // genau eine beitragende Person — erhält null
   | 'absprache'; // wird von der Absprachegruppe geschlossen mitgetragen
 
-/** Musterbezeichnungen. "Person" oder "Stelle" richtet sich nach dem Programmtyp. */
-export function rollennamen(typ: Programmtyp): Record<Vorhabenrolle, string> {
-  const einzeln = typ === 'bund' ? 'Nur eine beitragende Stelle' : 'Nur eine beitragende Person';
-  return {
-    normal: 'Breite Unterstützung',
-    'wenige-grosse': 'Wenige große Beiträge',
-    allein: einzeln,
-    absprache: 'Wird von der Absprachegruppe getragen',
-  };
-}
+export const ROLLENNAMEN: Record<Vorhabenrolle, string> = {
+  normal: 'Breite Unterstützung',
+  'wenige-grosse': 'Wenige große Beiträge',
+  absprache: 'Wird von der Absprachegruppe getragen',
+};
 
 export type Vorhabenvorgabe = {
   id: string;
@@ -341,7 +335,7 @@ export const STANDARD_EINSTELLUNGEN: Simulationseinstellungen = {
     },
     { ...vorhabenvorgabe(2), beantragtCent: 100_000, jurypunkte: 88, zuspruch: 9 },
     { ...vorhabenvorgabe(3), beantragtCent: 80_000, jurypunkte: 81, zuspruch: 6 },
-    { ...vorhabenvorgabe(4, 'allein'), beantragtCent: 20_000, jurypunkte: 44, zuspruch: 1 },
+    { ...vorhabenvorgabe(4), beantragtCent: 30_000, jurypunkte: 44, zuspruch: 2 },
     { ...vorhabenvorgabe(5, 'absprache'), beantragtCent: 70_000, jurypunkte: 63, zuspruch: 3 },
     { ...vorhabenvorgabe(6, 'absprache'), beantragtCent: 65_000, jurypunkte: 69, zuspruch: 2 },
     { ...vorhabenvorgabe(7), beantragtCent: 60_000, jurypunkte: 57, zuspruch: 5 },
@@ -378,7 +372,7 @@ export const STANDARD_EINSTELLUNGEN_BUND: Simulationseinstellungen = {
     { ...vorhabenvorgabe(1, 'wenige-grosse', 'bund'), beantragtCent: 500_000_000, jurypunkte: 92, zuspruch: 1 },
     { ...vorhabenvorgabe(2, 'normal', 'bund'), beantragtCent: 550_000_000, jurypunkte: 88, zuspruch: 9 },
     { ...vorhabenvorgabe(3, 'normal', 'bund'), beantragtCent: 420_000_000, jurypunkte: 81, zuspruch: 6 },
-    { ...vorhabenvorgabe(4, 'allein', 'bund'), beantragtCent: 120_000_000, jurypunkte: 44, zuspruch: 1 },
+    { ...vorhabenvorgabe(4, 'normal', 'bund'), beantragtCent: 200_000_000, jurypunkte: 44, zuspruch: 2 },
     { ...vorhabenvorgabe(5, 'absprache', 'bund'), beantragtCent: 380_000_000, jurypunkte: 63, zuspruch: 4 },
     { ...vorhabenvorgabe(6, 'absprache', 'bund'), beantragtCent: 340_000_000, jurypunkte: 69, zuspruch: 3 },
     { ...vorhabenvorgabe(7, 'normal', 'bund'), beantragtCent: 300_000_000, jurypunkte: 57, zuspruch: 5 },
@@ -461,10 +455,6 @@ export function zufaelligeVorhaben(seed: number, rahmen: Rundenrahmen): Vorhaben
   // Genau ein Vorhaben mit wenigen großen Beiträgen — der Kontrast, um den es geht.
   rollen[freieIndizes[naechster++]] = 'wenige-grosse';
 
-  // Höchstens ein Vorhaben mit einer einzigen beitragenden Person.
-  const mitAllein = zufall() < 0.5;
-  if (mitAllein) rollen[freieIndizes[naechster++]] = 'allein';
-
   // Absprachegruppe braucht genau zwei Vorhaben, sonst ist sie wirkungslos —
   // und nur dann, wenn in den Rundenwerten überhaupt eine Gruppe vorgesehen ist.
   const mitAbsprache = anzahl >= 5 && rahmen.abspracheGroesse > 0;
@@ -482,20 +472,15 @@ export function zufaelligeVorhaben(seed: number, rahmen: Rundenrahmen): Vorhaben
   // später tatsächlich verteilt. Nur so lassen sich Kostenplan und Fördertopf
   // so bemessen, dass eine knappe — und damit aussagekräftige — Runde entsteht.
   const mittlererBetrag = (betragMinCent + betragMaxCent) / 2;
-  const anzahlAllein = wirksameRollen.filter((r) => r === 'allein').length;
   const anzahlGross = wirksameRollen.filter((r) => r === 'wenige-grosse').length;
-  const frischeGesamt = Math.max(
-    0,
-    beitragendeGesamt - abspracheGroesse - anzahlAllein - anzahlGross * 3,
-  );
+  const frischeGesamt = Math.max(0, beitragendeGesamt - abspracheGroesse - anzahlGross * 3);
   const gewichtsumme = wirksameRollen.reduce(
-    (a, r, i) => (r === 'allein' || r === 'wenige-grosse' ? a : a + zuspruch[i]),
+    (a, r, i) => (r === 'wenige-grosse' ? a : a + zuspruch[i]),
     0,
   );
 
   const eigenErwartet = wirksameRollen.map((rolle, i) => {
-    if (rolle === 'allein') return mittlererBetrag;
-    // "wenige große Beiträge": drei Personen, Beträge weit über der Spanne.
+    // "wenige große Beiträge": drei Beitragende, Beträge weit über der Spanne.
     if (rolle === 'wenige-grosse') return 3 * betragMaxCent * 9.5;
     const koepfe = gewichtsumme > 0 ? (frischeGesamt * zuspruch[i]) / gewichtsumme : 2;
     const ausAbsprache = rolle === 'absprache' ? abspracheGroesse * betragMaxCent : 0;
@@ -533,8 +518,7 @@ export function zufaelligeVorhaben(seed: number, rahmen: Rundenrahmen): Vorhaben
     traeger: traeger[i],
     beantragtCent: beantragt[i],
     jurypunkte: ganzzahl(40, 95),
-    zuspruch:
-      wirksameRollen[i] === 'allein' || wirksameRollen[i] === 'wenige-grosse' ? 1 : zuspruch[i],
+    zuspruch: wirksameRollen[i] === 'wenige-grosse' ? 1 : zuspruch[i],
     rolle: wirksameRollen[i],
   }));
 }
@@ -568,24 +552,21 @@ export function erzeugeRunde(einstellungen: Simulationseinstellungen): Rundendat
   const abspracheGroesse = abspracheAktiv ? einstellungen.abspracheGroesse : 0;
 
   // Zahl der neuen Personen je Vorhaben aus dem Zuspruch ableiten.
-  const gewichtsumme = vorgaben.reduce((a, v) => {
-    if (v.rolle === 'allein') return a;
-    if (v.rolle === 'wenige-grosse') return a;
-    return a + v.zuspruch;
-  }, 0);
+  const gewichtsumme = vorgaben.reduce(
+    (a, v) => (v.rolle === 'wenige-grosse' ? a : a + v.zuspruch),
+    0,
+  );
 
   const frischeGesamt = Math.max(
     0,
     einstellungen.beitragendeGesamt -
       abspracheGroesse -
-      vorgaben.filter((v) => v.rolle === 'allein').length -
       vorgaben.filter((v) => v.rolle === 'wenige-grosse').length * 3,
   );
 
   const anzahlJeVorhaben = new Map<string, number>();
   for (const v of vorgaben) {
-    if (v.rolle === 'allein') anzahlJeVorhaben.set(v.id, 1);
-    else if (v.rolle === 'wenige-grosse') anzahlJeVorhaben.set(v.id, 3);
+    if (v.rolle === 'wenige-grosse') anzahlJeVorhaben.set(v.id, 3);
     else if (gewichtsumme > 0) {
       anzahlJeVorhaben.set(v.id, Math.max(2, Math.round((frischeGesamt * v.zuspruch) / gewichtsumme)));
     } else anzahlJeVorhaben.set(v.id, 2);

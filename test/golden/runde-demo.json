@@ -1,15 +1,15 @@
 {
   "formelVersion": "qf-gedeckelt-1.0.0",
-  "pruefsummeEingangsdaten": "1d55ed0a97abc96d86dc9d73d3041193cd72fe4de513b8a36753e2b8684ab204",
+  "pruefsummeEingangsdaten": "b33507c796dcb6a7e09d3a147aba46cd064086444d292b2dee87fcf10a7bb1cc",
   "grundwerte": [
     {
       "vorhabenId": "v-1",
-      "beitraegeAnzahl": 47,
-      "beitragendeAnzahl": 47,
-      "eigenCent": 37349,
-      "wurzelsumme": 131.5804376080548,
-      "quadrat": 17313.411561127203,
-      "rohEuro": 16939.9215611272,
+      "beitraegeAnzahl": 45,
+      "beitragendeAnzahl": 45,
+      "eigenCent": 35718,
+      "wurzelsumme": 125.88982619950713,
+      "quadrat": 15848.248340542112,
+      "rohEuro": 15491.068340542111,
       "deckelCent": 60000,
       "deckelGrund": "hoechstbetrag"
     },
@@ -17,77 +17,77 @@
       "vorhabenId": "v-2",
       "beitraegeAnzahl": 3,
       "beitragendeAnzahl": 3,
-      "eigenCent": 35784,
-      "wurzelsumme": 32.73887653309601,
-      "quadrat": 1071.8340366493046,
-      "rohEuro": 713.9940366493047,
+      "eigenCent": 33938,
+      "wurzelsumme": 31.886102629211848,
+      "quadrat": 1016.7235408806307,
+      "rohEuro": 677.3435408806307,
       "deckelCent": 60000,
       "deckelGrund": "hoechstbetrag"
     },
     {
       "vorhabenId": "v-3",
-      "beitraegeAnzahl": 42,
-      "beitragendeAnzahl": 42,
-      "eigenCent": 36808,
-      "wurzelsumme": 123.65221102163588,
-      "quadrat": 15289.869290539169,
-      "rohEuro": 14921.789290539169,
+      "beitraegeAnzahl": 40,
+      "beitragendeAnzahl": 40,
+      "eigenCent": 35155,
+      "wurzelsumme": 117.8843433878315,
+      "quadrat": 13896.718415980175,
+      "rohEuro": 13545.168415980175,
       "deckelCent": 60000,
       "deckelGrund": "hoechstbetrag"
     },
     {
       "vorhabenId": "v-4",
-      "beitraegeAnzahl": 28,
-      "beitragendeAnzahl": 28,
-      "eigenCent": 25683,
-      "wurzelsumme": 84.4093265389422,
-      "quadrat": 7124.934406757771,
-      "rohEuro": 6868.104406757771,
-      "deckelCent": 54317,
+      "beitraegeAnzahl": 27,
+      "beitragendeAnzahl": 27,
+      "eigenCent": 24661,
+      "wurzelsumme": 81.2594509864373,
+      "quadrat": 6603.098374617206,
+      "rohEuro": 6356.488374617206,
+      "deckelCent": 55339,
       "deckelGrund": "kostenplan"
     },
     {
       "vorhabenId": "v-5",
-      "beitraegeAnzahl": 1,
-      "beitragendeAnzahl": 1,
-      "eigenCent": 906,
-      "wurzelsumme": 3.0099833886584824,
-      "quadrat": 9.06,
-      "rohEuro": 0,
-      "deckelCent": 19094,
+      "beitraegeAnzahl": 9,
+      "beitragendeAnzahl": 9,
+      "eigenCent": 8530,
+      "wurzelsumme": 27.523072511940413,
+      "quadrat": 757.5195204975299,
+      "rohEuro": 672.21952049753,
+      "deckelCent": 21470,
       "deckelGrund": "kostenplan"
     },
     {
       "vorhabenId": "v-6",
-      "beitraegeAnzahl": 26,
-      "beitragendeAnzahl": 26,
-      "eigenCent": 26406,
-      "wurzelsumme": 82.2232137604677,
-      "quadrat": 6760.656881099565,
-      "rohEuro": 6496.596881099565,
-      "deckelCent": 43594,
+      "beitraegeAnzahl": 25,
+      "beitragendeAnzahl": 25,
+      "eigenCent": 25255,
+      "wurzelsumme": 78.87065934118397,
+      "quadrat": 6220.580904913089,
+      "rohEuro": 5968.030904913089,
+      "deckelCent": 44745,
       "deckelGrund": "kostenplan"
     },
     {
       "vorhabenId": "v-7",
       "beitraegeAnzahl": 21,
       "beitragendeAnzahl": 21,
-      "eigenCent": 22285,
-      "wurzelsumme": 68.07645204582873,
-      "quadrat": 4634.403323148019,
-      "rohEuro": 4411.5533231480185,
-      "deckelCent": 42715,
+      "eigenCent": 22384,
+      "wurzelsumme": 68.18347961855855,
+      "quadrat": 4648.986892894389,
+      "rohEuro": 4425.146892894389,
+      "deckelCent": 42616,
       "deckelGrund": "kostenplan"
     },
     {
       "vorhabenId": "v-8",
-      "beitraegeAnzahl": 23,
-      "beitragendeAnzahl": 23,
-      "eigenCent": 21074,
-      "wurzelsumme": 69.18968723123788,
-      "quadrat": 4787.2128191565225,
-      "rohEuro": 4576.472819156523,
-      "deckelCent": 38926,
+      "beitraegeAnzahl": 22,
+      "beitragendeAnzahl": 22,
+      "eigenCent": 19088,
+      "wurzelsumme": 64.38899490859903,
+      "quadrat": 4145.942665339592,
+      "rohEuro": 3955.062665339592,
+      "deckelCent": 40912,
       "deckelGrund": "kostenplan"
     }
   ],
@@ -95,45 +95,45 @@
     "qf": {
       "zuteilungCent": {
         "v-1": 60000,
-        "v-2": 4024,
+        "v-2": 3993,
         "v-3": 60000,
-        "v-4": 38707,
-        "v-5": 0,
-        "v-6": 36614,
-        "v-7": 24863,
-        "v-8": 25792
-      },
-      "iterationen": 2,
-      "nichtAusgeschoepftCent": 0,
-      "kennzahlen": {
-        "gefoerderteVorhaben": 7,
-        "medianZuteilungCent": 31203,
-        "gini": 0.376117,
-        "beitragendeMitTreffer": 178,
-        "beitragendeGesamt": 179,
-        "anteilBeitragEurosAufGefoerderte": 0.9956082309314331,
-        "nichtAusgeschoepftCent": 0
-      }
-    },
-    "giesskanne": {
-      "zuteilungCent": {
-        "v-1": 32987,
-        "v-2": 32987,
-        "v-3": 32987,
-        "v-4": 32987,
-        "v-5": 19094,
-        "v-6": 32986,
-        "v-7": 32986,
-        "v-8": 32986
+        "v-4": 37469,
+        "v-5": 3962,
+        "v-6": 35179,
+        "v-7": 26084,
+        "v-8": 23313
       },
       "iterationen": 2,
       "nichtAusgeschoepftCent": 0,
       "kennzahlen": {
         "gefoerderteVorhaben": 8,
-        "medianZuteilungCent": 32987,
-        "gini": 0.04863,
-        "beitragendeMitTreffer": 179,
-        "beitragendeGesamt": 179,
+        "medianZuteilungCent": 30632,
+        "gini": 0.361932,
+        "beitragendeMitTreffer": 180,
+        "beitragendeGesamt": 180,
+        "anteilBeitragEurosAufGefoerderte": 1,
+        "nichtAusgeschoepftCent": 0
+      }
+    },
+    "giesskanne": {
+      "zuteilungCent": {
+        "v-1": 32648,
+        "v-2": 32647,
+        "v-3": 32647,
+        "v-4": 32647,
+        "v-5": 21470,
+        "v-6": 32647,
+        "v-7": 32647,
+        "v-8": 32647
+      },
+      "iterationen": 2,
+      "nichtAusgeschoepftCent": 0,
+      "kennzahlen": {
+        "gefoerderteVorhaben": 8,
+        "medianZuteilungCent": 32647,
+        "gini": 0.039123,
+        "beitragendeMitTreffer": 180,
+        "beitragendeGesamt": 180,
         "anteilBeitragEurosAufGefoerderte": 1,
         "nichtAusgeschoepftCent": 0
       }
@@ -143,21 +143,21 @@
         "v-1": 0,
         "v-2": 60000,
         "v-3": 0,
-        "v-4": 45671,
-        "v-5": 19094,
-        "v-6": 43594,
-        "v-7": 42715,
-        "v-8": 38926
+        "v-4": 40257,
+        "v-5": 21470,
+        "v-6": 44745,
+        "v-7": 42616,
+        "v-8": 40912
       },
       "iterationen": 1,
       "nichtAusgeschoepftCent": 0,
       "kennzahlen": {
         "gefoerderteVorhaben": 6,
-        "medianZuteilungCent": 40821,
-        "gini": 0.362822,
-        "beitragendeMitTreffer": 90,
-        "beitragendeGesamt": 179,
-        "anteilBeitragEurosAufGefoerderte": 0.6405293390532975,
+        "medianZuteilungCent": 40585,
+        "gini": 0.353909,
+        "beitragendeMitTreffer": 95,
+        "beitragendeGesamt": 180,
+        "anteilBeitragEurosAufGefoerderte": 0.6538204162575894,
         "nichtAusgeschoepftCent": 0
       }
     },
@@ -166,10 +166,10 @@
         "v-1": 60000,
         "v-2": 60000,
         "v-3": 60000,
-        "v-4": 54317,
+        "v-4": 55339,
         "v-5": 0,
         "v-6": 0,
-        "v-7": 15683,
+        "v-7": 14661,
         "v-8": 0
       },
       "iterationen": 1,
@@ -177,32 +177,32 @@
       "kennzahlen": {
         "gefoerderteVorhaben": 5,
         "medianZuteilungCent": 35000,
-        "gini": 0.469317,
-        "beitragendeMitTreffer": 141,
-        "beitragendeGesamt": 179,
-        "anteilBeitragEurosAufGefoerderte": 0.7654523861460529,
+        "gini": 0.470339,
+        "beitragendeMitTreffer": 136,
+        "beitragendeGesamt": 180,
+        "anteilBeitragEurosAufGefoerderte": 0.7417415217189554,
         "nichtAusgeschoepftCent": 0
       }
     },
     "anteilig": {
       "zuteilungCent": {
-        "v-1": 45262,
-        "v-2": 43365,
-        "v-3": 44606,
-        "v-4": 31124,
-        "v-5": 1098,
-        "v-6": 32000,
-        "v-7": 27006,
-        "v-8": 25539
+        "v-1": 43616,
+        "v-2": 41443,
+        "v-3": 42929,
+        "v-4": 30114,
+        "v-5": 10416,
+        "v-6": 30839,
+        "v-7": 27334,
+        "v-8": 23309
       },
       "iterationen": 1,
       "nichtAusgeschoepftCent": 0,
       "kennzahlen": {
         "gefoerderteVorhaben": 8,
-        "medianZuteilungCent": 31562,
-        "gini": 0.227218,
-        "beitragendeMitTreffer": 179,
-        "beitragendeGesamt": 179,
+        "medianZuteilungCent": 30477,
+        "gini": 0.186776,
+        "beitragendeMitTreffer": 180,
+        "beitragendeGesamt": 180,
         "anteilBeitragEurosAufGefoerderte": 1,
         "nichtAusgeschoepftCent": 0
       }
@@ -212,144 +212,144 @@
     "parameterM": 20,
     "zuteilungCent": {
       "v-1": 60000,
-      "v-2": 916,
+      "v-2": 948,
       "v-3": 60000,
-      "v-4": 41936,
-      "v-5": 0,
-      "v-6": 35940,
-      "v-7": 23263,
-      "v-8": 27945
+      "v-4": 40556,
+      "v-5": 4240,
+      "v-6": 34318,
+      "v-7": 24311,
+      "v-8": 25627
     },
     "rohEuro": {
-      "v-1": 12104.809780152482,
-      "v-2": 102.71311177807004,
-      "v-3": 10362.80347995243,
-      "v-4": 4704.250786309773,
-      "v-5": 0,
-      "v-6": 4031.7230636611175,
-      "v-7": 2609.5639369339556,
-      "v-8": 3134.8113624543907
+      "v-1": 11072.93912133043,
+      "v-2": 101.92236939814623,
+      "v-3": 9397.911698260406,
+      "v-4": 4360.003965943063,
+      "v-5": 455.8027801049592,
+      "v-6": 3689.3794541008397,
+      "v-7": 2613.517299392635,
+      "v-8": 2755.06782290935
     },
     "merkmalsgruppen": [
       {
         "region": "Berlin-Süd",
         "altersgruppe": "60 und älter",
-        "beitragendeAnzahl": 17,
-        "paarwertUngedaempft": 3450.18059538904,
-        "paarwertGedaempft": 1622.7753684452955,
-        "abschlag": 0.5296549488991857
-      },
-      {
-        "region": "Berlin-West",
-        "altersgruppe": "60 und älter",
-        "beitragendeAnzahl": 4,
-        "paarwertUngedaempft": 55.88005942517543,
-        "paarwertGedaempft": 38.083860198915005,
-        "abschlag": 0.31847137260277814
+        "beitragendeAnzahl": 18,
+        "paarwertUngedaempft": 3736.275400621705,
+        "paarwertGedaempft": 1801.9911024263413,
+        "abschlag": 0.5177038871046563
       },
       {
         "region": "Berlin-Nord",
-        "altersgruppe": "60 und älter",
-        "beitragendeAnzahl": 4,
-        "paarwertUngedaempft": 18.660160771011594,
-        "paarwertGedaempft": 12.724247956874327,
-        "abschlag": 0.3181061989218581
-      },
-      {
-        "region": "Berlin-West",
         "altersgruppe": "30-44",
-        "beitragendeAnzahl": 8,
-        "paarwertUngedaempft": 72.73275088966747,
-        "paarwertGedaempft": 49.91495051252185,
-        "abschlag": 0.3137211242258562
+        "beitragendeAnzahl": 28,
+        "paarwertUngedaempft": 1242.0347720469042,
+        "paarwertGedaempft": 764.2071163677377,
+        "abschlag": 0.38471358969418756
       },
       {
-        "region": "Berlin-Nord",
-        "altersgruppe": "unter 30",
-        "beitragendeAnzahl": 21,
-        "paarwertUngedaempft": 692.7557011606076,
-        "paarwertGedaempft": 477.5068123869503,
-        "abschlag": 0.31071399111265385
+        "region": "Berlin-Süd",
+        "altersgruppe": "45-59",
+        "beitragendeAnzahl": 8,
+        "paarwertUngedaempft": 81.8796735323118,
+        "paarwertGedaempft": 54.15041953673476,
+        "abschlag": 0.3386585803207236
       },
       {
         "region": "Berlin-Ost",
-        "altersgruppe": "unter 30",
-        "beitragendeAnzahl": 14,
-        "paarwertUngedaempft": 260.5117458681755,
-        "paarwertGedaempft": 180.33667680011942,
-        "abschlag": 0.3077599008093339
-      },
-      {
-        "region": "Berlin-Süd",
-        "altersgruppe": "unter 30",
-        "beitragendeAnzahl": 9,
-        "paarwertUngedaempft": 86.02946578510668,
-        "paarwertGedaempft": 59.98135219215737,
-        "abschlag": 0.3027813012115522
-      },
-      {
-        "region": "Berlin-Nord",
         "altersgruppe": "45-59",
-        "beitragendeAnzahl": 20,
-        "paarwertUngedaempft": 886.2440425499434,
-        "paarwertGedaempft": 618.5540234204316,
-        "abschlag": 0.3020500068573678
-      },
-      {
-        "region": "Berlin-Süd",
-        "altersgruppe": "45-59",
-        "beitragendeAnzahl": 4,
-        "paarwertUngedaempft": 16.98210823190101,
-        "paarwertGedaempft": 11.921010828724446,
-        "abschlag": 0.29802527071811113
+        "beitragendeAnzahl": 5,
+        "paarwertUngedaempft": 20.039221541766537,
+        "paarwertGedaempft": 13.350753742085859,
+        "abschlag": 0.3337688435521464
       },
       {
         "region": "Berlin-West",
-        "altersgruppe": "45-59",
-        "beitragendeAnzahl": 8,
-        "paarwertUngedaempft": 50.17939672077904,
-        "paarwertGedaempft": 35.2899942804569,
-        "abschlag": 0.296723424619342
-      },
-      {
-        "region": "Berlin-Nord",
         "altersgruppe": "30-44",
-        "beitragendeAnzahl": 20,
-        "paarwertUngedaempft": 550.4724455183272,
-        "paarwertGedaempft": 389.0667352590795,
-        "abschlag": 0.2932130601146936
+        "beitragendeAnzahl": 8,
+        "paarwertUngedaempft": 74.16018828677241,
+        "paarwertGedaempft": 50.46903424842441,
+        "abschlag": 0.3194591948274985
       },
       {
         "region": "Berlin-Süd",
-        "altersgruppe": "30-44",
+        "altersgruppe": "unter 30",
         "beitragendeAnzahl": 12,
-        "paarwertUngedaempft": 291.917819004126,
-        "paarwertGedaempft": 206.49831188809304,
-        "abschlag": 0.29261491267453466
+        "paarwertUngedaempft": 216.14240765764237,
+        "paarwertGedaempft": 148.63726507845436,
+        "abschlag": 0.3123178986981232
       },
       {
-        "region": "Berlin-Ost",
+        "region": "Berlin-Nord",
         "altersgruppe": "45-59",
-        "beitragendeAnzahl": 10,
-        "paarwertUngedaempft": 130.8387146322357,
-        "paarwertGedaempft": 92.65191389292012,
-        "abschlag": 0.2918616316787571
+        "beitragendeAnzahl": 14,
+        "paarwertUngedaempft": 367.5887030374034,
+        "paarwertGedaempft": 254.44081157169524,
+        "abschlag": 0.30781112295008417
+      },
+      {
+        "region": "Berlin-West",
+        "altersgruppe": "45-59",
+        "beitragendeAnzahl": 6,
+        "paarwertUngedaempft": 17.68850474178075,
+        "paarwertGedaempft": 12.264838425579715,
+        "abschlag": 0.30662096063949273
+      },
+      {
+        "region": "Berlin-Nord",
+        "altersgruppe": "unter 30",
+        "beitragendeAnzahl": 19,
+        "paarwertUngedaempft": 503.49371696208067,
+        "paarwertGedaempft": 352.631994040338,
+        "abschlag": 0.2996298023975231
       },
       {
         "region": "Berlin-Ost",
         "altersgruppe": "30-44",
-        "beitragendeAnzahl": 19,
-        "paarwertUngedaempft": 593.2772193618808,
-        "paarwertGedaempft": 427.09940319486446,
-        "abschlag": 0.2801014614142011
+        "beitragendeAnzahl": 21,
+        "paarwertUngedaempft": 466.04289136451865,
+        "paarwertGedaempft": 326.739772124603,
+        "abschlag": 0.2989062204812363
+      },
+      {
+        "region": "Berlin-Nord",
+        "altersgruppe": "60 und älter",
+        "beitragendeAnzahl": 7,
+        "paarwertUngedaempft": 48.526158510338036,
+        "paarwertGedaempft": 34.54025317821717,
+        "abschlag": 0.2882137338182519
+      },
+      {
+        "region": "Berlin-Süd",
+        "altersgruppe": "30-44",
+        "beitragendeAnzahl": 13,
+        "paarwertUngedaempft": 206.28784244926396,
+        "paarwertGedaempft": 146.9584787441062,
+        "abschlag": 0.28760475169422395
+      },
+      {
+        "region": "Berlin-Ost",
+        "altersgruppe": "60 und älter",
+        "beitragendeAnzahl": 8,
+        "paarwertUngedaempft": 77.65149878073493,
+        "paarwertGedaempft": 55.737965511582956,
+        "abschlag": 0.2822036098881925
+      },
+      {
+        "region": "Berlin-Ost",
+        "altersgruppe": "unter 30",
+        "beitragendeAnzahl": 8,
+        "paarwertUngedaempft": 76.57489147801029,
+        "paarwertGedaempft": 55.155986508152935,
+        "abschlag": 0.27971185536721443
       },
       {
         "region": "Berlin-West",
         "altersgruppe": "unter 30",
-        "beitragendeAnzahl": 6,
-        "paarwertUngedaempft": 12.567529590178015,
-        "paarwertGedaempft": 9.562960015930592,
-        "abschlag": 0.23907400039826476
+        "beitragendeAnzahl": 4,
+        "paarwertUngedaempft": 14.654350889752845,
+        "paarwertGedaempft": 10.725112018483705,
+        "abschlag": 0.2681278004620926
       }
     ]
   }

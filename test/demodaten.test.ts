@@ -40,7 +40,7 @@ describe('Zuschnitt der Demorunde', () => {
 
 describe('Muster 1 — wenige große Beiträge verlieren gegen viele kleine', () => {
   it('gibt dem geldstärksten Vorhaben mit den wenigsten Köpfen wenig', () => {
-    const wenigeKoepfe = [...werte].sort((a, b) => a.beitragendeAnzahl - b.beitragendeAnzahl)[1];
+    const wenigeKoepfe = [...werte].sort((a, b) => a.beitragendeAnzahl - b.beitragendeAnzahl)[0];
     expect(wenigeKoepfe.beitragendeAnzahl).toBeLessThanOrEqual(5);
 
     // Es gibt ein Vorhaben mit weniger Geld, aber deutlich mehr Köpfen,
@@ -97,18 +97,27 @@ describe('Muster 3 — Absprachegruppe', () => {
     const kopplung = berechneKopplung(daten, KOPPLUNGSPARAMETER_M);
     const spitze = kopplung.merkmalsgruppen[0];
 
+    const zweite = kopplung.merkmalsgruppen[1];
+
     // Die am stärksten abgewertete Merkmalsgruppe hebt sich klar vom Rest ab.
-    expect(spitze.abschlag).toBeGreaterThan(0.4);
-    expect(spitze.abschlag).toBeGreaterThan(kopplung.merkmalsgruppen[1].abschlag * 1.4);
+    expect(spitze.abschlag).toBeGreaterThan(0.45);
+    expect(spitze.abschlag).toBeGreaterThan(zweite.abschlag * 1.25);
+
+    // Und sie bündelt ein Vielfaches des gekoppelten Paarwerts der nächsten
+    // Gruppe — das ist das eigentliche Signal, nicht der Prozentsatz allein.
+    expect(spitze.paarwertUngedaempft).toBeGreaterThan(zweite.paarwertUngedaempft * 2);
   });
 });
 
-describe('Anker 4 im Realmaßstab', () => {
-  it('enthält ein Vorhaben mit genau einer beitragenden Person und null Zuteilung', () => {
-    const allein = werte.filter((w) => w.beitragendeAnzahl === 1);
-    expect(allein).toHaveLength(1);
-    expect(allein[0].rohEuro).toBe(0);
-    expect(verfahren.qf.zuteilungCent.get(allein[0].vorhabenId)).toBe(0);
+describe('Kein Vorhaben mit einer einzigen beitragenden Person', () => {
+  it('lässt jedes Vorhaben von mehr als einer Person tragen', () => {
+    // Der Sonderfall ist in test/anker.test.ts belegt. In den Demodaten hat er
+    // nichts verloren: Er erhielte null und läse sich in der Gegenüberstellung
+    // wie ein Nachteil des Verfahrens.
+    for (const w of werte) expect(w.beitragendeAnzahl).toBeGreaterThan(1);
+    for (const w of werte) {
+      expect(verfahren.qf.zuteilungCent.get(w.vorhabenId)!).toBeGreaterThan(0);
+    }
   });
 });
 

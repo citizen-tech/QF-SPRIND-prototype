@@ -445,11 +445,9 @@ export default function App() {
                 Eingangsdaten. Zusätzlich als JSON herunterladbar.
               </p>
               <Group>
-                <Hinweis text={ERKLAERUNG.nachweismappe}>
-                  <Button onClick={() => setMappeOffen(true)} disabled={pruefsumme === ''}>
-                    Nachweismappe erzeugen
-                  </Button>
-                </Hinweis>
+                <Button onClick={() => setMappeOffen(true)} disabled={pruefsumme === ''}>
+                  Nachweismappe erzeugen
+                </Button>
                 {pruefsumme === '' && (
                   <Text size="sm" c="dimmed">
                     Prüfsumme wird berechnet …
