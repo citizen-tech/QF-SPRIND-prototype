@@ -40,7 +40,7 @@ type Eigenschaften = {
   entwurf: Simulationseinstellungen;
   /** Wurde schon einmal gerechnet? Vor dem ersten Lauf ist dies die ganze Seite. */
   ersterLauf: boolean;
-  vomStandardAbweichend: boolean;
+  rundenwerteAbweichend: boolean;
   onEntwurf: (naechster: Simulationseinstellungen) => void;
   onStarten: () => void;
   onAuswuerfeln: () => void;
@@ -53,7 +53,7 @@ const ROLLEN: Vorhabenrolle[] = ['normal', 'wenige-grosse', 'absprache'];
 export default function Einrichtung({
   entwurf,
   ersterLauf,
-  vomStandardAbweichend,
+  rundenwerteAbweichend,
   onEntwurf,
   onStarten,
   onAuswuerfeln,
@@ -93,6 +93,7 @@ export default function Einrichtung({
 
   const welt = PROGRAMMTYPEN[entwurf.programmtyp];
   const programm = programmVon(entwurf.programmtyp, entwurf.zweck);
+  const ohneVorhaben = entwurf.vorhaben.length === 0;
   const ohneHoechstbetrag = entwurf.hoechstbetragJeVorhabenCent === null;
   const abspracheVorhaben = entwurf.vorhaben.filter((v) => v.rolle === 'absprache').length;
 
@@ -325,8 +326,22 @@ export default function Einrichtung({
                   </Table.Tr>
                 </Table.Thead>
                 <Table.Tbody>
+                  {ohneVorhaben && (
+                    <Table.Tr>
+                      <Table.Td colSpan={7}>
+                        <Text size="sm" c="var(--tinte-lese)" py="sm">
+                          Noch keine Vorhaben. „Vorhaben auswürfeln“ legt einen vollständigen
+                          Satz an, passend zum Programm und zum Fördertopf.
+                        </Text>
+                      </Table.Td>
+                    </Table.Tr>
+                  )}
                   {entwurf.vorhaben.map((v, index) => (
-                    <Table.Tr key={v.id}>
+                    <Table.Tr
+                      key={v.id}
+                      className="zeile--eintritt"
+                      style={{ animationDelay: `${index * 45}ms` }}
+                    >
                       <Table.Td miw={250}>
                         <Select
                           aria-label={`Titel des Vorhabens ${index + 1}`}
@@ -425,19 +440,20 @@ export default function Einrichtung({
           </div>
 
           <Group>
-            <Button size="md" onClick={onStarten} loading={laeuft}>
+            <Button size="md" onClick={onStarten} loading={laeuft} disabled={ohneVorhaben}>
               {ersterLauf ? 'Simulation starten' : 'Simulation erneut starten'}
             </Button>
             <Button
               variant="default"
               onClick={onZuruecksetzen}
-              disabled={!vomStandardAbweichend || laeuft}
+              disabled={!rundenwerteAbweichend || laeuft}
             >
-              Auf Ausgangswerte zurücksetzen
+              Rundenwerte zurücksetzen
             </Button>
             <Text size="sm" c="var(--tinte-lese)">
-              {euro(entwurf.poolCent)} auf {entwurf.vorhaben.length} Vorhaben, rund{' '}
-              {entwurf.beitragendeGesamt} Beitragende.
+              {ohneVorhaben
+                ? 'Würfeln Sie zuerst die Vorhaben aus.'
+                : `${euro(entwurf.poolCent)} auf ${entwurf.vorhaben.length} Vorhaben, rund ${entwurf.beitragendeGesamt} Beitragende.`}
             </Text>
           </Group>
         </Stack>

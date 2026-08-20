@@ -490,6 +490,25 @@ tr.detailzeile > td {
   animation: auftritt 0.34s ease-out both;
 }
 
+/* Gewürfelte Vorhaben fahren von oben in die Tabelle ein, leicht versetzt.
+   Die Animation läuft beim Einhängen der Zeile — also genau beim ersten Wurf,
+   solange die Tabelle vorher leer war. Spätere Würfe tauschen nur den Inhalt
+   bestehender Zeilen und lösen sie nicht erneut aus. */
+.zeile--eintritt {
+  animation: zeileEin 0.42s cubic-bezier(0.2, 0.8, 0.3, 1) both;
+}
+
+@keyframes zeileEin {
+  from {
+    opacity: 0;
+    transform: translateY(-16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
 @keyframes auftritt {
   from {
     opacity: 0;
@@ -502,7 +521,8 @@ tr.detailzeile > td {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .auftritt {
+  .auftritt,
+  .zeile--eintritt {
     animation: none;
   }
   .aufklapp__pfeil {

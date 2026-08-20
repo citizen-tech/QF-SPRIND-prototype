@@ -43,8 +43,16 @@ function gleich(a: Simulationseinstellungen, b: Simulationseinstellungen): boole
   return JSON.stringify(a) === JSON.stringify(b);
 }
 
+/** Vergleicht die Rundenwerte, ohne Vorhaben und Seed — die sind gewürfelt. */
+function rundenwerteGleich(a: Simulationseinstellungen, b: Simulationseinstellungen): boolean {
+  const ohne = (x: Simulationseinstellungen) => JSON.stringify({ ...x, vorhaben: [], seed: 0 });
+  return ohne(a) === ohne(b);
+}
+
 export default function App() {
-  const [entwurf, setEntwurf] = useState<Simulationseinstellungen>(AUSGANGSRUNDEN.bund);
+  // Null, bis ein Programmtyp gewählt ist. Die Seite führt Schritt für Schritt:
+  // Programmtyp wählen, Runde einrichten, Vorhaben auswürfeln, Simulation starten.
+  const [entwurf, setEntwurf] = useState<Simulationseinstellungen | null>(null);
   // Null bis zum ersten Knopfdruck: vorher wird nichts gerechnet und nichts gezeigt.
   const [angewandt, setAngewandt] = useState<Simulationseinstellungen | null>(null);
 
@@ -106,22 +114,26 @@ export default function App() {
     };
   }, [daten]);
 
-  /** Programmtyp wechseln heißt: die ganze Welt tauschen, nicht nur ein Etikett. */
+  /**
+   * Programmtyp wechseln heißt: die ganze Welt tauschen, nicht nur ein Etikett.
+   * Die Vorhaben bleiben leer — sie werden im nächsten Schritt gewürfelt.
+   */
   function programmtypWechseln(typ: Programmtyp) {
-    setEntwurf(AUSGANGSRUNDEN[typ]);
+    setEntwurf({ ...AUSGANGSRUNDEN[typ], vorhaben: [] });
     setAngewandt(null);
   }
 
-  const ausgangsrunde = AUSGANGSRUNDEN[entwurf.programmtyp];
-  const vomStandardAbweichend = !gleich(entwurf, ausgangsrunde);
-  const entwurfNichtAngewandt = angewandt !== null && !gleich(entwurf, angewandt);
+  const ausgangsrunde = entwurf ? AUSGANGSRUNDEN[entwurf.programmtyp] : null;
+  const rundenwerteAbweichend =
+    entwurf !== null && ausgangsrunde !== null && !rundenwerteGleich(entwurf, ausgangsrunde);
+  const entwurfNichtAngewandt =
+    angewandt !== null && entwurf !== null && !gleich(entwurf, angewandt);
 
   const abweichungen = useMemo(() => {
     if (!angewandt) return [];
     const s = AUSGANGSRUNDEN[angewandt.programmtyp];
-    if (gleich(angewandt, s)) return [];
+    if (rundenwerteGleich(angewandt, s)) return [];
     const liste: string[] = [];
-    if (angewandt.seed !== s.seed) liste.push(`Seed ${angewandt.seed} statt ${s.seed}.`);
     if (angewandt.poolCent !== s.poolCent) {
       liste.push(`Fördertopf ${euro(angewandt.poolCent)} statt ${euro(s.poolCent)}.`);
     }
@@ -133,9 +145,6 @@ export default function App() {
             : euro(angewandt.hoechstbetragJeVorhabenCent)
         }.`,
       );
-    }
-    if (angewandt.vorhaben.length !== s.vorhaben.length) {
-      liste.push(`${angewandt.vorhaben.length} Vorhaben statt ${s.vorhaben.length}.`);
     }
     if (angewandt.beitragendeGesamt !== s.beitragendeGesamt) {
       liste.push(`${angewandt.beitragendeGesamt} Beitragende statt ${s.beitragendeGesamt}.`);
@@ -238,7 +247,7 @@ export default function App() {
             Umgestellt wird nur, wer beiträgt und worum es geht — nicht, wie gerechnet wird.
           </p>
           <SegmentedControl
-            value={entwurf.programmtyp}
+            value={entwurf?.programmtyp ?? ''}
             onChange={(wert) => programmtypWechseln(wert as Programmtyp)}
             disabled={lauf !== null}
             data={PROGRAMMTYP_IDS.map((id) => ({
@@ -248,28 +257,34 @@ export default function App() {
             size="md"
           />
           <p className="leitsatz" style={{ marginTop: 12, marginBottom: 0 }}>
-            {PROGRAMMTYPEN[entwurf.programmtyp].kurz}
+            {entwurf
+              ? PROGRAMMTYPEN[entwurf.programmtyp].kurz
+              : 'Wählen Sie einen Programmtyp. Erst danach lässt sich die Runde einrichten.'}
           </p>
         </section>
 
-        <Einrichtung
-          entwurf={entwurf}
-          ersterLauf={angewandt === null}
-          vomStandardAbweichend={vomStandardAbweichend}
-          onEntwurf={setEntwurf}
-          onStarten={() => setLauf({ einstellungen: entwurf, schritt: 0 })}
-          onAuswuerfeln={() => {
-            // Der Würfel betrifft nur die Vorhaben. Die Rundenwerte darüber
-            // bleiben stehen und bemessen die neuen Kostenpläne.
-            const seed = neuerSeed();
-            setEntwurf({ ...entwurf, seed, vorhaben: zufaelligeVorhaben(seed, entwurf) });
-          }}
-          onZuruecksetzen={() => {
-            setEntwurf(ausgangsrunde);
-            setAngewandt(null);
-          }}
-          laeuft={lauf !== null}
-        />
+        {entwurf && ausgangsrunde && (
+          <div className="auftritt">
+            <Einrichtung
+              entwurf={entwurf}
+              ersterLauf={angewandt === null}
+              rundenwerteAbweichend={rundenwerteAbweichend}
+              onEntwurf={setEntwurf}
+              onStarten={() => setLauf({ einstellungen: entwurf, schritt: 0 })}
+              onAuswuerfeln={() => {
+                // Der Würfel betrifft nur die Vorhaben. Die Rundenwerte darüber
+                // bleiben stehen und bemessen die neuen Kostenpläne.
+                const seed = neuerSeed();
+                setEntwurf({ ...entwurf, seed, vorhaben: zufaelligeVorhaben(seed, entwurf) });
+              }}
+              onZuruecksetzen={() => {
+                setEntwurf({ ...ausgangsrunde, vorhaben: entwurf.vorhaben });
+                setAngewandt(null);
+              }}
+              laeuft={lauf !== null}
+            />
+          </div>
+        )}
 
         {lauf && <Simulationslauf schritt={lauf.schritt} />}
 
