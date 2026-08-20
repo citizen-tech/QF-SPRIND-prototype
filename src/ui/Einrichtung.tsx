@@ -17,10 +17,13 @@ import {
   Title,
   Tooltip,
 } from '@mantine/core';
+import { useMemo } from 'react';
 import { euro } from '../format';
+import { berechneVorhabenwerte } from '../kern/qf';
 import type { Simulationseinstellungen, Vorhabenrolle } from '../kern/simulation';
 import {
   AUSGANGSRUNDEN,
+  erzeugeRunde,
   PROGRAMMTYPEN,
   programmVon,
   ROLLENNAMEN,
@@ -97,15 +100,27 @@ export default function Einrichtung({
   const ohneHoechstbetrag = entwurf.hoechstbetragJeVorhabenCent === null;
   const abspracheVorhaben = entwurf.vorhaben.filter((v) => v.rolle === 'absprache').length;
 
-  // Mehr als Vorhabenzahl mal Höchstbetrag lässt sich nicht verteilen — der
-  // Rest bliebe zwangsläufig liegen. Besser vorher sagen als hinterher zeigen.
-  const aufnahmeObergrenze = ohneHoechstbetrag
-    ? Number.POSITIVE_INFINITY
-    : entwurf.vorhaben.length * entwurf.hoechstbetragJeVorhabenCent!;
-  // Vor dem ersten Wurf ist die Liste leer; die Warnung läse sich dann als
-  // "0 Vorhaben nehmen höchstens 0,00 € auf" und wäre sinnlos.
-  const topfUeberschreitetAufnahme =
-    !ohneVorhaben && entwurf.poolCent > aufnahmeObergrenze;
+  /**
+   * Die tatsächliche Aufnahmefähigkeit der Runde.
+   *
+   * Sie wird nicht geschätzt, sondern gerechnet: Die Runde wird probeweise
+   * erzeugt und die Obergrenzen werden summiert. Der frühere Näherungswert
+   * "Vorhabenzahl mal Höchstbetrag" übersah die zweite Grenze — den Kostenplan
+   * abzüglich der Beiträge. Gerade bei hohen Beiträgen ist sie die bindende:
+   * Was die Beitragenden schon aufgebracht haben, kann nicht noch einmal
+   * zugeteilt werden.
+   */
+  const aufnahme = useMemo(() => {
+    if (entwurf.vorhaben.length === 0) return null;
+    const werte = berechneVorhabenwerte(erzeugeRunde(entwurf));
+    const summe = werte.reduce((a, w) => a + w.deckelCent, 0);
+    const durchKostenplan = werte.filter(
+      (w) => w.deckelGrund === 'kostenplan' || w.deckelGrund === 'beide',
+    ).length;
+    return { summe, durchKostenplan };
+  }, [entwurf]);
+
+  const topfUeberschreitetAufnahme = aufnahme !== null && entwurf.poolCent > aufnahme.summe;
 
   return (
     <section className="abschnitt" aria-labelledby="ueberschrift-einrichtung">
@@ -212,13 +227,14 @@ export default function Einrichtung({
               />
             </Group>
 
-            {topfUeberschreitetAufnahme && (
+            {topfUeberschreitetAufnahme && aufnahme && (
               <Alert color="ocker" variant="light" mt="md" role="status">
-                {entwurf.vorhaben.length} Vorhaben können mit diesem Höchstbetrag zusammen
-                höchstens {euro(aufnahmeObergrenze)} aufnehmen.{' '}
-                {euro(entwurf.poolCent - aufnahmeObergrenze)} des Fördertopfs bleiben also
-                zwangsläufig liegen. Abhilfe: mehr Vorhaben, ein höherer Höchstbetrag oder ein
-                kleinerer Topf.
+                Diese {entwurf.vorhaben.length} Vorhaben können zusammen höchstens{' '}
+                {euro(aufnahme.summe)} aufnehmen. {euro(entwurf.poolCent - aufnahme.summe)} des
+                Fördertopfs bleiben also zwangsläufig liegen.{' '}
+                {aufnahme.durchKostenplan > 0
+                  ? `Bei ${aufnahme.durchKostenplan} von ${entwurf.vorhaben.length} Vorhaben ist nicht der Höchstbetrag die Grenze, sondern der Kostenplan: Zuteilung und Beiträge zusammen dürfen ihn nicht überschreiten. Abhilfe: höhere Kostenpläne, niedrigere Beiträge, mehr Vorhaben oder ein kleinerer Topf.`
+                  : 'Abhilfe: mehr Vorhaben, ein höherer Höchstbetrag oder ein kleinerer Topf.'}
               </Alert>
             )}
           </div>

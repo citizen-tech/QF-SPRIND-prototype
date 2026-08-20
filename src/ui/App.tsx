@@ -2,6 +2,7 @@ import {
   Alert,
   Button,
   Checkbox,
+  CopyButton,
   Group,
   Paper,
   Radio,
@@ -28,6 +29,7 @@ import {
 } from '../kern/simulation';
 
 const PROGRAMMTYP_IDS: Programmtyp[] = ['bund', 'buerger'];
+import { ausLink, nachLink } from '../kern/rundenlink';
 import { alleVerfahren } from '../kern/vergleich';
 import { FORMEL_VERSION } from '../kern/version';
 import { baueNachweismappe } from '../nachweis/mappe';
@@ -44,6 +46,12 @@ function gleich(a: Simulationseinstellungen, b: Simulationseinstellungen): boole
 }
 
 /** Vergleicht die Rundenwerte, ohne Vorhaben und Seed — die sind gewürfelt. */
+/** Vollständige Adresse zu einer gerechneten Runde. */
+function rundenlink(e: Simulationseinstellungen): string {
+  const { origin, pathname } = window.location;
+  return `${origin}${pathname}#r=${nachLink(e)}`;
+}
+
 function rundenwerteGleich(a: Simulationseinstellungen, b: Simulationseinstellungen): boolean {
   const ohne = (x: Simulationseinstellungen) => JSON.stringify({ ...x, vorhaben: [], seed: 0 });
   return ohne(a) === ohne(b);
@@ -107,9 +115,20 @@ export default function App() {
   }, []);
 
   useEffect(() => {
+    const marke = window.location.hash;
+    // Eine geteilte Runde wiederherstellen und sofort rechnen: Der Empfänger
+    // soll dasselbe sehen wie die absendende Person, ohne einen Knopf zu suchen.
+    if (marke.startsWith('#r=')) {
+      const wiederhergestellt = ausLink(marke.slice(3));
+      if (wiederhergestellt) {
+        setEntwurf(wiederhergestellt);
+        setAngewandt(wiederhergestellt);
+        return;
+      }
+    }
     // Eine beim Neuladen übriggebliebene Marke entfernen — dahinter steht dann
     // keine gerechnete Runde mehr.
-    if (window.location.hash === '#nachweismappe') {
+    if (marke === '#nachweismappe') {
       window.history.replaceState(null, '', window.location.pathname + window.location.search);
     }
   }, []);
@@ -432,6 +451,22 @@ export default function App() {
                       Seed {angewandt?.seed} und dieselben Einstellungen erzeugen diese Runde
                       erneut — und damit dieselbe Prüfsumme.
                     </Text>
+                  )}
+
+                  {angewandt && (
+                    <Group gap="sm" align="center">
+                      <CopyButton value={rundenlink(angewandt)} timeout={2500}>
+                        {({ copied, copy }) => (
+                          <Button variant="default" size="compact-sm" onClick={copy}>
+                            {copied ? 'Link kopiert' : 'Link zu dieser Runde kopieren'}
+                          </Button>
+                        )}
+                      </CopyButton>
+                      <Text size="sm" c="var(--tinte-lese)">
+                        Der Link trägt Seed und Einstellungen. Wer ihn öffnet, sieht dieselbe
+                        Runde und dieselbe Prüfsumme.
+                      </Text>
+                    </Group>
                   )}
 
                   {abweichungen.length > 0 && (

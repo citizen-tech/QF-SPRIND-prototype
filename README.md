@@ -9,6 +9,11 @@ Die Simulation ist **seed-gesteuert**: Gleicher Seed und gleiche Einstellungen e
 dieselbe Runde und damit dieselbe Prüfsumme. Zufällig ist nur, wie die Runde zustande
 kommt, nie, was daraus gerechnet wird.
 
+Jede gerechnete Runde lässt sich als **Link teilen**. Er trägt Seed und
+Einstellungen; wer ihn öffnet, sieht dieselbe Runde und dieselbe Prüfsumme.
+Wurden die Vorhaben nicht von Hand geändert, genügt der Seed — sie werden aus
+ihm neu abgeleitet, und der Link bleibt rund hundert Zeichen kurz.
+
 Zwei **Programmtypen** stehen zur Wahl, vier Größenordnungen auseinander: eine
 Bürgerbeteiligung mit 180 Personen und einem Topf von 2.500 €, und ein gemeinsam von
 Bund und Ländern finanziertes Programm mit 110 beitragenden Stellen und 8 Mio. €.
@@ -71,12 +76,14 @@ Fassungsnummer in `src/kern/version.ts` zu erhöhen und `FORMEL.md` zu ergänzen
 ```
 src/kern/        reine Rechenbibliothek — keine React-, DOM- oder UI-Importe
                  (Formel, Verteilung, Vergleichsverfahren, Kennzahlen,
-                  Prüfsumme, Hebel, Kopplungsabschlag, Rundenerzeuger)
+                  Prüfsumme, Hebel, Kopplungsabschlag, Rundenerzeuger,
+                  Runde als Link)
 src/ui/          Oberfläche: Einstellungen, eine Ergebnistabelle, Kennzahlen
 src/nachweis/    Nachweismappe: Objektaufbau, Begründungstexte, Druckansicht
 src/daten/       erzeugte Demodaten (eingecheckt)
 tools/           schreibt Demodaten und Golden-Datei
-test/            Ankertests, Kerntests, Vergleichs-, Simulations-, Golden-Test
+test/            Ankertests, Kerntests, Vergleichs-, Simulations-, Link-,
+                 Golden-Test
 docs/            Primärquelle zur Formel
 ```
 
