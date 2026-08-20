@@ -345,7 +345,9 @@ export const PROGRAMMTYPEN: Record<Programmtyp, Programmtypbeschreibung> = {
   bund: {
     id: 'bund',
     name: 'Bund und Länder',
-    kurz: 'Gemeinsam finanzierte Vorhaben, getragen von Ländern, Kommunen und ihren Zusammenschlüssen aus dem eigenen Haushalt.',
+    // Gleiche Länge und gleicher Satzbau wie beim anderen Typ, damit beide
+    // Karten einzeilig bleiben und nebeneinander gleich aussehen.
+    kurz: 'Gemeinsam finanzierte Vorhaben, getragen von Ländern und Kommunen aus dem eigenen Haushalt.',
     beitragendeWort: 'Stellen',
     merkmalsnamen: { region: 'Regionalverbund', altersgruppe: 'Ebene' },
     programme: PROGRAMME_BUND,

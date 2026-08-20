@@ -102,7 +102,10 @@ export default function Einrichtung({
   const aufnahmeObergrenze = ohneHoechstbetrag
     ? Number.POSITIVE_INFINITY
     : entwurf.vorhaben.length * entwurf.hoechstbetragJeVorhabenCent!;
-  const topfUeberschreitetAufnahme = entwurf.poolCent > aufnahmeObergrenze;
+  // Vor dem ersten Wurf ist die Liste leer; die Warnung läse sich dann als
+  // "0 Vorhaben nehmen höchstens 0,00 € auf" und wäre sinnlos.
+  const topfUeberschreitetAufnahme =
+    !ohneVorhaben && entwurf.poolCent > aufnahmeObergrenze;
 
   return (
     <section className="abschnitt" aria-labelledby="ueberschrift-einrichtung">
