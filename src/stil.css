@@ -24,7 +24,7 @@
 
   --serif: 'IBM Plex Serif', Georgia, 'Times New Roman', serif;
 
-  --spalte: 1260px;
+  --spalte: 1720px;
 }
 
 html {
@@ -160,6 +160,15 @@ body {
   border-bottom: 1px solid var(--tinte);
   padding-bottom: 7px;
   margin-bottom: 18px;
+}
+
+/* Der Satz direkt unter dem Seitentitel. */
+.kopfsatz {
+  color: var(--tinte-lese);
+  font-size: 1.08rem;
+  line-height: 1.55;
+  margin: 10px 0 0;
+  max-width: none;
 }
 
 /* Erläuternder Satz unter einer Überschrift. Volle Spaltenbreite, Lesefarbe. */

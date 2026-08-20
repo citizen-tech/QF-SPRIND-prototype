@@ -24,11 +24,10 @@ import {
   erzeugeRunde,
   neuerSeed,
   PROGRAMMTYPEN,
-  STANDARD_EINSTELLUNGEN,
   zufaelligeVorhaben,
 } from '../kern/simulation';
 
-const PROGRAMMTYP_IDS: Programmtyp[] = ['buerger', 'bund'];
+const PROGRAMMTYP_IDS: Programmtyp[] = ['bund', 'buerger'];
 import { alleVerfahren } from '../kern/vergleich';
 import { FORMEL_VERSION } from '../kern/version';
 import { baueNachweismappe } from '../nachweis/mappe';
@@ -45,7 +44,7 @@ function gleich(a: Simulationseinstellungen, b: Simulationseinstellungen): boole
 }
 
 export default function App() {
-  const [entwurf, setEntwurf] = useState<Simulationseinstellungen>(STANDARD_EINSTELLUNGEN);
+  const [entwurf, setEntwurf] = useState<Simulationseinstellungen>(AUSGANGSRUNDEN.bund);
   // Null bis zum ersten Knopfdruck: vorher wird nichts gerechnet und nichts gezeigt.
   const [angewandt, setAngewandt] = useState<Simulationseinstellungen | null>(null);
 
@@ -184,14 +183,12 @@ export default function App() {
 
       <header className="masthead">
         <div className="masthead__inhalt">
-          <Title order={1} maw="24ch">
-            Bemessungsrechnung für einen Fördertopf
-          </Title>
-          <Text c="dimmed" mt="sm" maw="70ch">
-            Budgetbeschränktes Quadratic Funding, gegenübergestellt mit vier herkömmlichen
-            Verteilregeln. Das Werkzeug bemisst und dokumentiert. Es entscheidet nicht und
-            bescheidet nicht — das bleibt Sache der Behörde.
-          </Text>
+          <Title order={1}>Quadratic Funding für gedeckelte Fördertöpfe</Title>
+          <p className="kopfsatz">
+            Verteilt einen gedeckelten Fördertopf danach, wie viele Menschen ein Vorhaben
+            mittragen — nicht danach, wer die größte Summe aufbringt. Das Werkzeug bemisst und
+            dokumentiert; bescheiden tut die Behörde.
+          </p>
 
           <div className="kennstreifen">
             <span className="kennstreifen__feld">
@@ -222,7 +219,7 @@ export default function App() {
             </span>
           </div>
 
-          <Text size="xs" c="dimmed" mt={10} maw="88ch">
+          <Text size="sm" c="var(--tinte-still)" mt={10}>
             Prototyp mit synthetischen Demodaten. Kein Zahlungsverkehr, keine echten Vorhaben,
             keine echten Personen. Der Rechenkern ist derselbe, der später produktiv laufen soll.
           </Text>
