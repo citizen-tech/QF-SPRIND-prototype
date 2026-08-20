@@ -60,6 +60,32 @@ export function stuetzstellen(hoechstbetragCent: number, anzahl = 33): number[] 
   );
 }
 
+/** Auf 1, 2 oder 5 mal eine Zehnerpotenz runden, damit runde Beträge dastehen. */
+function aufLesbarenBetrag(cent: number): number {
+  if (cent <= 0) return 0;
+  const groesse = 10 ** Math.floor(Math.log10(cent));
+  const anteil = cent / groesse;
+  const stufe = anteil < 1.5 ? 1 : anteil < 3.5 ? 2 : anteil < 7.5 ? 5 : 10;
+  return stufe * groesse;
+}
+
+/**
+ * Ein typischer Beitrag dieser Runde: der Median aller Einzelbeiträge, auf einen
+ * lesbaren Betrag gerundet.
+ *
+ * Warum kein fester Probebetrag: In der Bürgerwelt liegen Beiträge bei einigen
+ * Euro, bei Bund und Ländern bei Zehntausenden. Ein fester Betrag von 10 € misst
+ * dort nur noch die Steigung der Wurzelfunktion nahe null. Das Ergebnis ist
+ * rechnerisch richtig, als Aussage über die Runde aber wertlos — es sagt „das
+ * Zweihundertfache des Einsatzes“, wo in Wirklichkeit steht, dass der Einsatz
+ * verschwindend klein gegenüber allem übrigen war.
+ */
+export function typischerBeitragCent(daten: Rundendaten): number {
+  if (daten.beitraege.length === 0) return 1_000;
+  const sortiert = daten.beitraege.map((b) => b.betragCent).sort((a, b) => a - b);
+  return Math.max(1, aufLesbarenBetrag(sortiert[Math.floor(sortiert.length / 2)]));
+}
+
 export type Vorhabenwirkung = {
   vorhabenId: string;
   ohneCent: number;

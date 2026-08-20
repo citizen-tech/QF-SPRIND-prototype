@@ -77,12 +77,6 @@ export default function App() {
 
   const daten = useMemo(() => (angewandt ? erzeugeRunde(angewandt) : null), [angewandt]);
 
-  // Die Visualisierung steht für sich: Wer sie ohne vorherige Simulation
-  // aufruft, bekommt die Ausgangsrunde von Bund und Ländern zu sehen.
-  const sichtdaten = useMemo(
-    () => daten ?? erzeugeRunde(AUSGANGSRUNDEN.bund),
-    [daten],
-  );
   const werte = useMemo(() => (daten ? berechneVorhabenwerte(daten) : null), [daten]);
   const verfahren = useMemo(
     () => (daten && werte ? alleVerfahren(daten, werte) : null),
@@ -302,7 +296,7 @@ export default function App() {
       </nav>
 
       <main className="huelle">
-        {ansicht === 'erklaerung' && <Erklaerung daten={sichtdaten} />}
+        {ansicht === 'erklaerung' && <Erklaerung />}
 
         {ansicht === 'prototyp' && (
         <>

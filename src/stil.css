@@ -262,10 +262,20 @@ body {
   stroke-linecap: round;
 }
 
+.kurve__flaeche {
+  fill: var(--amt-flaeche);
+  stroke: none;
+}
+
 .kurve__lot {
   stroke: var(--linie-kraeftig);
   stroke-width: 1;
   stroke-dasharray: 3 3;
+}
+
+.kurve__scheitel {
+  stroke: var(--ocker-linie);
+  stroke-width: 1.5;
 }
 
 .kurve__punkt {

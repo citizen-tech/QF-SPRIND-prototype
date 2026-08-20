@@ -2,7 +2,6 @@ import { Badge, Button, Group, Table, Text, Title } from '@mantine/core';
 import { useState } from 'react';
 import { euro, prozent, zahl } from '../format';
 import type { Hebelanzeige } from '../kern/hebel';
-import { PROBEBEITRAG_CENT } from '../kern/hebel';
 import type { Kopplungsverfahren } from '../kern/paarweise';
 import type { Vorhabenwerte } from '../kern/qf';
 import type { Rundendaten } from '../kern/typen';
@@ -307,7 +306,7 @@ export default function Ergebnistabelle({
                           </dl>
 
                           <Title order={4} mt="lg" mb={6}>
-                            Ein weiterer Beitrag von {euro(PROBEBEITRAG_CENT)}
+                            Was ein weiterer Beitrag bewirkt hätte
                           </Title>
                           {schritt.gedeckelt || hebelwert.zuwachsCent <= 0 ? (
                             <Text size="sm" c="dimmed" maw="52ch">
@@ -317,13 +316,15 @@ export default function Ergebnistabelle({
                           ) : (
                             <>
                               <Wirkungskurve
+                                key={`${daten.runde.id}-${hebel.probebeitragCent}`}
                                 daten={daten}
                                 vorhabenId={vorhaben.id}
-                                betragCent={PROBEBEITRAG_CENT}
+                                typischCent={hebel.probebeitragCent}
                               />
-                              {bezug && hebelwert.verhaeltnis !== null && (
+                              {bezug && bezug.id !== vorhaben.id && hebelwert.verhaeltnis !== null && (
                                 <Text size="sm" c="var(--tinte-lese)" mt={6} maw="52ch">
-                                  Das ist das {zahl(hebelwert.verhaeltnis, 1)}-fache dessen, was
+                                  Gemessen an einem Beitrag von {euro(hebel.probebeitragCent)} ist
+                                  das das {zahl(hebelwert.verhaeltnis, 1)}-fache dessen, was
                                   derselbe Beitrag bei „{bezug.titel}“ bewirkt hätte.
                                 </Text>
                               )}

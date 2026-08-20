@@ -3,8 +3,19 @@
 
 import { describe, expect, it } from 'vitest';
 import demodaten from '../src/daten/runde-demo.json';
-import { stuetzstellen, wirkungJeVorhaben, wirkungskurve } from '../src/kern/beitragswirkung';
+import {
+  stuetzstellen,
+  typischerBeitragCent,
+  wirkungJeVorhaben,
+  wirkungskurve,
+} from '../src/kern/beitragswirkung';
 import { berechneQf, berechneVorhabenwerte } from '../src/kern/qf';
+import {
+  AUSGANGSRUNDEN,
+  erzeugeRunde,
+  zufaelligeVorhaben,
+  type Rundenrahmen,
+} from '../src/kern/simulation';
 import { seitenlaenge } from '../src/ui/QfQuadrat';
 import type { Beitrag, Rundendaten } from '../src/kern/typen';
 
@@ -109,6 +120,107 @@ describe('Wirkung eines Beitrags', () => {
     wirkungJeVorhaben(daten, 10_000);
     const nachher = berechneVorhabenwerte(daten).map((w) => w.beitragendeAnzahl);
     expect(nachher).toEqual(vorher);
+  });
+});
+
+describe('Typischer Beitrag der Runde', () => {
+  // Ein fester Probebetrag von 10 € war in der Bürgerwelt richtig und bei Bund
+  // und Ländern sinnlos: Dort maß er nur noch die Steigung der Wurzelfunktion
+  // nahe null und meldete das Zweihundertfache des Einsatzes als Wirkung. Die
+  // beiden folgenden Tests halten fest, dass der Messbetrag zur Runde passt und
+  // die gemessene Wirkung damit in einer belegbaren Größenordnung bleibt.
+
+  const runden = (['buerger', 'bund'] as const).flatMap((typ) =>
+    [1, 7, 23, 42, 99].map((seed) => {
+      const rahmen: Rundenrahmen = { ...AUSGANGSRUNDEN[typ] };
+      return {
+        typ,
+        seed,
+        daten: erzeugeRunde({
+          ...AUSGANGSRUNDEN[typ],
+          seed,
+          vorhaben: zufaelligeVorhaben(seed, rahmen),
+        }),
+      };
+    }),
+  );
+
+  it('liegt im mittleren Bereich der tatsächlichen Beiträge', () => {
+    for (const { typ, seed, daten: runde } of runden) {
+      const betrag = typischerBeitragCent(runde);
+      const sortiert = runde.beitraege.map((b) => b.betragCent).sort((a, b) => a - b);
+      const rang = sortiert.filter((c) => c <= betrag).length / sortiert.length;
+      expect(rang, `${typ}/${seed}`).toBeGreaterThan(0.25);
+      expect(rang, `${typ}/${seed}`).toBeLessThan(0.75);
+    }
+  });
+
+  it('führt zu einer Wirkung in belegbarer Größenordnung', () => {
+    for (const { typ, seed, daten: runde } of runden) {
+      const betrag = typischerBeitragCent(runde);
+      for (const s of berechneQf(runde).schritte) {
+        if (s.gedeckelt) continue;
+        const [punkt] = wirkungskurve(runde, s.id, [betrag]);
+        // Weniger als das Zehnfache des Einsatzes. Der alte feste Probebetrag
+        // lieferte bei Bund und Ländern rund das Zweihundertfache.
+        expect(punkt.zuwachsCent / betrag, `${typ}/${seed}/${s.id}`).toBeLessThan(10);
+      }
+    }
+  });
+
+  it('ergibt eine Kurve, die steigt und danach nicht wieder ansteigt', () => {
+    // Die Zeichnung trägt den Zuwachs von null an auf und setzt genau diese
+    // Form voraus: erst steigend und abflachend, dann höchstens fallend.
+    //
+    // Der fallende Teil ist kein Rechenfehler, sondern der Kostenplan: Ist er
+    // ausgeschöpft, ersetzt jeder weitere Beitrag einen Euro Zuteilung. Deshalb
+    // wird auf einen Scheitelpunkt geprüft und nicht auf Monotonie.
+    for (const { typ, seed, daten: runde } of runden) {
+      const betrag = typischerBeitragCent(runde);
+      const offen = berechneQf(runde).schritte.find((s) => !s.gedeckelt);
+      if (!offen) continue;
+      const punkte = wirkungskurve(runde, offen.id, stuetzstellen(betrag * 4, 21));
+      expect(punkte[0].zuwachsCent, `${typ}/${seed}`).toBe(0);
+
+      const scheitel = punkte.reduce((a, b, i) => (b.zuwachsCent > punkte[a].zuwachsCent ? i : a), 0);
+      for (let i = 1; i <= scheitel; i++) {
+        expect(punkte[i].zuwachsCent, `${typ}/${seed} steigend`).toBeGreaterThanOrEqual(
+          punkte[i - 1].zuwachsCent,
+        );
+      }
+      for (let i = 2; i <= scheitel; i++) {
+        const vorher = punkte[i - 1].zuwachsCent - punkte[i - 2].zuwachsCent;
+        const nachher = punkte[i].zuwachsCent - punkte[i - 1].zuwachsCent;
+        // Toleranz von zwei Cent für die Rundung auf ganze Cent.
+        expect(nachher, `${typ}/${seed} abflachend`).toBeLessThanOrEqual(vorher + 2);
+      }
+      for (let i = scheitel + 1; i < punkte.length; i++) {
+        expect(punkte[i].zuwachsCent, `${typ}/${seed} fallend`).toBeLessThanOrEqual(
+          punkte[i - 1].zuwachsCent,
+        );
+      }
+    }
+  });
+
+  it('fällt nur, wenn der Kostenplan ausgeschöpft ist', () => {
+    // Sichert die Erklärung, die neben der Kurve steht: Hinter jedem fallenden
+    // Abschnitt steht die Regel „Zuteilung + Beiträge ≤ Kostenplan“.
+    for (const { typ, seed, daten: runde } of runden) {
+      const betrag = typischerBeitragCent(runde);
+      for (const s of berechneQf(runde).schritte) {
+        if (s.gedeckelt) continue;
+        const punkte = wirkungskurve(runde, s.id, stuetzstellen(betrag * 4, 21));
+        const scheitel = punkte.reduce((a, b, i) => (b.zuwachsCent > punkte[a].zuwachsCent ? i : a), 0);
+        if (scheitel === punkte.length - 1) continue;
+
+        const w = berechneVorhabenwerte(runde).find((x) => x.vorhabenId === s.id)!;
+        const v = runde.vorhaben.find((x) => x.id === s.id)!;
+        const letzter = punkte[punkte.length - 1];
+        expect(letzter.zuteilungCent, `${typ}/${seed}/${s.id}`).toBe(
+          v.beantragtCent - w.eigenCent - letzter.betragCent,
+        );
+      }
+    }
   });
 });
 

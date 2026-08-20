@@ -1,11 +1,9 @@
-import { Group, Paper, Slider, Text, Title } from '@mantine/core';
+import { Group, Paper, Slider, Table, Text, Title } from '@mantine/core';
 import { useMemo, useState } from 'react';
 import { euro, zahl } from '../format';
-import { berechneVorhabenwerte } from '../kern/qf';
-import type { Rundendaten } from '../kern/typen';
+import { BEISPIELE, BEISPIEL_POOL_CENT, beispielrunde } from '../kern/beispielrunde';
+import { berechneQf, berechneVorhabenwerte } from '../kern/qf';
 import QfQuadrat, { seitenlaenge } from './QfQuadrat';
-
-type Eigenschaften = { daten: Rundendaten };
 
 /** Didaktisches Beispiel: immer dieselbe Summe, auf verschieden viele Köpfe verteilt. */
 const BEISPIELSUMME_EURO = 64;
@@ -26,9 +24,8 @@ function Legende() {
   );
 }
 
-export default function Erklaerung({ daten }: Eigenschaften) {
+export default function Erklaerung() {
   const [koepfe, setKoepfe] = useState(8);
-  const werte = useMemo(() => berechneVorhabenwerte(daten), [daten]);
 
   // Beispiel: dieselbe Summe, gleichmäßig auf koepfe Personen verteilt.
   const beispiel = useMemo(
@@ -41,10 +38,13 @@ export default function Erklaerung({ daten }: Eigenschaften) {
   const beispielSeite = seitenlaenge(beispiel);
   const beispielQ = beispielSeite * beispielSeite;
 
-  // Vorhaben der Runde, maßstabsgleich nebeneinander.
-  const vorhabenReferenz = Math.max(...werte.map((w) => w.wurzelsumme), 1);
-  const nachWurzelsumme = [...werte].sort((a, b) => b.wurzelsumme - a.wurzelsumme);
-  const titel = new Map(daten.vorhaben.map((v) => [v.id, v.titel]));
+  // Die vier Beispielvorhaben — durch denselben Rechenkern wie der Prototyp.
+  const runde = useMemo(() => beispielrunde(), []);
+  const werte = useMemo(() => berechneVorhabenwerte(runde), [runde]);
+  const zuteilung = useMemo(() => berechneQf(runde, werte).zuteilungCent, [runde, werte]);
+  const werteNachId = new Map(werte.map((w) => [w.vorhabenId, w]));
+  const referenz = Math.max(...werte.map((w) => w.wurzelsumme), 1);
+  const summeR = werte.reduce((a, w) => a + w.rohEuro, 0);
 
   return (
     <>
@@ -131,49 +131,118 @@ export default function Erklaerung({ daten }: Eigenschaften) {
         </Paper>
       </section>
 
-      <section className="abschnitt" aria-labelledby="ueberschrift-runde">
+      <section className="abschnitt" aria-labelledby="ueberschrift-beispiel">
         <div className="abschnitt__kopf">
-          <Title order={2} id="ueberschrift-runde">
-            Die Vorhaben dieser Runde
+          <Title order={2} id="ueberschrift-beispiel">
+            Eine vollständige Runde von Hand
           </Title>
         </div>
 
         <p className="leitsatz">
-          Dieselbe Darstellung, angewandt auf die gerechnete Runde. Alle Quadrate stehen im
-          selben Maßstab: Die Fläche über den Beitragsblöcken ist der Bemessungswert, und in
-          seinem Verhältnis wird der Fördertopf verteilt.
+          Vier Vorhaben, bei jedem kommen{' '}
+          <span className="mono">{euro(werte[0].eigenCent)}</span> zusammen — nur von verschieden
+          vielen Beitragenden. Der Fördertopf beträgt{' '}
+          <span className="mono">{euro(BEISPIEL_POOL_CENT)}</span>, die Summe aller
+          Bemessungswerte <span className="mono">{zahl(summeR, 0)}</span>. Der Topf ist also
+          genau die Hälfte davon, und jede Zuteilung ist der halbe Bemessungswert. Alle Wurzeln
+          sind ganzzahlig; die Runde lässt sich ohne Taschenrechner nachprüfen.
         </p>
 
         <div className="quadratreihe">
-          {nachWurzelsumme.map((w) => (
-            <figure key={w.vorhabenId} className="quadratreihe__eintrag">
-              <QfQuadrat
-                betraegeEuro={w.posten.map((p) => p.betragEuro)}
-                referenzSeite={vorhabenReferenz}
-                kantenlaenge={190}
-                beschriftung={titel.get(w.vorhabenId) ?? w.vorhabenId}
-              />
-              <figcaption>
-                <Text size="sm" fw={500} lineClamp={2}>
-                  {titel.get(w.vorhabenId)}
-                </Text>
-                <Text size="xs" c="var(--tinte-lese)" mt={2}>
-                  {w.beitragendeAnzahl} Beitragende · {euro(w.eigenCent)}
-                </Text>
-                <Text size="xs" className="mono" c="amt.9" mt={2}>
-                  R = {zahl(w.rohEuro, 0)}
-                </Text>
-              </figcaption>
-            </figure>
-          ))}
+          {BEISPIELE.map((b) => {
+            const w = werteNachId.get(b.id)!;
+            return (
+              <figure key={b.id} className="quadratreihe__eintrag">
+                <QfQuadrat
+                  betraegeEuro={b.betraegeEuro}
+                  referenzSeite={referenz}
+                  kantenlaenge={190}
+                  beschriftung={`Vorhaben ${b.buchstabe}`}
+                />
+                <figcaption>
+                  <Text size="sm" fw={500}>
+                    Vorhaben {b.buchstabe}
+                  </Text>
+                  <Text size="xs" c="var(--tinte-lese)" mt={2}>
+                    {b.kurz}
+                  </Text>
+                  <Text size="xs" className="mono" c="amt.9" mt={2}>
+                    R = {zahl(w.rohEuro, 0)}
+                  </Text>
+                </figcaption>
+              </figure>
+            );
+          })}
         </div>
 
         <Legende />
 
+        <div className="tabellenrahmen" style={{ marginTop: 24 }}>
+          <Table withRowBorders>
+            <Table.Thead>
+              <Table.Tr>
+                <Table.Th>Vorhaben</Table.Th>
+                <Table.Th ta="right">Beitragende</Table.Th>
+                <Table.Th ta="right">Beitragssumme E</Table.Th>
+                <Table.Th ta="right">Wurzelsumme W</Table.Th>
+                <Table.Th ta="right">Q = W²</Table.Th>
+                <Table.Th ta="right">R = Q − E</Table.Th>
+                <Table.Th ta="right">Zuteilung</Table.Th>
+              </Table.Tr>
+            </Table.Thead>
+            <Table.Tbody>
+              {BEISPIELE.map((b) => {
+                const w = werteNachId.get(b.id)!;
+                return (
+                  <Table.Tr key={b.id}>
+                    <Table.Th scope="row" fw={500}>
+                      {b.buchstabe}
+                      <span className="traeger">{b.kurz}</span>
+                    </Table.Th>
+                    <Table.Td className="zahl">{w.beitragendeAnzahl}</Table.Td>
+                    <Table.Td className="zahl zahl--still">{euro(w.eigenCent)}</Table.Td>
+                    <Table.Td className="zahl zahl--still">{zahl(w.wurzelsumme, 0)}</Table.Td>
+                    <Table.Td className="zahl zahl--still">{zahl(w.quadrat, 0)}</Table.Td>
+                    <Table.Td className="zahl">{zahl(w.rohEuro, 0)}</Table.Td>
+                    <Table.Td className="zahl zahl--amt">
+                      {euro(zuteilung.get(b.id) ?? 0)}
+                    </Table.Td>
+                  </Table.Tr>
+                );
+              })}
+            </Table.Tbody>
+            <Table.Tfoot>
+              <Table.Tr>
+                <Table.Th scope="row">Summe</Table.Th>
+                <Table.Td className="zahl">
+                  {werte.reduce((a, w) => a + w.beitragendeAnzahl, 0)}
+                </Table.Td>
+                <Table.Td className="zahl">
+                  {euro(werte.reduce((a, w) => a + w.eigenCent, 0))}
+                </Table.Td>
+                <Table.Td />
+                <Table.Td />
+                <Table.Td className="zahl">{zahl(summeR, 0)}</Table.Td>
+                <Table.Td className="zahl zahl--amt">
+                  {euro([...zuteilung.values()].reduce((a, b) => a + b, 0))}
+                </Table.Td>
+              </Table.Tr>
+            </Table.Tfoot>
+          </Table>
+        </div>
+
+        <p className="notiz">
+          Vorhaben A bekommt nichts. Nicht weil 400 € zu wenig wären, sondern weil ein einzelner
+          Beitrag keine geteilte Unterstützung belegt: Sein Quadrat ist vollständig von seinem
+          eigenen Beitrag ausgefüllt, der Bemessungswert ist null. Vorhaben D sammelt dieselbe
+          Summe von sechzehn Beitragenden und erhält das Fünffache von Vorhaben B.
+        </p>
+
         <p className="notiz notiz--ocker">
           <strong>Ein Unterschied zur Lehrbuchfassung.</strong> Dort wird die ganze Fläche des
-          Quadrats ausgezahlt, der Fördertopf müsste also beliebig groß sein. Bei einem
-          gedeckelten Topf geht das nicht: Die Fläche über den Beiträgen dient dann als{' '}
+          Quadrats ausgezahlt, der Fördertopf müsste also beliebig groß sein — hier wären das{' '}
+          {zahl(summeR, 0)} € statt der vorhandenen {zahl(BEISPIEL_POOL_CENT / 100, 0)} €. Bei
+          einem gedeckelten Topf geht das nicht: Die Fläche über den Beiträgen dient dann als{' '}
           <em>Gewicht</em>, in dessen Verhältnis der vorhandene Topf aufgeteilt wird. Die Bilder
           zeigen also die Bemessung, nicht den Auszahlungsbetrag.
         </p>

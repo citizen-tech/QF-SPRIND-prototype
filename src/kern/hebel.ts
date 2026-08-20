@@ -5,11 +5,9 @@
 // wäre im Regelfall zu hoch und am Rundenende falsch. Das Verhältnis zu einem
 // benannten Bezugsvorhaben ist gegen spätere Verschiebungen unempfindlich.
 
+import { typischerBeitragCent } from './beitragswirkung';
 import { berechneQf, berechneVorhabenwerte } from './qf';
 import type { Beitrag, Rundendaten } from './typen';
-
-/** Betrag des Probebeitrags, mit dem der Hebel gemessen wird. */
-export const PROBEBEITRAG_CENT = 1_000;
 
 const PROBE_PERSON = 'probe-hebel';
 
@@ -22,16 +20,22 @@ export type Hebelwert = {
 };
 
 export type Hebelanzeige = {
+  /** Betrag, mit dem gemessen wurde — ein typischer Beitrag dieser Runde. */
+  probebeitragCent: number;
   /** Vorhaben, an dem gemessen wird. Null, wenn kein geeignetes existiert. */
   bezugVorhabenId: string | null;
   werte: Map<string, Hebelwert>;
 };
 
-function mitProbebeitrag(daten: Rundendaten, vorhabenId: string): Rundendaten {
+function mitProbebeitrag(
+  daten: Rundendaten,
+  vorhabenId: string,
+  betragCent: number,
+): Rundendaten {
   const probe: Beitrag = {
     vorhabenId,
     beitragendeId: PROBE_PERSON,
-    betragCent: PROBEBEITRAG_CENT,
+    betragCent,
     zeitpunkt: `${daten.runde.zeitraum.von}T00:00:00.000Z`,
     merkmal: { region: 'nicht angegeben', altersgruppe: 'nicht angegeben' },
   };
@@ -49,10 +53,11 @@ function mitProbebeitrag(daten: Rundendaten, vorhabenId: string): Rundendaten {
 export function berechneHebel(daten: Rundendaten): Hebelanzeige {
   const grundwerte = berechneVorhabenwerte(daten);
   const basis = berechneQf(daten, grundwerte);
+  const probebeitragCent = typischerBeitragCent(daten);
 
   const zuwachs = new Map<string, number>();
   for (const v of daten.vorhaben) {
-    const erhoeht = berechneQf(mitProbebeitrag(daten, v.id));
+    const erhoeht = berechneQf(mitProbebeitrag(daten, v.id, probebeitragCent));
     zuwachs.set(
       v.id,
       (erhoeht.zuteilungCent.get(v.id) ?? 0) - (basis.zuteilungCent.get(v.id) ?? 0),
@@ -81,5 +86,5 @@ export function berechneHebel(daten: Rundendaten): Hebelanzeige {
     });
   }
 
-  return { bezugVorhabenId: bezug ? bezug.vorhabenId : null, werte };
+  return { probebeitragCent, bezugVorhabenId: bezug ? bezug.vorhabenId : null, werte };
 }
