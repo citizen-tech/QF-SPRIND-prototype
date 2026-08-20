@@ -4,7 +4,7 @@ import {
   Checkbox,
   Group,
   Paper,
-  SegmentedControl,
+  Radio,
   Stack,
   Text,
   Title,
@@ -246,21 +246,40 @@ export default function App() {
             Dieselbe Bemessungsregel in derselben Fassung, vier Größenordnungen auseinander.
             Umgestellt wird nur, wer beiträgt und worum es geht — nicht, wie gerechnet wird.
           </p>
-          <SegmentedControl
+          <Radio.Group
             value={entwurf?.programmtyp ?? ''}
             onChange={(wert) => programmtypWechseln(wert as Programmtyp)}
-            disabled={lauf !== null}
-            data={PROGRAMMTYP_IDS.map((id) => ({
-              value: id,
-              label: PROGRAMMTYPEN[id].name,
-            }))}
-            size="md"
-          />
-          <p className="leitsatz" style={{ marginTop: 12, marginBottom: 0 }}>
-            {entwurf
-              ? PROGRAMMTYPEN[entwurf.programmtyp].kurz
-              : 'Wählen Sie einen Programmtyp. Erst danach lässt sich die Runde einrichten.'}
-          </p>
+            aria-label="Programmtyp"
+          >
+            <Group grow align="stretch" wrap="wrap" gap="md">
+              {PROGRAMMTYP_IDS.map((id) => (
+                <Radio.Card
+                  key={id}
+                  value={id}
+                  className="typkarte"
+                  radius="sm"
+                  disabled={lauf !== null}
+                >
+                  <Group wrap="nowrap" align="flex-start" gap="sm" p="md">
+                    <Radio.Indicator mt={3} />
+                    <div>
+                      <Text fw={600} size="md">
+                        {PROGRAMMTYPEN[id].name}
+                      </Text>
+                      <Text size="sm" c="var(--tinte-lese)" mt={3}>
+                        {PROGRAMMTYPEN[id].kurz}
+                      </Text>
+                    </div>
+                  </Group>
+                </Radio.Card>
+              ))}
+            </Group>
+          </Radio.Group>
+          {!entwurf && (
+            <p className="leitsatz" style={{ marginTop: 12, marginBottom: 0 }}>
+              Erst nach dieser Wahl lässt sich die Runde einrichten.
+            </p>
+          )}
         </section>
 
         {entwurf && ausgangsrunde && (
@@ -288,8 +307,8 @@ export default function App() {
 
         {lauf && <Simulationslauf schritt={lauf.schritt} />}
 
-        {!lauf && !daten && (
-          <Paper withBorder p="xl" radius="sm" mt="xl" bg="white">
+        {!lauf && !daten && entwurf && entwurf.vorhaben.length > 0 && (
+          <Paper withBorder p="xl" radius="sm" mt="xl" bg="white" className="auftritt">
             <Text c="var(--tinte-lese)">
               Noch nichts gerechnet. Starten Sie die Simulation, um Zuteilung,
               Vergleichsrechnung und Nachweismappe zu erhalten.

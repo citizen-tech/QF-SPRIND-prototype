@@ -190,6 +190,39 @@ body {
   color: var(--tinte-still);
 }
 
+/* --- Programmtypwahl ---------------------------------------------------- */
+
+/* Anwählbare Karten statt eines Umschalters: Sie sehen nach Knopf aus, tragen
+   die Erläuterung gleich mit und lassen den gewählten Typ deutlich erkennen.
+   Unter der Haube sind es Optionsfelder — Pfeiltasten und Vorlesesoftware
+   verhalten sich damit wie erwartet. */
+.typkarte {
+  background: var(--flaeche);
+  border: 1px solid var(--linie-kraeftig);
+  cursor: pointer;
+  transition:
+    border-color 0.12s ease,
+    background-color 0.12s ease,
+    box-shadow 0.12s ease;
+  min-width: 280px;
+}
+
+.typkarte:hover:not([data-disabled]) {
+  border-color: var(--amt);
+  background: var(--flaeche-stumpf);
+}
+
+.typkarte[data-checked] {
+  border-color: var(--amt);
+  background: var(--amt-flaeche);
+  box-shadow: inset 0 0 0 1px var(--amt);
+}
+
+.typkarte[data-disabled] {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
 /* --- Erklärzeichen ------------------------------------------------------ */
 
 .mit-hinweis {
