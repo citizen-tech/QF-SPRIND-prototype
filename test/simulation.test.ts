@@ -7,7 +7,9 @@ import { pruefsumme } from '../src/kern/pruefsumme';
 import { berechneVorhabenwerte } from '../src/kern/qf';
 import {
   erzeugeRunde,
+  PROGRAMMTYPEN,
   STANDARD_EINSTELLUNGEN,
+  STANDARD_EINSTELLUNGEN_BUND,
   vorhabenvorgabe,
   zufaelligeVorhaben,
   type Simulationseinstellungen,
@@ -170,10 +172,17 @@ describe('Ausgewürfelte Vorhaben sind plausibel', () => {
   it('bleibt im vorgesehenen Zuschnitt', () => {
     for (const { daten } of runden) {
       expect(daten.vorhaben.length).toBeGreaterThanOrEqual(6);
-      expect(daten.vorhaben.length).toBeLessThanOrEqual(10);
+      expect(daten.vorhaben.length).toBeLessThanOrEqual(PROGRAMMTYPEN.buerger.titel.length);
       const personen = new Set(daten.beitraege.map((b) => b.beitragendeId)).size;
       expect(personen).toBeGreaterThanOrEqual(100);
       expect(personen).toBeLessThanOrEqual(280);
+    }
+  });
+
+  it('vergibt Titel und Träger ohne Doppelung', () => {
+    for (const { daten } of runden) {
+      expect(new Set(daten.vorhaben.map((v) => v.titel)).size).toBe(daten.vorhaben.length);
+      expect(new Set(daten.vorhaben.map((v) => v.traeger)).size).toBe(daten.vorhaben.length);
     }
   });
 
@@ -202,6 +211,68 @@ describe('Ausgewürfelte Vorhaben sind plausibel', () => {
     for (const { verfahren } of runden) {
       expect(verfahren.qf.kennzahlen.beitragendeMitTreffer).toBeGreaterThan(
         verfahren.windhund.kennzahlen.beitragendeMitTreffer,
+      );
+    }
+  });
+});
+
+describe('Programmtyp "Bund und Länder"', () => {
+  // Dieselbe Bemessungsregel, vier Größenordnungen höher. Der Prototyp behauptet
+  // Skalierbarkeit — das muss auch rechnerisch tragen.
+  const runden = Array.from({ length: 40 }, (_, i) => {
+    const seed = (i + 1) * 6151;
+    const einstellungen: Simulationseinstellungen = {
+      ...STANDARD_EINSTELLUNGEN_BUND,
+      seed,
+      vorhaben: zufaelligeVorhaben(seed, STANDARD_EINSTELLUNGEN_BUND),
+    };
+    const daten = erzeugeRunde(einstellungen);
+    const werte = berechneVorhabenwerte(daten);
+    return { daten, werte, verfahren: alleVerfahren(daten, werte) };
+  });
+
+  it('verwendet die Namen und Merkmale der Bundeswelt', () => {
+    const daten = erzeugeRunde(STANDARD_EINSTELLUNGEN_BUND);
+    for (const v of daten.vorhaben) {
+      expect(PROGRAMMTYPEN.bund.titel).toContain(v.titel);
+      expect(PROGRAMMTYPEN.bund.traeger).toContain(v.traeger);
+    }
+    for (const b of daten.beitraege) {
+      expect(PROGRAMMTYPEN.bund.regionen).toContain(b.merkmal.region);
+      expect(PROGRAMMTYPEN.bund.gruppen).toContain(b.merkmal.altersgruppe);
+    }
+  });
+
+  it('trennt die beiden Welten vollständig', () => {
+    const buerger = erzeugeRunde(STANDARD_EINSTELLUNGEN);
+    const bund = erzeugeRunde(STANDARD_EINSTELLUNGEN_BUND);
+    const titelBuerger = new Set(buerger.vorhaben.map((v) => v.titel));
+    for (const v of bund.vorhaben) expect(titelBuerger.has(v.titel)).toBe(false);
+  });
+
+  it('rechnet mit derselben Fassung der Bemessungsregel', () => {
+    const buerger = erzeugeRunde(STANDARD_EINSTELLUNGEN);
+    const bund = erzeugeRunde(STANDARD_EINSTELLUNGEN_BUND);
+    expect(bund.runde.formelVersion).toBe(buerger.runde.formelVersion);
+  });
+
+  it('schöpft den Topf aus und erreicht mehr Stellen als das Windhundverfahren', () => {
+    for (const { verfahren } of runden) {
+      expect(verfahren.qf.nichtAusgeschoepftCent).toBe(0);
+      expect(verfahren.qf.kennzahlen.beitragendeMitTreffer).toBeGreaterThan(
+        verfahren.windhund.kennzahlen.beitragendeMitTreffer,
+      );
+    }
+  });
+
+  it('bevorzugt auch hier die Zahl der Stellen vor der Höhe der Beiträge', () => {
+    // Das Vorhaben mit den wenigsten Beitragenden erhält unter "anteilig nach
+    // Beitragssumme" mehr als unter Quadratic Funding.
+    for (const { werte, verfahren } of runden) {
+      const wenigste = [...werte].sort((a, b) => a.beitragendeAnzahl - b.beitragendeAnzahl)[0];
+      if (wenigste.beitragendeAnzahl > 3) continue;
+      expect(verfahren.anteilig.zuteilungCent.get(wenigste.vorhabenId)!).toBeGreaterThan(
+        verfahren.qf.zuteilungCent.get(wenigste.vorhabenId)!,
       );
     }
   });

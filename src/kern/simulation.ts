@@ -101,6 +101,138 @@ export const ALTERSGRUPPEN = ['unter 30', '30-44', '45-59', '60 und älter'] as 
 const REGION_GEWICHTE = [40, 25, 20, 15];
 const ALTER_GEWICHTE = [30, 35, 22, 13];
 
+// --- Zweiter Programmtyp: Bund und Länder --------------------------------
+//
+// Dieselbe Bemessungsregel, vier Größenordnungen höher. Beitragende sind dann
+// nicht Bürgerinnen und Bürger, sondern Länder, Kommunen und ihre
+// Zusammenschlüsse, die aus dem eigenen Haushalt beisteuern.
+//
+// Alle Namen sind erkennbar generisch. Reale Landesbetriebe oder Zweckverbände
+// stehen hier bewusst nicht — die Daten sollen als synthetisch erkennbar
+// bleiben.
+
+export const PROGRAMME_BUND = [
+  {
+    name: 'Digitalisierungsbudget (Bund und Länder)',
+    zweck:
+      'Gemeinsam finanzierte Digitalisierungsvorhaben mit deutschlandweiter Wirkung, ' +
+      'Umsetzung im Haushaltsjahr 2027.',
+  },
+  {
+    name: 'Nachnutzbare Fachverfahren',
+    zweck:
+      'Vorhaben zur Entwicklung nachnutzbarer Fachverfahren für die Verwaltung von Bund, ' +
+      'Ländern und Kommunen, Umsetzung im Haushaltsjahr 2027.',
+  },
+  {
+    name: 'Registermodernisierung',
+    zweck:
+      'Vorhaben zur Anbindung und Vereinheitlichung öffentlicher Register, ' +
+      'Umsetzung im Haushaltsjahr 2027.',
+  },
+] as const;
+
+export const VORHABENTITEL_BUND = [
+  'Anbindung kommunaler Fachverfahren an die Registermodernisierung',
+  'Einheitlicher Bezahldienst für Verwaltungsleistungen',
+  'Bundesweites Postfach für Unternehmensmeldungen',
+  'Nachnutzbare Antragsstrecke für Wohngeld',
+  'Offene Schnittstelle für Kfz-Zulassungsdaten',
+  'Gemeinsame Basiskomponente Identitätsnachweis',
+  'Digitale Antragsstrecke für Elterngeld',
+  'Automatisierte Aktenführung im Bauordnungswesen',
+  'Standardisierung der Meldedatenübermittlung',
+  'Cloud-Bereitstellung für Landesrechenzentren',
+  'Barrierefreier Zugang zu Verwaltungsportalen',
+  'Gemeinsames Datenschutz-Cockpit der Länder',
+  'Nachnutzung einer Fachanwendung für Gewerbeanzeigen',
+  'Schnittstelle zwischen Justiz- und Meldewesen',
+] as const;
+
+export const TRAEGER_BUND = [
+  'Landesrechenzentrum Nord',
+  'Zweckverband Kommunale Datenverarbeitung Süd',
+  'Landesamt für Digitalisierung West',
+  'IT-Dienstleistungszentrum Ost',
+  'Kommunaler Zweckverband Mitte',
+  'Landesbetrieb Daten und Information Nordwest',
+  'Rechenzentrum der Kommunen Südost',
+  'Landesanstalt für Verwaltungsdigitalisierung Nordost',
+  'Gemeinsames IT-Zentrum der Länder Südwest',
+  'Kommunale Informationsverarbeitung Mittelland',
+  'Landesagentur für digitale Verwaltung Oberland',
+  'Zweckverband Digitalisierung Küste',
+  'IT-Kooperation der Stadtstaaten',
+  'Landesbetrieb Verwaltungs-IT Binnenland',
+] as const;
+
+export const VERBUENDE = [
+  'Verbund Nord',
+  'Verbund Ost',
+  'Verbund Süd',
+  'Verbund West',
+] as const;
+
+export const EBENEN = [
+  'Land',
+  'Kommunaler Zusammenschluss',
+  'Anstalt öffentlichen Rechts',
+  'Bund',
+] as const;
+
+const VERBUND_GEWICHTE = [30, 25, 25, 20];
+const EBENEN_GEWICHTE = [40, 30, 20, 10];
+
+export type Programmtyp = 'buerger' | 'bund';
+
+export type Programmtypbeschreibung = {
+  id: Programmtyp;
+  name: string;
+  kurz: string;
+  /** Wie die Beitragenden in der Oberfläche heißen. */
+  beitragendeWort: string;
+  /** Beschriftung der beiden Merkmalsfelder in dieser Welt. */
+  merkmalsnamen: { region: string; altersgruppe: string };
+  programme: readonly { readonly name: string; readonly zweck: string }[];
+  titel: readonly string[];
+  traeger: readonly string[];
+  regionen: readonly string[];
+  regionGewichte: readonly number[];
+  gruppen: readonly string[];
+  gruppenGewichte: readonly number[];
+};
+
+export const PROGRAMMTYPEN: Record<Programmtyp, Programmtypbeschreibung> = {
+  buerger: {
+    id: 'buerger',
+    name: 'Bürgerbeteiligung',
+    kurz: 'Ehrenamtliche Vorhaben, getragen von Bürgerinnen und Bürgern mit Beiträgen ab wenigen Euro.',
+    beitragendeWort: 'Personen',
+    merkmalsnamen: { region: 'Region', altersgruppe: 'Altersgruppe' },
+    programme: PROGRAMME,
+    titel: VORHABENTITEL,
+    traeger: TRAEGER,
+    regionen: REGIONEN,
+    regionGewichte: REGION_GEWICHTE,
+    gruppen: ALTERSGRUPPEN,
+    gruppenGewichte: ALTER_GEWICHTE,
+  },
+  bund: {
+    id: 'bund',
+    name: 'Bund und Länder',
+    kurz: 'Gemeinsam finanzierte Vorhaben, getragen von Ländern, Kommunen und ihren Zusammenschlüssen aus dem eigenen Haushalt.',
+    beitragendeWort: 'Stellen',
+    merkmalsnamen: { region: 'Regionalverbund', altersgruppe: 'Ebene' },
+    programme: PROGRAMME_BUND,
+    titel: VORHABENTITEL_BUND,
+    traeger: TRAEGER_BUND,
+    regionen: VERBUENDE,
+    regionGewichte: VERBUND_GEWICHTE,
+    gruppen: EBENEN,
+    gruppenGewichte: EBENEN_GEWICHTE,
+  },
+};
+
 // --- Einstellungen -------------------------------------------------------
 
 /** Rolle eines Vorhabens im Datensatz. Erzeugt die Muster, die der Vergleich zeigen soll. */
@@ -110,12 +242,16 @@ export type Vorhabenrolle =
   | 'allein' // genau eine beitragende Person — erhält null
   | 'absprache'; // wird von der Absprachegruppe geschlossen mitgetragen
 
-export const ROLLENNAMEN: Record<Vorhabenrolle, string> = {
-  normal: 'Breite Unterstützung',
-  'wenige-grosse': 'Wenige große Beiträge',
-  allein: 'Nur eine beitragende Person',
-  absprache: 'Wird von der Absprachegruppe getragen',
-};
+/** Musterbezeichnungen. "Person" oder "Stelle" richtet sich nach dem Programmtyp. */
+export function rollennamen(typ: Programmtyp): Record<Vorhabenrolle, string> {
+  const einzeln = typ === 'bund' ? 'Nur eine beitragende Stelle' : 'Nur eine beitragende Person';
+  return {
+    normal: 'Breite Unterstützung',
+    'wenige-grosse': 'Wenige große Beiträge',
+    allein: einzeln,
+    absprache: 'Wird von der Absprachegruppe getragen',
+  };
+}
 
 export type Vorhabenvorgabe = {
   id: string;
@@ -130,6 +266,8 @@ export type Vorhabenvorgabe = {
 
 export type Simulationseinstellungen = {
   seed: number;
+  /** Welche Welt: Bürgerbeteiligung oder Bund und Länder. */
+  programmtyp: Programmtyp;
   zweck: string;
   zeitraumVon: string;
   zeitraumBis: string;
@@ -154,21 +292,35 @@ export const STANDARD_ZULASSUNGSKRITERIEN = [
 ];
 
 /** Vorgabe für ein Vorhaben an Position `index`, aus den hinterlegten Namen. */
-export function vorhabenvorgabe(index: number, rolle: Vorhabenrolle = 'normal'): Vorhabenvorgabe {
+export function vorhabenvorgabe(
+  index: number,
+  rolle: Vorhabenrolle = 'normal',
+  typ: Programmtyp = 'buerger',
+): Vorhabenvorgabe {
+  const welt = PROGRAMMTYPEN[typ];
   return {
     id: `v-${index + 1}`,
-    titel: VORHABENTITEL[index % VORHABENTITEL.length],
-    traeger: TRAEGER[index % TRAEGER.length],
-    beantragtCent: 100_000,
+    titel: welt.titel[index % welt.titel.length],
+    traeger: welt.traeger[index % welt.traeger.length],
+    beantragtCent: typ === 'bund' ? 250_000_000 : 100_000,
     jurypunkte: 50,
     zuspruch: 5,
     rolle,
   };
 }
 
+export const ZULASSUNGSKRITERIEN_BUND = [
+  'Antragsteller ist eine Stelle des Bundes, eines Landes oder ein kommunaler Zusammenschluss.',
+  'Das Vorhaben ist nachnutzbar und entfaltet deutschlandweite Wirkung.',
+  'Die Umsetzung liegt vollständig im Förderzeitraum.',
+  'Ein Kostenplan liegt vor; die beantragte Summe ist nachvollziehbar aufgeschlüsselt.',
+  'Mindestens eine beitragende Stelle beteiligt sich aus dem eigenen Haushalt.',
+];
+
 /** Die Ausgangsrunde des Prototyps. Erzeugt src/daten/runde-demo.json. */
 export const STANDARD_EINSTELLUNGEN: Simulationseinstellungen = {
   seed: STANDARD_SEED,
+  programmtyp: 'buerger',
   zweck: PROGRAMME[0].zweck,
   zeitraumVon: '2026-10-01',
   zeitraumBis: '2026-12-31',
@@ -196,11 +348,54 @@ export const STANDARD_EINSTELLUNGEN: Simulationseinstellungen = {
   ],
 };
 
+/**
+ * Ausgangsrunde für den Programmtyp "Bund und Länder".
+ *
+ * Größenordnung angelehnt an das Digitalisierungsbudget des IT-Planungsrats:
+ * ein Vielfaches der Anträge steht dem verfügbaren Betrag gegenüber. Beitragende
+ * sind hier keine Privatpersonen, sondern Länder, Kommunen und ihre
+ * Zusammenschlüsse — entsprechend wenige, mit entsprechend hohen Beiträgen.
+ */
+export const STANDARD_EINSTELLUNGEN_BUND: Simulationseinstellungen = {
+  seed: STANDARD_SEED,
+  programmtyp: 'bund',
+  zweck: PROGRAMME_BUND[0].zweck,
+  zeitraumVon: '2027-01-01',
+  zeitraumBis: '2027-12-31',
+  poolCent: 800_000_000, // 8 Mio. €
+  hoechstbetragJeVorhabenCent: 250_000_000, // 2,5 Mio. €
+  // Beitragende sind hier Länder, Kommunen und ihre Zusammenschlüsse. Ihre Zahl
+  // muss deutlich über der Zahl der Vorhaben liegen, sonst kann sich die
+  // Mitträgerschaft gar nicht gegen wenige große Beiträge durchsetzen — das
+  // Vorhaben "zwölf Länder mit kleinen Beträgen" braucht die zwölf.
+  beitragendeGesamt: 110,
+  betragMinCent: 500_000, // 5.000 €
+  betragMaxCent: 8_000_000, // 80.000 €
+  abspracheGroesse: 9,
+  zulassungskriterien: ZULASSUNGSKRITERIEN_BUND,
+  vorhaben: [
+    { ...vorhabenvorgabe(0, 'normal', 'bund'), beantragtCent: 600_000_000, jurypunkte: 74, zuspruch: 10 },
+    { ...vorhabenvorgabe(1, 'wenige-grosse', 'bund'), beantragtCent: 500_000_000, jurypunkte: 92, zuspruch: 1 },
+    { ...vorhabenvorgabe(2, 'normal', 'bund'), beantragtCent: 550_000_000, jurypunkte: 88, zuspruch: 9 },
+    { ...vorhabenvorgabe(3, 'normal', 'bund'), beantragtCent: 420_000_000, jurypunkte: 81, zuspruch: 6 },
+    { ...vorhabenvorgabe(4, 'allein', 'bund'), beantragtCent: 120_000_000, jurypunkte: 44, zuspruch: 1 },
+    { ...vorhabenvorgabe(5, 'absprache', 'bund'), beantragtCent: 380_000_000, jurypunkte: 63, zuspruch: 4 },
+    { ...vorhabenvorgabe(6, 'absprache', 'bund'), beantragtCent: 340_000_000, jurypunkte: 69, zuspruch: 3 },
+    { ...vorhabenvorgabe(7, 'normal', 'bund'), beantragtCent: 300_000_000, jurypunkte: 57, zuspruch: 5 },
+  ],
+};
+
+export const AUSGANGSRUNDEN: Record<Programmtyp, Simulationseinstellungen> = {
+  buerger: STANDARD_EINSTELLUNGEN,
+  bund: STANDARD_EINSTELLUNGEN_BUND,
+};
+
 // --- Zufällige, aber plausible Vorhaben ----------------------------------
 
 /** Rundenwerte, aus denen sich die Vorhaben bemessen lassen. */
 export type Rundenrahmen = Pick<
   Simulationseinstellungen,
+  | 'programmtyp'
   | 'poolCent'
   | 'hoechstbetragJeVorhabenCent'
   | 'beitragendeGesamt'
@@ -246,14 +441,17 @@ export function zufaelligeVorhaben(seed: number, rahmen: Rundenrahmen): Vorhaben
   // einzelnes Vorhaben aufnehmen kann, braucht ein großer Topf entsprechend
   // mehr Bewerber, um überhaupt knapp zu sein.
   const mindestanzahl = Number.isFinite(obergrenze) ? Math.ceil(zielAufnahme / obergrenze) : 6;
-  const anzahl = Math.min(10, Math.max(6, mindestanzahl));
+  const welt = PROGRAMMTYPEN[rahmen.programmtyp];
+  const anzahl = Math.min(welt.titel.length, Math.max(6, mindestanzahl));
 
-  const titel = mische(VORHABENTITEL).slice(0, anzahl);
-  const traeger = mische(TRAEGER).slice(0, anzahl);
+  const titel = mische(welt.titel).slice(0, anzahl);
+  const traeger = mische(welt.traeger).slice(0, anzahl);
 
   // Zuspruch als abfallende Reihe: wenige stark getragene Vorhaben, viele
   // mittlere. Gleichverteilter Zuspruch erzeugt eine langweilige Runde.
-  const zuspruchReihe = [10, 9, 7, 6, 5, 4, 4, 3, 2, 2].slice(0, anzahl);
+  const zuspruchReihe = Array.from({ length: anzahl }, (_, i) =>
+    Math.max(1, Math.round(10 - (i * 8) / Math.max(1, anzahl - 1))),
+  );
   const zuspruch = mische(zuspruchReihe);
 
   const rollen: Vorhabenrolle[] = Array.from({ length: anzahl }, () => 'normal');
@@ -318,8 +516,15 @@ export function zufaelligeVorhaben(seed: number, rahmen: Rundenrahmen): Vorhaben
     Math.min(obergrenze, Math.max(5_000, (aufnahme * s) / streuungssumme)),
   );
 
+  // Rundungsschritt und Spanne skalieren mit der Größenordnung der Runde.
+  const schritt = rahmen.programmtyp === 'bund' ? 5_000_000 : 5_000;
+  const untergrenze = rahmen.programmtyp === 'bund' ? 20_000_000 : 20_000;
+  const obergrenzeKostenplan = rahmen.programmtyp === 'bund' ? 3_000_000_000 : 300_000;
   const beantragt = eigenErwartet.map((eigen, i) =>
-    Math.min(300_000, Math.max(20_000, Math.round((eigen + spielraum[i]) / 5_000) * 5_000)),
+    Math.min(
+      obergrenzeKostenplan,
+      Math.max(untergrenze, Math.round((eigen + spielraum[i]) / schritt) * schritt),
+    ),
   );
 
   return Array.from({ length: anzahl }, (_, i) => ({
@@ -404,16 +609,19 @@ export function erzeugeRunde(einstellungen: Simulationseinstellungen): Rundendat
     [uebrige[i], uebrige[j]] = [uebrige[j], uebrige[i]];
   }
 
+  const welt = PROGRAMMTYPEN[einstellungen.programmtyp];
   const merkmalJePerson = new Map<string, { region: string; altersgruppe: string }>();
   // Die Absprachegruppe sitzt geschlossen in einer selteneren Merkmalskombination,
   // damit die Clusteransicht überhaupt etwas zu zeigen hat.
-  for (const id of abspracheIds) {
-    merkmalJePerson.set(id, { region: 'Berlin-Süd', altersgruppe: '60 und älter' });
-  }
+  const abspracheMerkmal = {
+    region: welt.regionen[welt.regionen.length - 2],
+    altersgruppe: welt.gruppen[welt.gruppen.length - 1],
+  };
+  for (const id of abspracheIds) merkmalJePerson.set(id, abspracheMerkmal);
   for (const id of [...uebrige].sort()) {
     merkmalJePerson.set(id, {
-      region: gewichtet(REGIONEN, REGION_GEWICHTE),
-      altersgruppe: gewichtet(ALTERSGRUPPEN, ALTER_GEWICHTE),
+      region: gewichtet(welt.regionen, welt.regionGewichte),
+      altersgruppe: gewichtet(welt.gruppen, welt.gruppenGewichte),
     });
   }
 

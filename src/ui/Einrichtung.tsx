@@ -19,13 +19,7 @@ import {
 } from '@mantine/core';
 import { euro } from '../format';
 import type { Simulationseinstellungen, Vorhabenrolle } from '../kern/simulation';
-import {
-  PROGRAMME,
-  ROLLENNAMEN,
-  TRAEGER,
-  VORHABENTITEL,
-  vorhabenvorgabe,
-} from '../kern/simulation';
+import { AUSGANGSRUNDEN, PROGRAMMTYPEN, rollennamen, vorhabenvorgabe } from '../kern/simulation';
 import Hinweis, { ERKLAERUNG } from './Hinweis';
 import {
   centZuSchieber,
@@ -69,7 +63,10 @@ export default function Einrichtung({
   const vorhabenHinzufuegen = () => {
     const index = entwurf.vorhaben.length;
     setze({
-      vorhaben: [...entwurf.vorhaben, { ...vorhabenvorgabe(index), id: `v-${index + 1}` }],
+      vorhaben: [
+        ...entwurf.vorhaben,
+        { ...vorhabenvorgabe(index, 'normal', entwurf.programmtyp), id: `v-${index + 1}` },
+      ],
     });
   };
 
@@ -80,6 +77,8 @@ export default function Einrichtung({
         .map((v, i) => ({ ...v, id: `v-${i + 1}` })),
     });
 
+  const welt = PROGRAMMTYPEN[entwurf.programmtyp];
+  const musternamen = rollennamen(entwurf.programmtyp);
   const ohneHoechstbetrag = entwurf.hoechstbetragJeVorhabenCent === null;
   const abspracheVorhaben = entwurf.vorhaben.filter((v) => v.rolle === 'absprache').length;
 
@@ -113,7 +112,7 @@ export default function Einrichtung({
             <Group align="flex-start" grow wrap="wrap">
               <Select
                 label="Programm"
-                data={PROGRAMME.map((p) => ({ value: p.zweck, label: p.name }))}
+                data={welt.programme.map((p) => ({ value: p.zweck, label: p.name }))}
                 value={entwurf.zweck}
                 onChange={(wert) => wert && setze({ zweck: wert })}
                 allowDeselect={false}
@@ -156,7 +155,7 @@ export default function Einrichtung({
                   thousandSeparator="."
                   decimalSeparator=","
                   min={50}
-                  max={50_000}
+                  max={TOPF_MAX_CENT / 100}
                   step={50}
                   disabled={ohneHoechstbetrag}
                   value={ohneHoechstbetrag ? '' : entwurf.hoechstbetragJeVorhabenCent! / 100}
@@ -171,7 +170,9 @@ export default function Einrichtung({
                   checked={ohneHoechstbetrag}
                   onChange={(e) =>
                     setze({
-                      hoechstbetragJeVorhabenCent: e.currentTarget.checked ? null : 60_000,
+                      hoechstbetragJeVorhabenCent: e.currentTarget.checked
+                        ? null
+                        : AUSGANGSRUNDEN[entwurf.programmtyp].hoechstbetragJeVorhabenCent,
                     })
                   }
                 />
@@ -212,7 +213,11 @@ export default function Einrichtung({
             </Title>
             <Group align="flex-start" grow wrap="wrap">
               <NumberInput
-                label={<Hinweis text={ERKLAERUNG.personen}>Personen insgesamt</Hinweis>}
+                label={
+                  <Hinweis text={ERKLAERUNG.personen}>
+                    {welt.beitragendeWort} insgesamt
+                  </Hinweis>
+                }
                 min={5}
                 max={2000}
                 step={5}
@@ -222,18 +227,20 @@ export default function Einrichtung({
               <NumberInput
                 label={<Hinweis text={ERKLAERUNG.betragsspanne}>Beitrag von</Hinweis>}
                 suffix=" €"
+                thousandSeparator="."
                 decimalSeparator=","
                 min={1}
-                max={500}
+                max={1_000_000}
                 value={entwurf.betragMinCent / 100}
                 onChange={(wert) => setze({ betragMinCent: Math.round(Number(wert) * 100) })}
               />
               <NumberInput
                 label="Beitrag bis"
                 suffix=" €"
+                thousandSeparator="."
                 decimalSeparator=","
                 min={1}
-                max={500}
+                max={1_000_000}
                 value={entwurf.betragMaxCent / 100}
                 onChange={(wert) => setze({ betragMaxCent: Math.round(Number(wert) * 100) })}
               />
@@ -301,7 +308,7 @@ export default function Einrichtung({
                       <Table.Td miw={250}>
                         <Select
                           aria-label={`Titel des Vorhabens ${index + 1}`}
-                          data={VORHABENTITEL as unknown as string[]}
+                          data={welt.titel as string[]}
                           value={v.titel}
                           onChange={(wert) => wert && setzeVorhaben(index, { titel: wert })}
                           allowDeselect={false}
@@ -312,7 +319,7 @@ export default function Einrichtung({
                       <Table.Td miw={200}>
                         <Select
                           aria-label={`Träger des Vorhabens ${index + 1}`}
-                          data={TRAEGER as unknown as string[]}
+                          data={welt.traeger as string[]}
                           value={v.traeger}
                           onChange={(wert) => wert && setzeVorhaben(index, { traeger: wert })}
                           allowDeselect={false}
@@ -327,7 +334,7 @@ export default function Einrichtung({
                           thousandSeparator="."
                           decimalSeparator=","
                           min={10}
-                          max={50_000}
+                          max={TOPF_MAX_CENT / 100}
                           step={10}
                           size="xs"
                           value={v.beantragtCent / 100}
@@ -363,7 +370,7 @@ export default function Einrichtung({
                           aria-label={`Muster für Vorhaben ${index + 1}`}
                           data={ROLLEN.map((rolle) => ({
                             value: rolle,
-                            label: ROLLENNAMEN[rolle],
+                            label: musternamen[rolle],
                           }))}
                           value={v.rolle}
                           onChange={(wert) =>

@@ -64,12 +64,12 @@ export function begruendung(d: Begruendungsdaten): string {
     saetze.push(
       werte.beitragendeAnzahl === 0
         ? 'Für das Vorhaben liegt kein Beitrag vor.'
-        : `Das Vorhaben wurde von einer einzelnen Person mit ${euro(werte.eigenCent)} ` +
-          `mitgetragen.`,
+        : `Das Vorhaben wurde von einer einzelnen beitragenden Seite mit ` +
+          `${euro(werte.eigenCent)} mitgetragen.`,
     );
     saetze.push(
-      'Die Bemessungsregel bemisst die Mitträgerschaft durch mehrere Personen. Bei ' +
-        'höchstens einer beitragenden Person ist der Bemessungswert null; daraus folgt ' +
+      'Die Bemessungsregel bemisst die Mitträgerschaft durch mehrere Beitragende. Bei ' +
+        'höchstens einem Beitragenden ist der Bemessungswert null; daraus folgt ' +
         'eine Zuteilung von null. Das ist der von der Regel vorgesehene Fall und kein ' +
         'Rechenfehler.',
     );
@@ -83,7 +83,7 @@ export function begruendung(d: Begruendungsdaten): string {
         `${runde.formelVersion}.`,
     );
     saetze.push(
-      `Das Vorhaben wurde von ${werte.beitragendeAnzahl} beitragenden Personen mit ` +
+      `Das Vorhaben wurde von ${werte.beitragendeAnzahl} Beitragenden mit ` +
         `insgesamt ${euro(werte.eigenCent)} mitgetragen.`,
     );
     const anteil = gesamtbemessungswert > 0 ? werte.rohEuro / gesamtbemessungswert : 0;

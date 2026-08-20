@@ -6,7 +6,7 @@
 // gleich viel Weg.
 
 export const TOPF_MIN_CENT = 10_000; // 100 €
-export const TOPF_MAX_CENT = 100_000_000; // 1.000.000 €
+export const TOPF_MAX_CENT = 1_000_000_000; // 10.000.000 €
 
 const LOG_MIN = Math.log(TOPF_MIN_CENT);
 const LOG_MAX = Math.log(TOPF_MAX_CENT);
@@ -14,7 +14,16 @@ const LOG_MAX = Math.log(TOPF_MAX_CENT);
 /** Rundet auf einen Betrag, den man vorlesen mag: 2.500 € statt 2.487,31 €. */
 function aufGlattenBetrag(cent: number): number {
   const euro = cent / 100;
-  const stufe = euro < 1_000 ? 10 : euro < 10_000 ? 100 : euro < 100_000 ? 1_000 : 10_000;
+  const stufe =
+    euro < 1_000
+      ? 10
+      : euro < 10_000
+        ? 100
+        : euro < 100_000
+          ? 1_000
+          : euro < 1_000_000
+            ? 10_000
+            : 100_000;
   return Math.round(euro / stufe) * stufe * 100;
 }
 
@@ -34,8 +43,7 @@ export function centZuSchieber(cent: number): number {
 /** Beschriftete Marken auf dem Schieber, jeweils eine Zehnerpotenz. */
 export const TOPF_MARKEN = [
   { cent: 10_000, text: '100 €' },
-  { cent: 100_000, text: '1.000 €' },
   { cent: 1_000_000, text: '10.000 €' },
-  { cent: 10_000_000, text: '100.000 €' },
   { cent: 100_000_000, text: '1 Mio. €' },
+  { cent: 1_000_000_000, text: '10 Mio. €' },
 ].map((m) => ({ value: centZuSchieber(m.cent), label: m.text }));

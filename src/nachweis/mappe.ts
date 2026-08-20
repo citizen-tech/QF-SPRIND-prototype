@@ -40,6 +40,8 @@ export type Nachweismappe = {
   formelVersion: string;
   pruefsummeEingangsdaten: string;
   runde: Rundendaten['runde'];
+  /** Wie die beiden Merkmalsfelder in diesem Programmtyp heißen. */
+  merkmalsnamen: { region: string; altersgruppe: string };
   bemessungsregel: {
     kurzfassung: string[];
     verweis: string;
@@ -75,8 +77,8 @@ export type Nachweismappe = {
 };
 
 const KURZFASSUNG = [
-  'Die Beiträge werden je beitragender Person zusammengefasst.',
-  'Aus jedem Personenbeitrag wird die Quadratwurzel gezogen (Beträge in Euro).',
+  'Die Beiträge werden je Beitragendem zusammengefasst.',
+  'Aus jedem zusammengefassten Beitrag wird die Quadratwurzel gezogen (Beträge in Euro).',
   'Die Wurzeln werden addiert und die Summe quadriert.',
   'Abzüglich der Beitragssumme ergibt sich der Bemessungswert des Vorhabens.',
   'Der Fördertopf wird im Verhältnis der Bemessungswerte verteilt.',
@@ -99,8 +101,10 @@ export function baueNachweismappe(argumente: {
   pruefsumme: string;
   erzeugtAm: string;
   abweichungen: string[];
+  merkmalsnamen: { region: string; altersgruppe: string };
 }): Nachweismappe {
-  const { daten, werte, verfahren, pruefsumme, erzeugtAm, abweichungen } = argumente;
+  const { daten, werte, verfahren, pruefsumme, erzeugtAm, abweichungen, merkmalsnamen } =
+    argumente;
 
   const qf = verfahren.qf;
   const werteNachId = new Map(werte.map((w) => [w.vorhabenId, w]));
@@ -148,6 +152,7 @@ export function baueNachweismappe(argumente: {
     formelVersion: daten.runde.formelVersion,
     pruefsummeEingangsdaten: pruefsumme,
     runde: daten.runde,
+    merkmalsnamen,
     bemessungsregel: { kurzfassung: KURZFASSUNG, verweis: 'FORMEL.md' },
     zuteilungen,
     summen: {

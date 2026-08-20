@@ -1,4 +1,14 @@
-import { Alert, Button, Checkbox, Group, Paper, Stack, Text, Title } from '@mantine/core';
+import {
+  Alert,
+  Button,
+  Checkbox,
+  Group,
+  Paper,
+  SegmentedControl,
+  Stack,
+  Text,
+  Title,
+} from '@mantine/core';
 import { useEffect, useMemo, useState } from 'react';
 import logoCitizenTech from '../../assets/CT_LogotypeAndSign_Horiz_Black.svg';
 import logoSprind from '../../assets/Sprind-logo.svg.webp';
@@ -8,12 +18,17 @@ import { berechneQfMitKopplung, KOPPLUNGSPARAMETER_M } from '../kern/paarweise';
 import { pruefsumme as berechnePruefsumme } from '../kern/pruefsumme';
 import { berechneVorhabenwerte } from '../kern/qf';
 import type { Simulationseinstellungen } from '../kern/simulation';
+import type { Programmtyp } from '../kern/simulation';
 import {
+  AUSGANGSRUNDEN,
   erzeugeRunde,
   neuerSeed,
+  PROGRAMMTYPEN,
   STANDARD_EINSTELLUNGEN,
   zufaelligeVorhaben,
 } from '../kern/simulation';
+
+const PROGRAMMTYP_IDS: Programmtyp[] = ['buerger', 'bund'];
 import { alleVerfahren } from '../kern/vergleich';
 import { FORMEL_VERSION } from '../kern/version';
 import { baueNachweismappe } from '../nachweis/mappe';
@@ -92,12 +107,20 @@ export default function App() {
     };
   }, [daten]);
 
-  const vomStandardAbweichend = !gleich(entwurf, STANDARD_EINSTELLUNGEN);
+  /** Programmtyp wechseln heißt: die ganze Welt tauschen, nicht nur ein Etikett. */
+  function programmtypWechseln(typ: Programmtyp) {
+    setEntwurf(AUSGANGSRUNDEN[typ]);
+    setAngewandt(null);
+  }
+
+  const ausgangsrunde = AUSGANGSRUNDEN[entwurf.programmtyp];
+  const vomStandardAbweichend = !gleich(entwurf, ausgangsrunde);
   const entwurfNichtAngewandt = angewandt !== null && !gleich(entwurf, angewandt);
 
   const abweichungen = useMemo(() => {
-    if (!angewandt || gleich(angewandt, STANDARD_EINSTELLUNGEN)) return [];
-    const s = STANDARD_EINSTELLUNGEN;
+    if (!angewandt) return [];
+    const s = AUSGANGSRUNDEN[angewandt.programmtyp];
+    if (gleich(angewandt, s)) return [];
     const liste: string[] = [];
     if (angewandt.seed !== s.seed) liste.push(`Seed ${angewandt.seed} statt ${s.seed}.`);
     if (angewandt.poolCent !== s.poolCent) {
@@ -130,6 +153,7 @@ export default function App() {
       pruefsumme,
       erzeugtAm: new Date().toISOString(),
       abweichungen,
+      merkmalsnamen: PROGRAMMTYPEN[angewandt!.programmtyp].merkmalsnamen,
     });
     return <NachweismappeAnsicht mappe={mappe} onSchliessen={() => setMappeOffen(false)} />;
   }
@@ -206,6 +230,31 @@ export default function App() {
       </header>
 
       <main className="huelle">
+        <section className="abschnitt" aria-labelledby="ueberschrift-programmtyp">
+          <div className="abschnitt__kopf">
+            <Title order={2} id="ueberschrift-programmtyp">
+              Programmtyp
+            </Title>
+          </div>
+          <p className="leitsatz">
+            Dieselbe Bemessungsregel in derselben Fassung, vier Größenordnungen auseinander.
+            Umgestellt wird nur, wer beiträgt und worum es geht — nicht, wie gerechnet wird.
+          </p>
+          <SegmentedControl
+            value={entwurf.programmtyp}
+            onChange={(wert) => programmtypWechseln(wert as Programmtyp)}
+            disabled={lauf !== null}
+            data={PROGRAMMTYP_IDS.map((id) => ({
+              value: id,
+              label: PROGRAMMTYPEN[id].name,
+            }))}
+            size="md"
+          />
+          <p className="leitsatz" style={{ marginTop: 12, marginBottom: 0 }}>
+            {PROGRAMMTYPEN[entwurf.programmtyp].kurz}
+          </p>
+        </section>
+
         <Einrichtung
           entwurf={entwurf}
           ersterLauf={angewandt === null}
@@ -219,7 +268,7 @@ export default function App() {
             setEntwurf({ ...entwurf, seed, vorhaben: zufaelligeVorhaben(seed, entwurf) });
           }}
           onZuruecksetzen={() => {
-            setEntwurf(STANDARD_EINSTELLUNGEN);
+            setEntwurf(ausgangsrunde);
             setAngewandt(null);
           }}
           laeuft={lauf !== null}
@@ -376,7 +425,10 @@ export default function App() {
                 </p>
               )}
 
-              {zeigeKopplung && kopplung && <Kopplungsgruppen kopplung={kopplung.kopplung} />}
+              {zeigeKopplung && kopplung && <Kopplungsgruppen
+                  kopplung={kopplung.kopplung}
+                  merkmalsnamen={PROGRAMMTYPEN[angewandt!.programmtyp].merkmalsnamen}
+                />}
             </section>
 
             <Kennzahlenblock daten={daten} verfahren={verfahren} />

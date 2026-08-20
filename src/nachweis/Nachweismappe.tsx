@@ -358,8 +358,8 @@ export default function NachweismappeAnsicht({ mappe, onSchliessen }: Eigenschaf
                   <Table.Th>Kennung</Table.Th>
                   <Table.Th ta="right">Betrag</Table.Th>
                   <Table.Th>Zeitpunkt</Table.Th>
-                  <Table.Th>Region</Table.Th>
-                  <Table.Th>Altersgruppe</Table.Th>
+                  <Table.Th>{mappe.merkmalsnamen.region}</Table.Th>
+                  <Table.Th>{mappe.merkmalsnamen.altersgruppe}</Table.Th>
                 </Table.Tr>
               </Table.Thead>
               <Table.Tbody>

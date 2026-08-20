@@ -2,7 +2,13 @@ import { Accordion, Table, Text } from '@mantine/core';
 import { prozent, zahl } from '../format';
 import type { Kopplungsergebnis } from '../kern/paarweise';
 
-export default function Kopplungsgruppen({ kopplung }: { kopplung: Kopplungsergebnis }) {
+export default function Kopplungsgruppen({
+  kopplung,
+  merkmalsnamen,
+}: {
+  kopplung: Kopplungsergebnis;
+  merkmalsnamen: { region: string; altersgruppe: string };
+}) {
   return (
     <Accordion variant="separated" mt="md">
       <Accordion.Item value="gruppen">
@@ -19,8 +25,9 @@ export default function Kopplungsgruppen({ kopplung }: { kopplung: Kopplungserge
           </p>
 
           <Text size="sm" c="dimmed" mb="xs" maw="80ch">
-            Ausgewertet werden nur Beitragspaare, deren beide Personen dieselbe Region und
-            Altersgruppe angegeben haben. Ausgewiesen wird ausschließlich die Gruppenzugehörigkeit,
+            Ausgewertet werden nur Beitragspaare, bei denen beide Seiten dasselbe Merkmal
+            angegeben haben — hier {merkmalsnamen.region.toLowerCase()} und{' '}
+            {merkmalsnamen.altersgruppe.toLowerCase()}. Ausgewiesen wird ausschließlich die Gruppenzugehörigkeit,
             nie eine einzelne Person.
           </Text>
 
@@ -28,8 +35,8 @@ export default function Kopplungsgruppen({ kopplung }: { kopplung: Kopplungserge
             <Table withRowBorders>
               <Table.Thead>
                 <Table.Tr>
-                  <Table.Th>Region</Table.Th>
-                  <Table.Th>Altersgruppe</Table.Th>
+                  <Table.Th>{merkmalsnamen.region}</Table.Th>
+                  <Table.Th>{merkmalsnamen.altersgruppe}</Table.Th>
                   <Table.Th ta="right">Personen</Table.Th>
                   <Table.Th ta="right">Paarwert ohne Abschlag</Table.Th>
                   <Table.Th ta="right">mit Abschlag</Table.Th>
