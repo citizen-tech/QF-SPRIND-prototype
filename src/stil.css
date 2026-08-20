@@ -190,6 +190,39 @@ body {
   color: var(--tinte-still);
 }
 
+/* --- Verteilregeln in der Nachweismappe --------------------------------- */
+
+.regelliste {
+  margin: 0 0 18px;
+  max-width: 88ch;
+}
+
+.regelliste dt {
+  font-weight: 600;
+  margin-top: 10px;
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.regelliste dd {
+  margin: 2px 0 0;
+  color: var(--tinte-lese);
+}
+
+.regelliste__marke {
+  font-family: var(--mantine-font-family-monospace);
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ocker);
+  border: 1px dashed var(--ocker-linie);
+  border-radius: 999px;
+  padding: 0 6px;
+  font-weight: 400;
+}
+
 /* --- Spaltenköpfe der Verfahren ----------------------------------------- */
 
 /* Marke über der Bezeichnung, und die Markenzeile bleibt auch dann frei, wenn

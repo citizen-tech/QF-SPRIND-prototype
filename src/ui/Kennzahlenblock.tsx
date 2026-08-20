@@ -1,8 +1,8 @@
-import { Accordion, Table, Text, Title } from '@mantine/core';
+import { Table, Title } from '@mantine/core';
 import { euro, prozent, zahl } from '../format';
 import type { Rundendaten } from '../kern/typen';
 import type { VerfahrenId, Verfahrensergebnis } from '../kern/vergleich';
-import { MODELLIERUNGSHINWEIS, VERFAHREN, VERFAHREN_IDS } from '../kern/vergleich';
+import { MODELLIERUNGSHINWEIS, VERFAHREN_IDS } from '../kern/vergleich';
 import Hinweis, { ERKLAERUNG } from './Hinweis';
 import Spaltenkopf from './Spaltenkopf';
 
@@ -106,29 +106,6 @@ export default function Kennzahlenblock({ daten, verfahren }: Eigenschaften) {
 
       <p className="notiz notiz--ocker">{MODELLIERUNGSHINWEIS}</p>
 
-      <Accordion variant="separated" mt="md" chevronPosition="left">
-        <Accordion.Item value="regeln">
-          <Accordion.Control>Die fünf Verteilregeln im Wortlaut</Accordion.Control>
-          <Accordion.Panel>
-            <dl style={{ margin: 0 }}>
-              {VERFAHREN_IDS.map((id) => (
-                <div key={id} style={{ marginBottom: '14px' }}>
-                  <dt>
-                    <Text fw={600} size="sm">
-                      {VERFAHREN[id].bezeichnung}
-                    </Text>
-                  </dt>
-                  <dd style={{ margin: 0 }}>
-                    <Text size="sm" c="dimmed" maw="80ch">
-                      {VERFAHREN[id].regel}
-                    </Text>
-                  </dd>
-                </div>
-              ))}
-            </dl>
-          </Accordion.Panel>
-        </Accordion.Item>
-      </Accordion>
     </section>
   );
 }

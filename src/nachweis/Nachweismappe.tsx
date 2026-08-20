@@ -209,6 +209,22 @@ export default function NachweismappeAnsicht({ mappe, onSchliessen }: Eigenschaf
             Wirtschaftlichkeit ist ein Vergleichsbegriff. Dieselben Eingangsdaten, derselbe Topf,
             dieselben Höchstbeträge, fünf Verteilregeln.
           </Text>
+
+          {/* Die Regeln gehören in das gedruckte Dokument: Wer nur das PDF in
+              der Hand hat, sieht sonst Beträge unter Verfahrensnamen, deren
+              Bedeutung nirgends steht. */}
+          <dl className="regelliste bescheid">
+            {mappe.vergleichsrechnung.map((v) => (
+              <div key={v.verfahren}>
+                <dt>
+                  {v.bezeichnung}
+                  {v.modelliert && <span className="regelliste__marke">modelliert</span>}
+                </dt>
+                <dd>{v.regel}</dd>
+              </div>
+            ))}
+          </dl>
+
           <div className="tabellenrahmen">
             <Table withRowBorders>
               <Table.Thead>

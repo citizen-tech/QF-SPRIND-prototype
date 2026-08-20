@@ -9,7 +9,7 @@ import {
   Text,
   Title,
 } from '@mantine/core';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import logoCitizenTech from '../../assets/CT_LogotypeAndSign_Horiz_Black.svg';
 import logoSprind from '../../assets/Sprind-logo.svg.webp';
 import { datum, euro, kurzePruefsumme } from '../format';
@@ -68,6 +68,7 @@ export default function App() {
   const [zeigeVergleich, setZeigeVergleich] = useState(false);
   const [zeigeKopplung, setZeigeKopplung] = useState(false);
   const [mappeOffen, setMappeOffen] = useState(false);
+  const scrollMerker = useRef(0);
   const [pruefsumme, setPruefsumme] = useState('');
 
   const daten = useMemo(() => (angewandt ? erzeugeRunde(angewandt) : null), [angewandt]);
@@ -84,6 +85,34 @@ export default function App() {
         : null,
     [zeigeKopplung, daten, werte],
   );
+
+  /**
+   * Die Nachweismappe ersetzt den Seiteninhalt. Ohne Zutun behielte der Browser
+   * die Scrollposition, und man landete mitten im Dokument.
+   */
+  useEffect(() => {
+    if (mappeOffen) window.scrollTo(0, 0);
+    else window.scrollTo(0, scrollMerker.current);
+  }, [mappeOffen]);
+
+  /**
+   * Kein Router: Der Inhalt der Mappe hängt am Zustand im Arbeitsspeicher, ein
+   * eigener Pfad wäre nach dem Neuladen leer. Ein Eintrag in der Verlaufsliste
+   * genügt aber, damit der Zurück-Knopf des Browsers die Mappe schließt.
+   */
+  useEffect(() => {
+    const beiZurueck = () => setMappeOffen(false);
+    window.addEventListener('popstate', beiZurueck);
+    return () => window.removeEventListener('popstate', beiZurueck);
+  }, []);
+
+  useEffect(() => {
+    // Eine beim Neuladen übriggebliebene Marke entfernen — dahinter steht dann
+    // keine gerechnete Runde mehr.
+    if (window.location.hash === '#nachweismappe') {
+      window.history.replaceState(null, '', window.location.pathname + window.location.search);
+    }
+  }, []);
 
   useEffect(() => {
     if (!lauf) return;
@@ -113,6 +142,18 @@ export default function App() {
       verworfen = true;
     };
   }, [daten]);
+
+  function mappeOeffnen() {
+    scrollMerker.current = window.scrollY;
+    setMappeOffen(true);
+    window.history.pushState({ nachweismappe: true }, '', '#nachweismappe');
+  }
+
+  function mappeSchliessen() {
+    // Über die Verlaufsliste zurück, damit Knopf und Browser-Zurück dasselbe tun.
+    if (window.history.state?.nachweismappe) window.history.back();
+    else setMappeOffen(false);
+  }
 
   /**
    * Programmtyp wechseln heißt: die ganze Welt tauschen, nicht nur ein Etikett.
@@ -163,7 +204,7 @@ export default function App() {
       abweichungen,
       merkmalsnamen: PROGRAMMTYPEN[angewandt!.programmtyp].merkmalsnamen,
     });
-    return <NachweismappeAnsicht mappe={mappe} onSchliessen={() => setMappeOffen(false)} />;
+    return <NachweismappeAnsicht mappe={mappe} onSchliessen={mappeSchliessen} />;
   }
 
   return (
@@ -476,7 +517,7 @@ export default function App() {
                 Eingangsdaten. Zusätzlich als JSON herunterladbar.
               </p>
               <Group>
-                <Button onClick={() => setMappeOffen(true)} disabled={pruefsumme === ''}>
+                <Button onClick={mappeOeffnen} disabled={pruefsumme === ''}>
                   Nachweismappe erzeugen
                 </Button>
                 {pruefsumme === '' && (
