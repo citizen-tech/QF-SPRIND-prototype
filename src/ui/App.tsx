@@ -1,5 +1,7 @@
 import { Alert, Button, Checkbox, Group, Paper, Stack, Text, Title } from '@mantine/core';
 import { useEffect, useMemo, useState } from 'react';
+import logoCitizenTech from '../../assets/CT_LogotypeAndSign_Horiz_Black.svg';
+import logoSprind from '../../assets/Sprind-logo.svg.webp';
 import { datum, euro, kurzePruefsumme } from '../format';
 import { berechneHebel } from '../kern/hebel';
 import { berechneQfMitKopplung, KOPPLUNGSPARAMETER_M } from '../kern/paarweise';
@@ -19,6 +21,7 @@ import NachweismappeAnsicht from '../nachweis/Nachweismappe';
 import Einrichtung from './Einrichtung';
 import Ergebnistabelle from './Ergebnistabelle';
 import Kennzahlenblock from './Kennzahlenblock';
+import Hinweis, { ERKLAERUNG } from './Hinweis';
 import Kopplungsgruppen from './Kopplungsgruppen';
 import Simulationslauf, { LAUFDAUER_MS, LAUFSCHRITTE } from './Simulationslauf';
 
@@ -38,7 +41,9 @@ export default function App() {
     schritt: number;
   } | null>(null);
 
-  const [zeigeVergleich, setZeigeVergleich] = useState(true);
+  // Beide Zusatzspalten sind aus. Die Gegenüberstellung ist eine bewusste
+  // Entscheidung der lesenden Person, keine Voreinstellung.
+  const [zeigeVergleich, setZeigeVergleich] = useState(false);
   const [zeigeKopplung, setZeigeKopplung] = useState(false);
   const [mappeOffen, setMappeOffen] = useState(false);
   const [pruefsumme, setPruefsumme] = useState('');
@@ -131,6 +136,28 @@ export default function App() {
 
   return (
     <>
+      <div className="logoleiste">
+        <div className="logoleiste__inhalt">
+          <img
+            className="logoleiste__eigen"
+            src={logoCitizenTech}
+            alt="CitizenTech"
+            width={786}
+            height={185}
+          />
+          <span className="logoleiste__bezug">
+            <span className="logoleiste__bezugtext">Einreichung für</span>
+            <img
+              className="logoleiste__fremd"
+              src={logoSprind}
+              alt="SPRIND"
+              width={3840}
+              height={502}
+            />
+          </span>
+        </div>
+      </div>
+
       <header className="masthead">
         <div className="masthead__inhalt">
           <Title order={1} maw="24ch">
@@ -144,15 +171,21 @@ export default function App() {
 
           <div className="kennstreifen">
             <span className="kennstreifen__feld">
-              <span className="kennstreifen__name">Fassung</span>
+              <Hinweis text={ERKLAERUNG.fassung}>
+                <span className="kennstreifen__name">Fassung</span>
+              </Hinweis>
               <span className="kennstreifen__wert">{FORMEL_VERSION}</span>
             </span>
             <span className="kennstreifen__feld">
-              <span className="kennstreifen__name">Seed</span>
+              <Hinweis text={ERKLAERUNG.seed}>
+                <span className="kennstreifen__name">Seed</span>
+              </Hinweis>
               <span className="kennstreifen__wert">{angewandt ? angewandt.seed : '—'}</span>
             </span>
             <span className="kennstreifen__feld" style={{ flex: 1 }}>
-              <span className="kennstreifen__name">Prüfsumme</span>
+              <Hinweis text={ERKLAERUNG.pruefsumme}>
+                <span className="kennstreifen__name">Prüfsumme</span>
+              </Hinweis>
               <span className="kennstreifen__wert" title={pruefsumme || undefined}>
                 {daten ? (pruefsumme ? kurzePruefsumme(pruefsumme) : 'wird berechnet …') : '—'}
               </span>
@@ -227,25 +260,31 @@ export default function App() {
 
                   <Group gap="xl" wrap="wrap">
                     <div>
-                      <Text size="xs" c="dimmed" tt="uppercase" fw={600} lts="0.06em">
-                        Förderzeitraum
-                      </Text>
+                      <Hinweis text={ERKLAERUNG.foerderzeitraum}>
+                        <Text size="xs" c="dimmed" tt="uppercase" fw={600} lts="0.06em">
+                          Förderzeitraum
+                        </Text>
+                      </Hinweis>
                       <Text className="mono">
                         {datum(daten.runde.zeitraum.von)} – {datum(daten.runde.zeitraum.bis)}
                       </Text>
                     </div>
                     <div>
-                      <Text size="xs" c="dimmed" tt="uppercase" fw={600} lts="0.06em">
-                        Fördertopf
-                      </Text>
+                      <Hinweis text={ERKLAERUNG.foerdertopf}>
+                        <Text size="xs" c="dimmed" tt="uppercase" fw={600} lts="0.06em">
+                          Fördertopf
+                        </Text>
+                      </Hinweis>
                       <Text className="mono" fz="1.5rem" fw={600} c="amt.9" lh={1.2}>
                         {euro(daten.runde.poolCent)}
                       </Text>
                     </div>
                     <div>
-                      <Text size="xs" c="dimmed" tt="uppercase" fw={600} lts="0.06em">
-                        Höchstbetrag je Vorhaben
-                      </Text>
+                      <Hinweis text={ERKLAERUNG.hoechstbetrag}>
+                        <Text size="xs" c="dimmed" tt="uppercase" fw={600} lts="0.06em">
+                          Höchstbetrag je Vorhaben
+                        </Text>
+                      </Hinweis>
                       <Text className="mono">
                         {daten.runde.hoechstbetragJeVorhabenCent === null
                           ? 'nicht festgelegt'
@@ -253,9 +292,11 @@ export default function App() {
                       </Text>
                     </div>
                     <div>
-                      <Text size="xs" c="dimmed" tt="uppercase" fw={600} lts="0.06em">
-                        Beitragende
-                      </Text>
+                      <Hinweis text={ERKLAERUNG.beitragendeGesamt}>
+                        <Text size="xs" c="dimmed" tt="uppercase" fw={600} lts="0.06em">
+                          Beitragende
+                        </Text>
+                      </Hinweis>
                       <Text className="mono">{verfahren.qf.kennzahlen.beitragendeGesamt}</Text>
                     </div>
                   </Group>
@@ -288,12 +329,20 @@ export default function App() {
 
               <Group gap="xl" mb="sm" wrap="wrap">
                 <Checkbox
-                  label="Vergleichsverfahren als Spalten"
+                  label={
+                    <Hinweis text={ERKLAERUNG.schalterVergleich}>
+                      Vergleichsverfahren als Spalten
+                    </Hinweis>
+                  }
                   checked={zeigeVergleich}
                   onChange={(e) => setZeigeVergleich(e.currentTarget.checked)}
                 />
                 <Checkbox
-                  label="Kopplungsabschlag als Spalte"
+                  label={
+                    <Hinweis text={ERKLAERUNG.schalterKopplung}>
+                      Kopplungsabschlag als Spalte
+                    </Hinweis>
+                  }
                   checked={zeigeKopplung}
                   onChange={(e) => setZeigeKopplung(e.currentTarget.checked)}
                 />
@@ -344,9 +393,11 @@ export default function App() {
                 Eingangsdaten. Zusätzlich als JSON herunterladbar.
               </p>
               <Group>
-                <Button onClick={() => setMappeOffen(true)} disabled={pruefsumme === ''}>
-                  Nachweismappe erzeugen
-                </Button>
+                <Hinweis text={ERKLAERUNG.nachweismappe}>
+                  <Button onClick={() => setMappeOffen(true)} disabled={pruefsumme === ''}>
+                    Nachweismappe erzeugen
+                  </Button>
+                </Hinweis>
                 {pruefsumme === '' && (
                   <Text size="sm" c="dimmed">
                     Prüfsumme wird berechnet …

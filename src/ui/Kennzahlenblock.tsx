@@ -3,6 +3,7 @@ import { euro, prozent, zahl } from '../format';
 import type { Rundendaten } from '../kern/typen';
 import type { VerfahrenId, Verfahrensergebnis } from '../kern/vergleich';
 import { MODELLIERUNGSHINWEIS, VERFAHREN, VERFAHREN_IDS } from '../kern/vergleich';
+import Hinweis, { ERKLAERUNG } from './Hinweis';
 
 type Eigenschaften = {
   daten: Rundendaten;
@@ -18,39 +19,38 @@ export default function Kennzahlenblock({ daten, verfahren }: Eigenschaften) {
   }[] = [
     {
       name: 'Erreichte Beitragende',
-      erklaerung:
-        'Personen, von denen mindestens ein unterstütztes Vorhaben eine Zuteilung erhält.',
+      erklaerung: ERKLAERUNG.kennErreichte,
       wert: (e) => `${e.kennzahlen.beitragendeMitTreffer} von ${e.kennzahlen.beitragendeGesamt}`,
       hervorheben: true,
     },
     {
       name: 'Geförderte Vorhaben',
-      erklaerung: 'Vorhaben mit einer Zuteilung größer als null.',
+      erklaerung: ERKLAERUNG.kennGefoerdert,
       wert: (e) => `${e.kennzahlen.gefoerderteVorhaben} von ${daten.vorhaben.length}`,
     },
     {
       name: 'Median der Zuteilung',
-      erklaerung: 'Median über alle zugelassenen Vorhaben, Nullzuteilungen eingeschlossen.',
+      erklaerung: ERKLAERUNG.kennMedian,
       wert: (e) => euro(e.kennzahlen.medianZuteilungCent),
     },
     {
       name: 'Konzentration (Gini)',
-      erklaerung: '0 bedeutet Gleichverteilung, 1 vollständige Konzentration.',
+      erklaerung: ERKLAERUNG.kennGini,
       wert: (e) => zahl(e.kennzahlen.gini, 3),
     },
     {
       name: 'Beitragseuro auf Geförderte',
-      erklaerung: 'Anteil der eingesammelten Beitragseuro, der auf Vorhaben mit Zuteilung entfällt.',
+      erklaerung: ERKLAERUNG.kennAnteil,
       wert: (e) => prozent(e.kennzahlen.anteilBeitragEurosAufGefoerderte),
     },
     {
       name: 'Nicht ausgeschöpft',
-      erklaerung: 'Differenz zwischen Fördertopf und Summe der Zuteilungen.',
+      erklaerung: ERKLAERUNG.kennRest,
       wert: (e) => euro(e.kennzahlen.nichtAusgeschoepftCent),
     },
     {
       name: 'Durchläufe',
-      erklaerung: 'Zahl der Durchläufe im Verteilverfahren.',
+      erklaerung: ERKLAERUNG.kennDurchlaeufe,
       wert: (e) => String(e.iterationen),
     },
   ];
@@ -76,7 +76,15 @@ export default function Kennzahlenblock({ daten, verfahren }: Eigenschaften) {
               <Table.Th>Kennzahl</Table.Th>
               {VERFAHREN_IDS.map((id) => (
                 <Table.Th key={id} ta="right">
-                  {VERFAHREN[id].bezeichnung}
+                  <Hinweis
+                    text={
+                      VERFAHREN[id].modelliert
+                        ? `${VERFAHREN[id].regel} ${MODELLIERUNGSHINWEIS}`
+                        : VERFAHREN[id].regel
+                    }
+                  >
+                    {VERFAHREN[id].bezeichnung}
+                  </Hinweis>
                   {VERFAHREN[id].modelliert && (
                     <>
                       <br />
@@ -98,8 +106,7 @@ export default function Kennzahlenblock({ daten, verfahren }: Eigenschaften) {
             {zeilen.map((zeile) => (
               <Table.Tr key={zeile.name}>
                 <Table.Th scope="row" fw={500} miw={240}>
-                  {zeile.name}
-                  <span className="traeger">{zeile.erklaerung}</span>
+                  <Hinweis text={zeile.erklaerung}>{zeile.name}</Hinweis>
                 </Table.Th>
                 {VERFAHREN_IDS.map((id) => (
                   <Table.Td

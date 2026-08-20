@@ -39,6 +39,54 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* --- Logoleiste --------------------------------------------------------- */
+
+/* Absenderkennzeichnung: eigenes Logo links, Adressat der Einreichung rechts.
+   Bewusst klein und getrennt vom Seitenkopf — und ausdrücklich NICHT in der
+   Nachweismappe, die kein Behördenpapier nachahmen darf. */
+.logoleiste {
+  background: var(--flaeche);
+  border-bottom: 1px solid var(--linie);
+}
+
+.logoleiste__inhalt {
+  max-width: var(--spalte);
+  margin: 0 auto;
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.logoleiste__eigen {
+  height: 22px;
+  width: auto;
+  display: block;
+}
+
+.logoleiste__bezug {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logoleiste__bezugtext {
+  font-family: var(--mantine-font-family-monospace);
+  font-size: 0.66rem;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--tinte-still);
+  white-space: nowrap;
+}
+
+.logoleiste__fremd {
+  height: 15px;
+  width: auto;
+  display: block;
+}
+
 /* --- Kopfleiste --------------------------------------------------------- */
 
 .masthead {
@@ -521,6 +569,7 @@ tr.detailzeile > td {
 
   .werkzeugleiste,
   .masthead,
+  .logoleiste,
   .nicht-drucken {
     display: none !important;
   }

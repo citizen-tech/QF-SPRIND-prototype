@@ -9,6 +9,7 @@ import {
   NumberInput,
   Paper,
   Select,
+  Slider,
   Stack,
   Table,
   Text,
@@ -26,6 +27,13 @@ import {
   vorhabenvorgabe,
 } from '../kern/simulation';
 import Hinweis, { ERKLAERUNG } from './Hinweis';
+import {
+  centZuSchieber,
+  schieberZuCent,
+  TOPF_MARKEN,
+  TOPF_MAX_CENT,
+  TOPF_MIN_CENT,
+} from './topfschieber';
 
 type Eigenschaften = {
   entwurf: Simulationseinstellungen;
@@ -111,17 +119,34 @@ export default function Einrichtung({
                 allowDeselect={false}
                 comboboxProps={{ withinPortal: true }}
               />
-              <NumberInput
-                label={<Hinweis text={ERKLAERUNG.foerdertopf}>Fördertopf</Hinweis>}
-                suffix=" €"
-                thousandSeparator="."
-                decimalSeparator=","
-                min={100}
-                max={100_000}
-                step={100}
-                value={entwurf.poolCent / 100}
-                onChange={(wert) => setze({ poolCent: Math.round(Number(wert) * 100) })}
-              />
+              <Box>
+                <NumberInput
+                  label={<Hinweis text={ERKLAERUNG.foerdertopf}>Fördertopf</Hinweis>}
+                  suffix=" €"
+                  thousandSeparator="."
+                  decimalSeparator=","
+                  min={TOPF_MIN_CENT / 100}
+                  max={TOPF_MAX_CENT / 100}
+                  step={100}
+                  value={entwurf.poolCent / 100}
+                  onChange={(wert) => setze({ poolCent: Math.round(Number(wert) * 100) })}
+                />
+                <Slider
+                  mt={10}
+                  mb={22}
+                  size="sm"
+                  color="amt.9"
+                  label={(stellung) => euro(schieberZuCent(stellung))}
+                  aria-label="Fördertopf, logarithmischer Schieber"
+                  min={0}
+                  max={100}
+                  step={0.5}
+                  marks={TOPF_MARKEN}
+                  value={centZuSchieber(entwurf.poolCent)}
+                  onChange={(stellung) => setze({ poolCent: schieberZuCent(stellung) })}
+                  styles={{ markLabel: { fontSize: '0.68rem' } }}
+                />
+              </Box>
               <Box>
                 <NumberInput
                   label={

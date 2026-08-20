@@ -7,7 +7,8 @@ import type { Kopplungsverfahren } from '../kern/paarweise';
 import type { Vorhabenwerte } from '../kern/qf';
 import type { Rundendaten } from '../kern/typen';
 import type { VerfahrenId, Verfahrensergebnis } from '../kern/vergleich';
-import { VERFAHREN } from '../kern/vergleich';
+import { MODELLIERUNGSHINWEIS, VERFAHREN } from '../kern/vergleich';
+import Hinweis, { ERKLAERUNG } from './Hinweis';
 
 type Eigenschaften = {
   daten: Rundendaten;
@@ -154,15 +155,33 @@ export default function Ergebnistabelle({
           </Table.Caption>
           <Table.Thead>
             <Table.Tr>
-              <Table.Th>Vorhaben</Table.Th>
-              <Table.Th ta="right">Beitragende</Table.Th>
-              <Table.Th ta="right">Beitragssumme</Table.Th>
-              <Table.Th ta="right">Quadratic Funding</Table.Th>
-              <Table.Th>Köpfe · Euro · Zuteilung</Table.Th>
+              <Table.Th>
+                <Hinweis text={ERKLAERUNG.zeileAufklappen}>Vorhaben</Hinweis>
+              </Table.Th>
+              <Table.Th ta="right">
+                <Hinweis text={ERKLAERUNG.spalteBeitragende}>Beitragende</Hinweis>
+              </Table.Th>
+              <Table.Th ta="right">
+                <Hinweis text={ERKLAERUNG.spalteBeitragssumme}>Beitragssumme</Hinweis>
+              </Table.Th>
+              <Table.Th ta="right">
+                <Hinweis text={ERKLAERUNG.spalteQf}>Quadratic Funding</Hinweis>
+              </Table.Th>
+              <Table.Th>
+                <Hinweis text={ERKLAERUNG.spalteDreibalken}>Köpfe · Euro · Zuteilung</Hinweis>
+              </Table.Th>
               {zeigeVergleich &&
                 VERGLEICHSSPALTEN.map((id) => (
                   <Table.Th key={id} ta="right">
-                    {VERFAHREN[id].bezeichnung}
+                    <Hinweis
+                      text={
+                        VERFAHREN[id].modelliert
+                          ? `${VERFAHREN[id].regel} ${MODELLIERUNGSHINWEIS}`
+                          : VERFAHREN[id].regel
+                      }
+                    >
+                      {VERFAHREN[id].bezeichnung}
+                    </Hinweis>
                     {VERFAHREN[id].modelliert && (
                       <>
                         <br />
@@ -178,7 +197,11 @@ export default function Ergebnistabelle({
                     )}
                   </Table.Th>
                 ))}
-              {zeigeKopplung && kopplung && <Table.Th ta="right">Mit Kopplungsabschlag</Table.Th>}
+              {zeigeKopplung && kopplung && (
+                <Table.Th ta="right">
+                  <Hinweis text={ERKLAERUNG.spalteKopplung}>Mit Kopplungsabschlag</Hinweis>
+                </Table.Th>
+              )}
             </Table.Tr>
           </Table.Thead>
           <Table.Tbody>
