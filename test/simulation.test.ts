@@ -9,7 +9,7 @@ import {
   erzeugeRunde,
   STANDARD_EINSTELLUNGEN,
   vorhabenvorgabe,
-  zufaelligeEinstellungen,
+  zufaelligeVorhaben,
   type Simulationseinstellungen,
 } from '../src/kern/simulation';
 import type { Rundendaten } from '../src/kern/typen';
@@ -107,25 +107,64 @@ describe('Einstellungen wirken', () => {
   });
 });
 
-describe('Ausgewürfelte Runden sind plausibel', () => {
+describe('Ausgewürfelte Vorhaben sind plausibel', () => {
   // Der Würfelknopf muss brauchbare Runden liefern. Eine Runde, in der jedes
   // Vorhaben von einer einzigen Person getragen wird oder in der alle Verfahren
   // dasselbe ergeben, wäre als Demonstration wertlos.
   const seeds = Array.from({ length: 60 }, (_, i) => (i + 1) * 7919);
   const runden = seeds.map((seed) => {
-    const einstellungen = zufaelligeEinstellungen(seed);
+    const einstellungen: Simulationseinstellungen = {
+      ...STANDARD_EINSTELLUNGEN,
+      seed,
+      vorhaben: zufaelligeVorhaben(seed, STANDARD_EINSTELLUNGEN),
+    };
     const daten = erzeugeRunde(einstellungen);
     const werte = berechneVorhabenwerte(daten);
     return { einstellungen, daten, werte, verfahren: alleVerfahren(daten, werte) };
   });
 
   it('ist aus dem Seed reproduzierbar', () => {
-    expect(JSON.stringify(zufaelligeEinstellungen(4711))).toBe(
-      JSON.stringify(zufaelligeEinstellungen(4711)),
-    );
-    expect(JSON.stringify(zufaelligeEinstellungen(4711))).not.toBe(
-      JSON.stringify(zufaelligeEinstellungen(4712)),
-    );
+    const a = zufaelligeVorhaben(4711, STANDARD_EINSTELLUNGEN);
+    const b = zufaelligeVorhaben(4711, STANDARD_EINSTELLUNGEN);
+    const c = zufaelligeVorhaben(4712, STANDARD_EINSTELLUNGEN);
+    expect(JSON.stringify(a)).toBe(JSON.stringify(b));
+    expect(JSON.stringify(a)).not.toBe(JSON.stringify(c));
+  });
+
+  it('lässt die Rundenwerte unangetastet', () => {
+    for (const { einstellungen } of runden) {
+      expect(einstellungen.poolCent).toBe(STANDARD_EINSTELLUNGEN.poolCent);
+      expect(einstellungen.beitragendeGesamt).toBe(STANDARD_EINSTELLUNGEN.beitragendeGesamt);
+      expect(einstellungen.hoechstbetragJeVorhabenCent).toBe(
+        STANDARD_EINSTELLUNGEN.hoechstbetragJeVorhabenCent,
+      );
+      expect(einstellungen.betragMinCent).toBe(STANDARD_EINSTELLUNGEN.betragMinCent);
+      expect(einstellungen.betragMaxCent).toBe(STANDARD_EINSTELLUNGEN.betragMaxCent);
+    }
+  });
+
+  it('richtet die Kostenpläne am Fördertopf aus', () => {
+    // Ohne Höchstbetrag begrenzt nichts die Aufnahmefähigkeit: Ein doppelt so
+    // großer Topf muss dann auch größere Spielräume erzeugen.
+    const ohneDeckel = { ...STANDARD_EINSTELLUNGEN, hoechstbetragJeVorhabenCent: null };
+    const eng = zufaelligeVorhaben(2024, ohneDeckel);
+    const weit = zufaelligeVorhaben(2024, { ...ohneDeckel, poolCent: ohneDeckel.poolCent * 2 });
+    const summe = (liste: typeof eng) => liste.reduce((a, v) => a + v.beantragtCent, 0);
+    expect(summe(weit)).toBeGreaterThan(summe(eng));
+  });
+
+  it('legt bei begrenzendem Höchstbetrag mehr Vorhaben an', () => {
+    // Wenn ein einzelnes Vorhaben nur wenig aufnehmen kann, braucht ein großer
+    // Topf mehr Bewerber, um überhaupt knapp zu sein.
+    const wenigeAufnahme = zufaelligeVorhaben(2024, {
+      ...STANDARD_EINSTELLUNGEN,
+      hoechstbetragJeVorhabenCent: 30_000,
+    });
+    const vieleAufnahme = zufaelligeVorhaben(2024, {
+      ...STANDARD_EINSTELLUNGEN,
+      hoechstbetragJeVorhabenCent: 150_000,
+    });
+    expect(wenigeAufnahme.length).toBeGreaterThanOrEqual(vieleAufnahme.length);
   });
 
   it('bleibt im vorgesehenen Zuschnitt', () => {

@@ -1,5 +1,6 @@
 import {
   ActionIcon,
+  Alert,
   Box,
   Button,
   Checkbox,
@@ -24,6 +25,7 @@ import {
   VORHABENTITEL,
   vorhabenvorgabe,
 } from '../kern/simulation';
+import Hinweis, { ERKLAERUNG } from './Hinweis';
 
 type Eigenschaften = {
   entwurf: Simulationseinstellungen;
@@ -73,6 +75,13 @@ export default function Einrichtung({
   const ohneHoechstbetrag = entwurf.hoechstbetragJeVorhabenCent === null;
   const abspracheVorhaben = entwurf.vorhaben.filter((v) => v.rolle === 'absprache').length;
 
+  // Mehr als Vorhabenzahl mal Höchstbetrag lässt sich nicht verteilen — der
+  // Rest bliebe zwangsläufig liegen. Besser vorher sagen als hinterher zeigen.
+  const aufnahmeObergrenze = ohneHoechstbetrag
+    ? Number.POSITIVE_INFINITY
+    : entwurf.vorhaben.length * entwurf.hoechstbetragJeVorhabenCent!;
+  const topfUeberschreitetAufnahme = entwurf.poolCent > aufnahmeObergrenze;
+
   return (
     <section className="abschnitt" aria-labelledby="ueberschrift-einrichtung">
       <div className="abschnitt__kopf">
@@ -86,23 +95,6 @@ export default function Einrichtung({
           ? 'Legen Sie die Runde fest und starten Sie die Simulation. Der Seed steuert den Zufall vollständig: Gleicher Seed und gleiche Einstellungen erzeugen dieselbe Runde und damit dieselbe Prüfsumme. Zufällig ist nur, wie die Runde zustande kommt — nie, was daraus gerechnet wird.'
           : 'Änderungen wirken erst, wenn die Simulation erneut gestartet wird.'}
       </p>
-
-      <Paper withBorder p="lg" radius="sm" bg="white" mb="md">
-        <Group justify="space-between" align="center" wrap="wrap" gap="md">
-          <div>
-            <Title order={3}>Runde auswürfeln</Title>
-            <Text size="sm" c="var(--tinte-lese)" maw="72ch">
-              Zieht einen neuen Seed und leitet daraus eine vollständige, plausible Runde ab:
-              sechs bis zehn Vorhaben mit unterschiedlichem Zuspruch, genau ein Vorhaben mit
-              wenigen großen Beiträgen, gelegentlich eines mit einer einzigen beitragenden
-              Person und eine Absprachegruppe. Alles danach von Hand nachjustierbar.
-            </Text>
-          </div>
-          <Button variant="default" size="md" onClick={onAuswuerfeln}>
-            Runde auswürfeln
-          </Button>
-        </Group>
-      </Paper>
 
       <Paper withBorder p="lg" radius="sm" bg="white">
         <Stack gap="lg">
@@ -120,7 +112,7 @@ export default function Einrichtung({
                 comboboxProps={{ withinPortal: true }}
               />
               <NumberInput
-                label="Fördertopf"
+                label={<Hinweis text={ERKLAERUNG.foerdertopf}>Fördertopf</Hinweis>}
                 suffix=" €"
                 thousandSeparator="."
                 decimalSeparator=","
@@ -132,7 +124,9 @@ export default function Einrichtung({
               />
               <Box>
                 <NumberInput
-                  label="Höchstbetrag je Vorhaben"
+                  label={
+                    <Hinweis text={ERKLAERUNG.hoechstbetrag}>Höchstbetrag je Vorhaben</Hinweis>
+                  }
                   suffix=" €"
                   thousandSeparator="."
                   decimalSeparator=","
@@ -173,6 +167,16 @@ export default function Einrichtung({
                 onChange={(e) => setze({ zeitraumBis: e.currentTarget.value })}
               />
             </Group>
+
+            {topfUeberschreitetAufnahme && (
+              <Alert color="ocker" variant="light" mt="md" role="status">
+                {entwurf.vorhaben.length} Vorhaben können mit diesem Höchstbetrag zusammen
+                höchstens {euro(aufnahmeObergrenze)} aufnehmen.{' '}
+                {euro(entwurf.poolCent - aufnahmeObergrenze)} des Fördertopfs bleiben also
+                zwangsläufig liegen. Abhilfe: mehr Vorhaben, ein höherer Höchstbetrag oder ein
+                kleinerer Topf.
+              </Alert>
+            )}
           </div>
 
           <Divider />
@@ -183,7 +187,7 @@ export default function Einrichtung({
             </Title>
             <Group align="flex-start" grow wrap="wrap">
               <NumberInput
-                label="Personen insgesamt"
+                label={<Hinweis text={ERKLAERUNG.personen}>Personen insgesamt</Hinweis>}
                 min={5}
                 max={2000}
                 step={5}
@@ -191,7 +195,7 @@ export default function Einrichtung({
                 onChange={(wert) => setze({ beitragendeGesamt: Number(wert) })}
               />
               <NumberInput
-                label="Beitrag von"
+                label={<Hinweis text={ERKLAERUNG.betragsspanne}>Beitrag von</Hinweis>}
                 suffix=" €"
                 decimalSeparator=","
                 min={1}
@@ -209,20 +213,15 @@ export default function Einrichtung({
                 onChange={(wert) => setze({ betragMaxCent: Math.round(Number(wert) * 100) })}
               />
               <NumberInput
-                label="Absprachegruppe"
-                description={
-                  abspracheVorhaben >= 2
-                    ? `trägt ${abspracheVorhaben} Vorhaben geschlossen mit`
-                    : 'braucht mindestens zwei so gekennzeichnete Vorhaben'
-                }
+                label={<Hinweis text={ERKLAERUNG.absprachegruppe}>Absprachegruppe</Hinweis>}
+                description={abspracheVorhaben >= 2 ? undefined : 'ohne Wirkung'}
                 min={0}
                 max={100}
                 value={entwurf.abspracheGroesse}
                 onChange={(wert) => setze({ abspracheGroesse: Number(wert) })}
               />
               <NumberInput
-                label="Seed"
-                description="steuert den Zufall vollständig"
+                label={<Hinweis text={ERKLAERUNG.seed}>Seed</Hinweis>}
                 min={1}
                 step={1}
                 value={entwurf.seed}
@@ -234,11 +233,18 @@ export default function Einrichtung({
           <Divider />
 
           <div>
-            <Group justify="space-between" align="baseline" mb="sm">
+            <Group justify="space-between" align="center" mb="sm" wrap="wrap">
               <Title order={3}>Vorhaben ({entwurf.vorhaben.length})</Title>
-              <Button variant="default" size="compact-sm" onClick={vorhabenHinzufuegen}>
-                Vorhaben hinzufügen
-              </Button>
+              <Group gap="xs">
+                <Hinweis text={ERKLAERUNG.wuerfeln}>
+                  <Button variant="default" onClick={onAuswuerfeln} disabled={laeuft}>
+                    Vorhaben auswürfeln
+                  </Button>
+                </Hinweis>
+                <Button variant="default" onClick={vorhabenHinzufuegen} disabled={laeuft}>
+                  Vorhaben hinzufügen
+                </Button>
+              </Group>
             </Group>
 
             <div className="tabellenrahmen">
@@ -247,10 +253,18 @@ export default function Einrichtung({
                   <Table.Tr>
                     <Table.Th>Vorhaben</Table.Th>
                     <Table.Th>Träger</Table.Th>
-                    <Table.Th>Kostenplan</Table.Th>
-                    <Table.Th>Zuspruch</Table.Th>
-                    <Table.Th>Jurypunkte</Table.Th>
-                    <Table.Th>Muster</Table.Th>
+                    <Table.Th>
+                      <Hinweis text={ERKLAERUNG.kostenplan}>Kostenplan</Hinweis>
+                    </Table.Th>
+                    <Table.Th>
+                      <Hinweis text={ERKLAERUNG.zuspruch}>Zuspruch</Hinweis>
+                    </Table.Th>
+                    <Table.Th>
+                      <Hinweis text={ERKLAERUNG.jurypunkte}>Jurypunkte</Hinweis>
+                    </Table.Th>
+                    <Table.Th>
+                      <Hinweis text={ERKLAERUNG.muster}>Muster</Hinweis>
+                    </Table.Th>
                     <Table.Th>
                       <span className="nur-vorlesen">Entfernen</span>
                     </Table.Th>
@@ -354,13 +368,6 @@ export default function Einrichtung({
               </Table>
             </div>
 
-            <p className="notiz">
-              <strong>Zuspruch</strong> steuert, wie viele Personen beitragen, nicht wie viel
-              Geld zusammenkommt. <strong>Muster</strong> setzt gezielt die Fälle, an denen sich
-              die Verfahren unterscheiden: „Wenige große Beiträge“ sammelt viel Geld von wenigen
-              Köpfen, „Nur eine beitragende Person“ führt zu einer Zuteilung von null, und die
-              Absprachegruppe trägt alle so gekennzeichneten Vorhaben geschlossen mit.
-            </p>
           </div>
 
           <Group>

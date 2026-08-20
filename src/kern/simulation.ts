@@ -196,21 +196,31 @@ export const STANDARD_EINSTELLUNGEN: Simulationseinstellungen = {
   ],
 };
 
-// --- Zufällige, aber plausible Einstellungen -----------------------------
+// --- Zufällige, aber plausible Vorhaben ----------------------------------
+
+/** Rundenwerte, aus denen sich die Vorhaben bemessen lassen. */
+export type Rundenrahmen = Pick<
+  Simulationseinstellungen,
+  | 'poolCent'
+  | 'hoechstbetragJeVorhabenCent'
+  | 'beitragendeGesamt'
+  | 'betragMinCent'
+  | 'betragMaxCent'
+  | 'abspracheGroesse'
+>;
 
 /**
- * Leitet eine vollständige Rundenkonfiguration aus einem Seed ab.
+ * Leitet einen plausiblen Satz Vorhaben aus einem Seed und den bereits
+ * eingestellten Rundenwerten ab. Der Fördertopf, die Zahl der Beitragenden und
+ * die Beitragsspanne bleiben unangetastet — gewürfelt werden nur die Vorhaben
+ * und die Verteilung ihrer Werte.
  *
- * Der Würfelknopf der Oberfläche zieht einen neuen Seed und ruft diese
- * Funktion — die Konfiguration bleibt damit reproduzierbar: derselbe Seed
- * ergibt dieselbe Runde.
- *
- * Die Bandbreiten sind bewusst eng gehalten. Eine Runde, in der jedes Vorhaben
- * von einer einzigen Person getragen wird, wäre zwar zufällig, aber als
- * Demonstration wertlos: Sie käme in der Wirklichkeit nicht vor und zeigte
- * keinen Unterschied zwischen den Verfahren.
+ * Die Bandbreiten sind bewusst eng. Eine Runde, in der jedes Vorhaben von einer
+ * einzigen Person getragen wird, wäre zwar zufällig, aber als Demonstration
+ * wertlos. Ebenso eine Runde, deren Topf für alle Vorhaben reicht: dann ergeben
+ * alle Verfahren dasselbe und die Gegenüberstellung zeigt nichts.
  */
-export function zufaelligeEinstellungen(seed: number): Simulationseinstellungen {
+export function zufaelligeVorhaben(seed: number, rahmen: Rundenrahmen): Vorhabenvorgabe[] {
   // Eigener Zufallsstrom, damit Konfiguration und Beitragsverteilung nicht
   // aneinander gekoppelt sind.
   const zufall = mulberry32((seed ^ 0x9e3779b9) >>> 0);
@@ -224,7 +234,20 @@ export function zufaelligeEinstellungen(seed: number): Simulationseinstellungen 
     return kopie;
   };
 
-  const anzahl = ganzzahl(6, 10);
+  const obergrenze = rahmen.hoechstbetragJeVorhabenCent ?? Number.POSITIVE_INFINITY;
+
+  // Der Fördertopf soll knapp sein: Er darf nur 35 bis 55 Prozent dessen
+  // decken, was die Runde aufnehmen könnte. Ein Topf, der für alle reicht,
+  // macht sämtliche Verfahren gleich und die Gegenüberstellung wertlos.
+  const deckungsgrad = 0.35 + zufall() * 0.2;
+  const zielAufnahme = rahmen.poolCent / deckungsgrad;
+
+  // Daraus folgt die Zahl der Vorhaben: Begrenzt der Höchstbetrag, was ein
+  // einzelnes Vorhaben aufnehmen kann, braucht ein großer Topf entsprechend
+  // mehr Bewerber, um überhaupt knapp zu sein.
+  const mindestanzahl = Number.isFinite(obergrenze) ? Math.ceil(zielAufnahme / obergrenze) : 6;
+  const anzahl = Math.min(10, Math.max(6, mindestanzahl));
+
   const titel = mische(VORHABENTITEL).slice(0, anzahl);
   const traeger = mische(TRAEGER).slice(0, anzahl);
 
@@ -244,18 +267,16 @@ export function zufaelligeEinstellungen(seed: number): Simulationseinstellungen 
   const mitAllein = zufall() < 0.5;
   if (mitAllein) rollen[freieIndizes[naechster++]] = 'allein';
 
-  // Absprachegruppe braucht genau zwei Vorhaben, sonst ist sie wirkungslos.
-  const mitAbsprache = anzahl >= 5 && zufall() < 0.7;
+  // Absprachegruppe braucht genau zwei Vorhaben, sonst ist sie wirkungslos —
+  // und nur dann, wenn in den Rundenwerten überhaupt eine Gruppe vorgesehen ist.
+  const mitAbsprache = anzahl >= 5 && rahmen.abspracheGroesse > 0;
   if (mitAbsprache) {
     rollen[freieIndizes[naechster++]] = 'absprache';
     rollen[freieIndizes[naechster++]] = 'absprache';
   }
 
-  const betragMinCent = ganzzahl(3, 7) * 100;
-  const betragMaxCent = betragMinCent + ganzzahl(3, 9) * 100;
-  const beitragendeGesamt = ganzzahl(24, 52) * 5;
-  const abspracheGroesse = mitAbsprache ? ganzzahl(8, 15) : 0;
-  const hoechstbetragJeVorhabenCent = ganzzahl(4, 8) * 10_000;
+  const { betragMinCent, betragMaxCent, beitragendeGesamt } = rahmen;
+  const abspracheGroesse = mitAbsprache ? rahmen.abspracheGroesse : 0;
 
   const wirksameRollen = rollen.map((r) => (r === 'absprache' && !mitAbsprache ? 'normal' : r));
 
@@ -283,47 +304,34 @@ export function zufaelligeEinstellungen(seed: number): Simulationseinstellungen 
     return koepfe * mittlererBetrag + ausAbsprache;
   });
 
-  // Kostenplan: erwartete Beitragssumme plus Spielraum. Der Spielraum ist das,
-  // was überhaupt zugeteilt werden kann.
-  const spielraum = wirksameRollen.map(() => ganzzahl(6, 18) * 5_000);
+  // Der Spielraum eines Vorhabens — Kostenplan abzüglich erwarteter
+  // Beitragssumme — ist das, was ihm überhaupt zugeteilt werden kann. Die
+  // Summe dieser Spielräume ist die Aufnahmefähigkeit der Runde.
+  const hoechsteAufnahme = Number.isFinite(obergrenze) ? anzahl * obergrenze * 0.95 : Infinity;
+  const aufnahme = Math.min(zielAufnahme, hoechsteAufnahme);
+
+  // Spielräume mit Streuung verteilen, dann auf die Obergrenze kappen und den
+  // Gesamtbetrag nachziehen, damit die Aufnahmefähigkeit trotz Kappung stimmt.
+  const streuung = Array.from({ length: anzahl }, () => 0.6 + zufall() * 0.8);
+  const streuungssumme = streuung.reduce((a, b) => a + b, 0);
+  const spielraum = streuung.map((s) =>
+    Math.min(obergrenze, Math.max(5_000, (aufnahme * s) / streuungssumme)),
+  );
+
   const beantragt = eigenErwartet.map((eigen, i) =>
-    Math.min(150_000, Math.max(20_000, Math.round((eigen + spielraum[i]) / 5_000) * 5_000)),
+    Math.min(300_000, Math.max(20_000, Math.round((eigen + spielraum[i]) / 5_000) * 5_000)),
   );
 
-  // Aufnahmefähigkeit der Runde: Summe der Obergrenzen. Der Topf deckt davon
-  // nur einen Teil — ein Topf, der alles trägt, macht alle Verfahren gleich
-  // und die Gegenüberstellung wertlos.
-  const aufnahme = beantragt.reduce(
-    (a, b, i) => a + Math.max(0, Math.min(hoechstbetragJeVorhabenCent, b - eigenErwartet[i])),
-    0,
-  );
-  const deckungsgrad = 0.35 + zufall() * 0.2; // 35 % bis 55 %
-  const poolCent = Math.max(50_000, Math.round((aufnahme * deckungsgrad) / 10_000) * 10_000);
-
-  const programm = PROGRAMME[ganzzahl(0, PROGRAMME.length - 1)];
-
-  return {
-    seed,
-    zweck: programm.zweck,
-    zeitraumVon: STANDARD_EINSTELLUNGEN.zeitraumVon,
-    zeitraumBis: STANDARD_EINSTELLUNGEN.zeitraumBis,
-    poolCent,
-    hoechstbetragJeVorhabenCent,
-    beitragendeGesamt,
-    betragMinCent,
-    betragMaxCent,
-    abspracheGroesse,
-    zulassungskriterien: STANDARD_ZULASSUNGSKRITERIEN,
-    vorhaben: Array.from({ length: anzahl }, (_, i) => ({
-      id: `v-${i + 1}`,
-      titel: titel[i],
-      traeger: traeger[i],
-      beantragtCent: beantragt[i],
-      jurypunkte: ganzzahl(40, 95),
-      zuspruch: wirksameRollen[i] === 'allein' || wirksameRollen[i] === 'wenige-grosse' ? 1 : zuspruch[i],
-      rolle: wirksameRollen[i],
-    })),
-  };
+  return Array.from({ length: anzahl }, (_, i) => ({
+    id: `v-${i + 1}`,
+    titel: titel[i],
+    traeger: traeger[i],
+    beantragtCent: beantragt[i],
+    jurypunkte: ganzzahl(40, 95),
+    zuspruch:
+      wirksameRollen[i] === 'allein' || wirksameRollen[i] === 'wenige-grosse' ? 1 : zuspruch[i],
+    rolle: wirksameRollen[i],
+  }));
 }
 
 /** Neuer Seed für den Würfelknopf. Nur hier ist echter Zufall erlaubt. */

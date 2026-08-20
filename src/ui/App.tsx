@@ -10,7 +10,7 @@ import {
   erzeugeRunde,
   neuerSeed,
   STANDARD_EINSTELLUNGEN,
-  zufaelligeEinstellungen,
+  zufaelligeVorhaben,
 } from '../kern/simulation';
 import { alleVerfahren } from '../kern/vergleich';
 import { FORMEL_VERSION } from '../kern/version';
@@ -179,7 +179,12 @@ export default function App() {
           vomStandardAbweichend={vomStandardAbweichend}
           onEntwurf={setEntwurf}
           onStarten={() => setLauf({ einstellungen: entwurf, schritt: 0 })}
-          onAuswuerfeln={() => setEntwurf(zufaelligeEinstellungen(neuerSeed()))}
+          onAuswuerfeln={() => {
+            // Der Würfel betrifft nur die Vorhaben. Die Rundenwerte darüber
+            // bleiben stehen und bemessen die neuen Kostenpläne.
+            const seed = neuerSeed();
+            setEntwurf({ ...entwurf, seed, vorhaben: zufaelligeVorhaben(seed, entwurf) });
+          }}
           onZuruecksetzen={() => {
             setEntwurf(STANDARD_EINSTELLUNGEN);
             setAngewandt(null);
