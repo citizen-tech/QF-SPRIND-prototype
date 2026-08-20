@@ -28,24 +28,76 @@ export const PROGRAMME = [
     zweck:
       'Ehrenamtlich getragene Vorhaben zur Verkehrssicherheit und Aufenthaltsqualität ' +
       'im öffentlichen Raum, Berlin, Durchführung Oktober bis Dezember 2026.',
+    titel: [
+      'Material für eine Kartierungsaktion zu Gehwegschäden',
+      'Anschaffung eines mobilen Verkehrszählgeräts',
+      'Workshop zur Schulwegsicherheit',
+      'Übersetzung von Infomaterial zur Verkehrssicherheit',
+      'Wetterschutz an der Haltestelle Nordstraße',
+      'Offene Reparaturwerkstatt für Fahrräder',
+      'Beleuchtung des Wegs zwischen Park und Bahnhof',
+      'Verkehrsberuhigung vor der Grundschule',
+      'Lastenrad zum Verleih für Initiativen',
+      'Fahrradbügel an der Bibliothek',
+      'Beschilderung eines sicheren Schulwegs',
+      'Sitzbänke und Schattenplätze am Wochenmarkt',
+    ],
   },
   {
     name: 'Nachbarschaft und Begegnung',
     zweck:
       'Ehrenamtlich getragene Vorhaben zur Stärkung nachbarschaftlicher Begegnung ' +
       'im Quartier, Berlin, Durchführung Oktober bis Dezember 2026.',
+    titel: [
+      'Straßenfest zur Vorstellung der Vorhaben',
+      'Werkzeugbibliothek im Stadtteilzentrum',
+      'Nachbarschaftsgarten auf der Brachfläche',
+      'Sprachmittlung bei Nachbarschaftstreffen',
+      'Barrierefreier Zugang zum Gemeinschaftsraum',
+      'Offene Reparaturwerkstatt für Fahrräder',
+      'Lastenrad zum Verleih für Initiativen',
+      'Trinkbrunnen im Stadtteilpark',
+      'Sitzbänke und Schattenplätze am Wochenmarkt',
+      'Übersetzung von Infomaterial zur Verkehrssicherheit',
+      'Fassadenbegrünung am Nachbarschaftshaus',
+      'Verschattung des Spielplatzes',
+    ],
   },
   {
     name: 'Klimaanpassung im Quartier',
     zweck:
       'Ehrenamtlich getragene Vorhaben zur Klimaanpassung und Begrünung im ' +
       'Wohnumfeld, Berlin, Durchführung Oktober bis Dezember 2026.',
+    titel: [
+      'Entsiegelungs- und Pflanzaktion am Quartiersplatz',
+      'Regenwasserspeicher für die Baumscheiben',
+      'Nachbarschaftsgarten auf der Brachfläche',
+      'Trinkbrunnen im Stadtteilpark',
+      'Sitzbänke und Schattenplätze am Wochenmarkt',
+      'Baumpflanzungen entlang der Hauptstraße',
+      'Fassadenbegrünung am Nachbarschaftshaus',
+      'Verschattung des Spielplatzes',
+      'Entsiegelung des Hinterhofs',
+      'Regentonnen für die Gemeinschaftsflächen',
+    ],
   },
   {
-    name: 'Digitale Teilhabe vor Ort',
+    name: 'Barrierefreiheit und sichere Wege',
     zweck:
-      'Ehrenamtlich getragene Vorhaben zur digitalen Teilhabe in Stadtteilzentren, ' +
+      'Ehrenamtlich getragene Vorhaben für barrierefreie und sichere Wege im Quartier, ' +
       'Berlin, Durchführung Oktober bis Dezember 2026.',
+    titel: [
+      'Material für eine Kartierungsaktion zu Gehwegschäden',
+      'Barrierefreier Zugang zum Gemeinschaftsraum',
+      'Beschilderung eines sicheren Schulwegs',
+      'Beleuchtung des Wegs zwischen Park und Bahnhof',
+      'Verkehrsberuhigung vor der Grundschule',
+      'Wetterschutz an der Haltestelle Nordstraße',
+      'Workshop zur Schulwegsicherheit',
+      'Fahrradbügel an der Bibliothek',
+      'Sitzbänke und Schattenplätze am Wochenmarkt',
+      'Sprachmittlung bei Nachbarschaftstreffen',
+    ],
   },
 ] as const;
 
@@ -70,6 +122,11 @@ export const VORHABENTITEL = [
   'Beschilderung eines sicheren Schulwegs',
   'Regenwasserspeicher für die Baumscheiben',
   'Sprachmittlung bei Nachbarschaftstreffen',
+  'Baumpflanzungen entlang der Hauptstraße',
+  'Fassadenbegrünung am Nachbarschaftshaus',
+  'Verschattung des Spielplatzes',
+  'Entsiegelung des Hinterhofs',
+  'Regentonnen für die Gemeinschaftsflächen',
 ] as const;
 
 export const TRAEGER = [
@@ -93,6 +150,11 @@ export const TRAEGER = [
   'Elterninitiative Südkiez e. V.',
   'Regenwasser Kiez e. V.',
   'Sprachbrücke Nachbarschaft e. V.',
+  'Baumpaten Hauptstraße e. V.',
+  'Grünfassade Nachbarschaftshaus e. V.',
+  'Spielplatzinitiative Mitte e. V.',
+  'Hinterhofgrün e. V.',
+  'Regenwasser Gemeinschaft e. V.',
 ] as const;
 
 export const REGIONEN = ['Berlin-Nord', 'Berlin-Ost', 'Berlin-Süd', 'Berlin-West'] as const;
@@ -113,22 +175,66 @@ const ALTER_GEWICHTE = [30, 35, 22, 13];
 
 export const PROGRAMME_BUND = [
   {
-    name: 'Digitalisierungsbudget (Bund und Länder)',
+    name: 'Digitalisierungsbudget',
     zweck:
       'Gemeinsam finanzierte Digitalisierungsvorhaben mit deutschlandweiter Wirkung, ' +
       'Umsetzung im Haushaltsjahr 2027.',
+    titel: [
+      'Anbindung kommunaler Fachverfahren an die Registermodernisierung',
+      'Einheitlicher Bezahldienst für Verwaltungsleistungen',
+      'Bundesweites Postfach für Unternehmensmeldungen',
+      'Nachnutzbare Antragsstrecke für Wohngeld',
+      'Offene Schnittstelle für Kfz-Zulassungsdaten',
+      'Gemeinsame Basiskomponente Identitätsnachweis',
+      'Digitale Antragsstrecke für Elterngeld',
+      'Automatisierte Aktenführung im Bauordnungswesen',
+      'Standardisierung der Meldedatenübermittlung',
+      'Cloud-Bereitstellung für Landesrechenzentren',
+      'Barrierefreier Zugang zu Verwaltungsportalen',
+      'Gemeinsames Datenschutz-Cockpit der Länder',
+      'Nachnutzung einer Fachanwendung für Gewerbeanzeigen',
+      'Schnittstelle zwischen Justiz- und Meldewesen',
+      'Gemeinsames Portal für Fördermittelanträge',
+      'Einheitliche Schnittstelle für Statistikmeldungen',
+      'Nachnutzbare Komponente für Terminvergabe',
+    ],
   },
   {
     name: 'Nachnutzbare Fachverfahren',
     zweck:
       'Vorhaben zur Entwicklung nachnutzbarer Fachverfahren für die Verwaltung von Bund, ' +
       'Ländern und Kommunen, Umsetzung im Haushaltsjahr 2027.',
+    titel: [
+      'Nachnutzbare Antragsstrecke für Wohngeld',
+      'Digitale Antragsstrecke für Elterngeld',
+      'Nachnutzung einer Fachanwendung für Gewerbeanzeigen',
+      'Nachnutzbare Komponente für Terminvergabe',
+      'Automatisierte Aktenführung im Bauordnungswesen',
+      'Einheitlicher Bezahldienst für Verwaltungsleistungen',
+      'Bundesweites Postfach für Unternehmensmeldungen',
+      'Barrierefreier Zugang zu Verwaltungsportalen',
+      'Anbindung kommunaler Fachverfahren an die Registermodernisierung',
+      'Cloud-Bereitstellung für Landesrechenzentren',
+      'Gemeinsames Portal für Fördermittelanträge',
+    ],
   },
   {
     name: 'Registermodernisierung',
     zweck:
       'Vorhaben zur Anbindung und Vereinheitlichung öffentlicher Register, ' +
       'Umsetzung im Haushaltsjahr 2027.',
+    titel: [
+      'Anbindung kommunaler Fachverfahren an die Registermodernisierung',
+      'Standardisierung der Meldedatenübermittlung',
+      'Offene Schnittstelle für Kfz-Zulassungsdaten',
+      'Gemeinsame Basiskomponente Identitätsnachweis',
+      'Schnittstelle zwischen Justiz- und Meldewesen',
+      'Gemeinsames Datenschutz-Cockpit der Länder',
+      'Bundesweites Postfach für Unternehmensmeldungen',
+      'Nachnutzung einer Fachanwendung für Gewerbeanzeigen',
+      'Einheitliche Schnittstelle für Statistikmeldungen',
+      'Nachnutzbare Antragsstrecke für Wohngeld',
+    ],
   },
 ] as const;
 
@@ -147,6 +253,9 @@ export const VORHABENTITEL_BUND = [
   'Gemeinsames Datenschutz-Cockpit der Länder',
   'Nachnutzung einer Fachanwendung für Gewerbeanzeigen',
   'Schnittstelle zwischen Justiz- und Meldewesen',
+  'Gemeinsames Portal für Fördermittelanträge',
+  'Einheitliche Schnittstelle für Statistikmeldungen',
+  'Nachnutzbare Komponente für Terminvergabe',
 ] as const;
 
 export const TRAEGER_BUND = [
@@ -164,6 +273,9 @@ export const TRAEGER_BUND = [
   'Zweckverband Digitalisierung Küste',
   'IT-Kooperation der Stadtstaaten',
   'Landesbetrieb Verwaltungs-IT Binnenland',
+  'Gemeinsame Anstalt für Verwaltungssoftware',
+  'Landesstelle für digitale Fachverfahren',
+  'Kommunaler IT-Verbund Seenplatte',
 ] as const;
 
 export const VERBUENDE = [
@@ -185,6 +297,15 @@ const EBENEN_GEWICHTE = [40, 30, 20, 10];
 
 export type Programmtyp = 'buerger' | 'bund';
 
+/**
+ * Findet das Programm zu einem Zweck. Fällt auf das erste Programm des Typs
+ * zurück, falls der Zweck von Hand geändert wurde.
+ */
+export function programmVon(typ: Programmtyp, zweck: string) {
+  const welt = PROGRAMMTYPEN[typ];
+  return welt.programme.find((p) => p.zweck === zweck) ?? welt.programme[0];
+}
+
 export type Programmtypbeschreibung = {
   id: Programmtyp;
   name: string;
@@ -193,7 +314,11 @@ export type Programmtypbeschreibung = {
   beitragendeWort: string;
   /** Beschriftung der beiden Merkmalsfelder in dieser Welt. */
   merkmalsnamen: { region: string; altersgruppe: string };
-  programme: readonly { readonly name: string; readonly zweck: string }[];
+  programme: readonly {
+    readonly name: string;
+    readonly zweck: string;
+    readonly titel: readonly string[];
+  }[];
   titel: readonly string[];
   traeger: readonly string[];
   regionen: readonly string[];
@@ -290,11 +415,13 @@ export function vorhabenvorgabe(
   index: number,
   rolle: Vorhabenrolle = 'normal',
   typ: Programmtyp = 'buerger',
+  zweck?: string,
 ): Vorhabenvorgabe {
   const welt = PROGRAMMTYPEN[typ];
+  const titelpool = zweck ? programmVon(typ, zweck).titel : welt.titel;
   return {
     id: `v-${index + 1}`,
-    titel: welt.titel[index % welt.titel.length],
+    titel: titelpool[index % titelpool.length],
     traeger: welt.traeger[index % welt.traeger.length],
     beantragtCent: typ === 'bund' ? 250_000_000 : 100_000,
     jurypunkte: 50,
@@ -326,19 +453,19 @@ export const STANDARD_EINSTELLUNGEN: Simulationseinstellungen = {
   abspracheGroesse: 12,
   zulassungskriterien: STANDARD_ZULASSUNGSKRITERIEN,
   vorhaben: [
-    { ...vorhabenvorgabe(0), beantragtCent: 100_000, jurypunkte: 74, zuspruch: 10 },
+    { ...vorhabenvorgabe(0, 'normal', 'buerger', PROGRAMME[0].zweck), beantragtCent: 100_000, jurypunkte: 74, zuspruch: 10 },
     {
-      ...vorhabenvorgabe(1, 'wenige-grosse'),
+      ...vorhabenvorgabe(1, 'wenige-grosse', 'buerger', PROGRAMME[0].zweck),
       beantragtCent: 100_000,
       jurypunkte: 92,
       zuspruch: 1,
     },
-    { ...vorhabenvorgabe(2), beantragtCent: 100_000, jurypunkte: 88, zuspruch: 9 },
-    { ...vorhabenvorgabe(3), beantragtCent: 80_000, jurypunkte: 81, zuspruch: 6 },
-    { ...vorhabenvorgabe(4), beantragtCent: 30_000, jurypunkte: 44, zuspruch: 2 },
-    { ...vorhabenvorgabe(5, 'absprache'), beantragtCent: 70_000, jurypunkte: 63, zuspruch: 3 },
-    { ...vorhabenvorgabe(6, 'absprache'), beantragtCent: 65_000, jurypunkte: 69, zuspruch: 2 },
-    { ...vorhabenvorgabe(7), beantragtCent: 60_000, jurypunkte: 57, zuspruch: 5 },
+    { ...vorhabenvorgabe(2, 'normal', 'buerger', PROGRAMME[0].zweck), beantragtCent: 100_000, jurypunkte: 88, zuspruch: 9 },
+    { ...vorhabenvorgabe(3, 'normal', 'buerger', PROGRAMME[0].zweck), beantragtCent: 80_000, jurypunkte: 81, zuspruch: 6 },
+    { ...vorhabenvorgabe(4, 'normal', 'buerger', PROGRAMME[0].zweck), beantragtCent: 30_000, jurypunkte: 44, zuspruch: 2 },
+    { ...vorhabenvorgabe(5, 'absprache', 'buerger', PROGRAMME[0].zweck), beantragtCent: 70_000, jurypunkte: 63, zuspruch: 3 },
+    { ...vorhabenvorgabe(6, 'absprache', 'buerger', PROGRAMME[0].zweck), beantragtCent: 65_000, jurypunkte: 69, zuspruch: 2 },
+    { ...vorhabenvorgabe(7, 'normal', 'buerger', PROGRAMME[0].zweck), beantragtCent: 60_000, jurypunkte: 57, zuspruch: 5 },
   ],
 };
 
@@ -368,14 +495,14 @@ export const STANDARD_EINSTELLUNGEN_BUND: Simulationseinstellungen = {
   abspracheGroesse: 9,
   zulassungskriterien: ZULASSUNGSKRITERIEN_BUND,
   vorhaben: [
-    { ...vorhabenvorgabe(0, 'normal', 'bund'), beantragtCent: 600_000_000, jurypunkte: 74, zuspruch: 10 },
-    { ...vorhabenvorgabe(1, 'wenige-grosse', 'bund'), beantragtCent: 500_000_000, jurypunkte: 92, zuspruch: 1 },
-    { ...vorhabenvorgabe(2, 'normal', 'bund'), beantragtCent: 550_000_000, jurypunkte: 88, zuspruch: 9 },
-    { ...vorhabenvorgabe(3, 'normal', 'bund'), beantragtCent: 420_000_000, jurypunkte: 81, zuspruch: 6 },
-    { ...vorhabenvorgabe(4, 'normal', 'bund'), beantragtCent: 200_000_000, jurypunkte: 44, zuspruch: 2 },
-    { ...vorhabenvorgabe(5, 'absprache', 'bund'), beantragtCent: 380_000_000, jurypunkte: 63, zuspruch: 4 },
-    { ...vorhabenvorgabe(6, 'absprache', 'bund'), beantragtCent: 340_000_000, jurypunkte: 69, zuspruch: 3 },
-    { ...vorhabenvorgabe(7, 'normal', 'bund'), beantragtCent: 300_000_000, jurypunkte: 57, zuspruch: 5 },
+    { ...vorhabenvorgabe(0, 'normal', 'bund', PROGRAMME_BUND[0].zweck), beantragtCent: 600_000_000, jurypunkte: 74, zuspruch: 10 },
+    { ...vorhabenvorgabe(1, 'wenige-grosse', 'bund', PROGRAMME_BUND[0].zweck), beantragtCent: 500_000_000, jurypunkte: 92, zuspruch: 1 },
+    { ...vorhabenvorgabe(2, 'normal', 'bund', PROGRAMME_BUND[0].zweck), beantragtCent: 550_000_000, jurypunkte: 88, zuspruch: 9 },
+    { ...vorhabenvorgabe(3, 'normal', 'bund', PROGRAMME_BUND[0].zweck), beantragtCent: 420_000_000, jurypunkte: 81, zuspruch: 6 },
+    { ...vorhabenvorgabe(4, 'normal', 'bund', PROGRAMME_BUND[0].zweck), beantragtCent: 200_000_000, jurypunkte: 44, zuspruch: 2 },
+    { ...vorhabenvorgabe(5, 'absprache', 'bund', PROGRAMME_BUND[0].zweck), beantragtCent: 380_000_000, jurypunkte: 63, zuspruch: 4 },
+    { ...vorhabenvorgabe(6, 'absprache', 'bund', PROGRAMME_BUND[0].zweck), beantragtCent: 340_000_000, jurypunkte: 69, zuspruch: 3 },
+    { ...vorhabenvorgabe(7, 'normal', 'bund', PROGRAMME_BUND[0].zweck), beantragtCent: 300_000_000, jurypunkte: 57, zuspruch: 5 },
   ],
 };
 
@@ -390,6 +517,7 @@ export const AUSGANGSRUNDEN: Record<Programmtyp, Simulationseinstellungen> = {
 export type Rundenrahmen = Pick<
   Simulationseinstellungen,
   | 'programmtyp'
+  | 'zweck'
   | 'poolCent'
   | 'hoechstbetragJeVorhabenCent'
   | 'beitragendeGesamt'
@@ -436,9 +564,12 @@ export function zufaelligeVorhaben(seed: number, rahmen: Rundenrahmen): Vorhaben
   // mehr Bewerber, um überhaupt knapp zu sein.
   const mindestanzahl = Number.isFinite(obergrenze) ? Math.ceil(zielAufnahme / obergrenze) : 6;
   const welt = PROGRAMMTYPEN[rahmen.programmtyp];
-  const anzahl = Math.min(welt.titel.length, Math.max(6, mindestanzahl));
+  // Die Titel stammen aus dem gewählten Programm, nicht aus dem Programmtyp:
+  // Wer "Klimaanpassung" wählt, soll keine Verkehrszählgeräte gewürfelt bekommen.
+  const programm = programmVon(rahmen.programmtyp, rahmen.zweck);
+  const anzahl = Math.min(programm.titel.length, Math.max(6, mindestanzahl));
 
-  const titel = mische(welt.titel).slice(0, anzahl);
+  const titel = mische(programm.titel).slice(0, anzahl);
   const traeger = mische(welt.traeger).slice(0, anzahl);
 
   // Zuspruch als abfallende Reihe: wenige stark getragene Vorhaben, viele

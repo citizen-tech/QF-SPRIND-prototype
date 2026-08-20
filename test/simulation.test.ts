@@ -181,6 +181,39 @@ describe('Ausgewürfelte Vorhaben sind plausibel', () => {
     }
   });
 
+  it('würfelt nur Titel des gewählten Programms', () => {
+    // Wer "Klimaanpassung" wählt, darf kein Verkehrszählgerät bekommen.
+    for (const programm of PROGRAMMTYPEN.buerger.programme) {
+      const basis = { ...STANDARD_EINSTELLUNGEN, zweck: programm.zweck };
+      for (const seed of [11, 2027, 99_991]) {
+        for (const v of zufaelligeVorhaben(seed, basis)) {
+          expect(programm.titel).toContain(v.titel);
+        }
+      }
+    }
+    for (const programm of PROGRAMMTYPEN.bund.programme) {
+      const basis = { ...STANDARD_EINSTELLUNGEN_BUND, zweck: programm.zweck };
+      for (const seed of [11, 2027, 99_991]) {
+        for (const v of zufaelligeVorhaben(seed, basis)) {
+          expect(programm.titel).toContain(v.titel);
+        }
+      }
+    }
+  });
+
+  it('hält für jedes Programm genug Titel bereit', () => {
+    // Sonst müsste der Würfel Titel doppelt vergeben oder die Runde verkleinern.
+    for (const welt of [PROGRAMMTYPEN.buerger, PROGRAMMTYPEN.bund]) {
+      for (const programm of welt.programme) {
+        expect(programm.titel.length).toBeGreaterThanOrEqual(10);
+        expect(new Set(programm.titel).size).toBe(programm.titel.length);
+      }
+      expect(welt.traeger.length).toBeGreaterThanOrEqual(
+        Math.max(...welt.programme.map((pr) => pr.titel.length)),
+      );
+    }
+  });
+
   it('vergibt Titel und Träger ohne Doppelung', () => {
     for (const { daten } of runden) {
       expect(new Set(daten.vorhaben.map((v) => v.titel)).size).toBe(daten.vorhaben.length);

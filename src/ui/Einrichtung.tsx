@@ -22,8 +22,10 @@ import type { Simulationseinstellungen, Vorhabenrolle } from '../kern/simulation
 import {
   AUSGANGSRUNDEN,
   PROGRAMMTYPEN,
+  programmVon,
   ROLLENNAMEN,
   vorhabenvorgabe,
+  zufaelligeVorhaben,
 } from '../kern/simulation';
 import Hinweis, { ERKLAERUNG } from './Hinweis';
 import {
@@ -60,6 +62,10 @@ export default function Einrichtung({
 }: Eigenschaften) {
   const setze = (teil: Partial<Simulationseinstellungen>) => onEntwurf({ ...entwurf, ...teil });
 
+  /** Programmwechsel zieht die Vorhaben nach: andere Titel, gleicher Seed. */
+  const programmWechseln = (zweck: string) =>
+    onEntwurf({ ...entwurf, zweck, vorhaben: zufaelligeVorhaben(entwurf.seed, { ...entwurf, zweck }) });
+
   const setzeVorhaben = (
     index: number,
     teil: Partial<Simulationseinstellungen['vorhaben'][number]>,
@@ -70,7 +76,10 @@ export default function Einrichtung({
     setze({
       vorhaben: [
         ...entwurf.vorhaben,
-        { ...vorhabenvorgabe(index, 'normal', entwurf.programmtyp), id: `v-${index + 1}` },
+        {
+          ...vorhabenvorgabe(index, 'normal', entwurf.programmtyp, entwurf.zweck),
+          id: `v-${index + 1}`,
+        },
       ],
     });
   };
@@ -83,6 +92,7 @@ export default function Einrichtung({
     });
 
   const welt = PROGRAMMTYPEN[entwurf.programmtyp];
+  const programm = programmVon(entwurf.programmtyp, entwurf.zweck);
   const ohneHoechstbetrag = entwurf.hoechstbetragJeVorhabenCent === null;
   const abspracheVorhaben = entwurf.vorhaben.filter((v) => v.rolle === 'absprache').length;
 
@@ -118,7 +128,7 @@ export default function Einrichtung({
                 label="Programm"
                 data={welt.programme.map((p) => ({ value: p.zweck, label: p.name }))}
                 value={entwurf.zweck}
-                onChange={(wert) => wert && setze({ zweck: wert })}
+                onChange={(wert) => wert && programmWechseln(wert)}
                 allowDeselect={false}
                 comboboxProps={{ withinPortal: true }}
               />
@@ -269,18 +279,26 @@ export default function Einrichtung({
           <Divider />
 
           <div>
-            <Group justify="space-between" align="center" mb="sm" wrap="wrap">
-              <Title order={3}>Vorhaben ({entwurf.vorhaben.length})</Title>
-              <Group gap="xs">
-                <Hinweis text={ERKLAERUNG.wuerfeln}>
-                  <Button variant="default" onClick={onAuswuerfeln} disabled={laeuft}>
-                    Vorhaben auswürfeln
-                  </Button>
-                </Hinweis>
-                <Button variant="default" onClick={vorhabenHinzufuegen} disabled={laeuft}>
-                  Vorhaben hinzufügen
+            <Title order={3} mb="xs">
+              Vorhaben ({entwurf.vorhaben.length})
+            </Title>
+
+            {/* Der Würfelknopf trägt hier dieselbe Farbe wie "Simulation starten":
+                beides sind Schritte, die die lesende Person auslöst. Die
+                Nebenhandlung daneben bleibt zurückhaltend. */}
+            <Group gap="sm" mb="md" wrap="wrap">
+              <Hinweis text={ERKLAERUNG.wuerfeln}>
+                <Button onClick={onAuswuerfeln} disabled={laeuft}>
+                  Vorhaben auswürfeln
                 </Button>
-              </Group>
+              </Hinweis>
+              <Button variant="default" onClick={vorhabenHinzufuegen} disabled={laeuft}>
+                Einzelnes Vorhaben hinzufügen
+              </Button>
+              <Text size="sm" c="var(--tinte-lese)">
+                Titel passend zum Programm „{programm.name}“, Kostenpläne passend zum
+                Fördertopf.
+              </Text>
             </Group>
 
             <div className="tabellenrahmen">
@@ -312,7 +330,7 @@ export default function Einrichtung({
                       <Table.Td miw={250}>
                         <Select
                           aria-label={`Titel des Vorhabens ${index + 1}`}
-                          data={welt.titel as string[]}
+                          data={programm.titel as string[]}
                           value={v.titel}
                           onChange={(wert) => wert && setzeVorhaben(index, { titel: wert })}
                           allowDeselect={false}
