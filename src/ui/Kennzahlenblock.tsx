@@ -1,9 +1,10 @@
-import { Accordion, Badge, Table, Text, Title } from '@mantine/core';
+import { Accordion, Table, Text, Title } from '@mantine/core';
 import { euro, prozent, zahl } from '../format';
 import type { Rundendaten } from '../kern/typen';
 import type { VerfahrenId, Verfahrensergebnis } from '../kern/vergleich';
 import { MODELLIERUNGSHINWEIS, VERFAHREN, VERFAHREN_IDS } from '../kern/vergleich';
 import Hinweis, { ERKLAERUNG } from './Hinweis';
+import Spaltenkopf from './Spaltenkopf';
 
 type Eigenschaften = {
   daten: Rundendaten;
@@ -76,28 +77,7 @@ export default function Kennzahlenblock({ daten, verfahren }: Eigenschaften) {
               <Table.Th>Kennzahl</Table.Th>
               {VERFAHREN_IDS.map((id) => (
                 <Table.Th key={id} ta="right">
-                  <Hinweis
-                    text={
-                      VERFAHREN[id].modelliert
-                        ? `${VERFAHREN[id].regel} ${MODELLIERUNGSHINWEIS}`
-                        : VERFAHREN[id].regel
-                    }
-                  >
-                    {VERFAHREN[id].bezeichnung}
-                  </Hinweis>
-                  {VERFAHREN[id].modelliert && (
-                    <>
-                      <br />
-                      <Badge
-                        size="xs"
-                        variant="outline"
-                        color="ocker"
-                        styles={{ root: { borderStyle: 'dashed', textTransform: 'none' } }}
-                      >
-                        modelliert
-                      </Badge>
-                    </>
-                  )}
+                  <Spaltenkopf verfahren={id} />
                 </Table.Th>
               ))}
             </Table.Tr>
@@ -126,7 +106,7 @@ export default function Kennzahlenblock({ daten, verfahren }: Eigenschaften) {
 
       <p className="notiz notiz--ocker">{MODELLIERUNGSHINWEIS}</p>
 
-      <Accordion variant="separated" mt="md">
+      <Accordion variant="separated" mt="md" chevronPosition="left">
         <Accordion.Item value="regeln">
           <Accordion.Control>Die fünf Verteilregeln im Wortlaut</Accordion.Control>
           <Accordion.Panel>

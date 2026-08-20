@@ -10,7 +10,7 @@ export default function Kopplungsgruppen({
   merkmalsnamen: { region: string; altersgruppe: string };
 }) {
   return (
-    <Accordion variant="separated" mt="md">
+    <Accordion variant="separated" mt="md" chevronPosition="left">
       <Accordion.Item value="gruppen">
         <Accordion.Control>
           Kopplungsabschlag nach Merkmalskombination ({kopplung.merkmalsgruppen.length} Gruppen)

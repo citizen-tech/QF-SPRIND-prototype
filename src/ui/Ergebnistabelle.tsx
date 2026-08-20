@@ -7,8 +7,8 @@ import type { Kopplungsverfahren } from '../kern/paarweise';
 import type { Vorhabenwerte } from '../kern/qf';
 import type { Rundendaten } from '../kern/typen';
 import type { VerfahrenId, Verfahrensergebnis } from '../kern/vergleich';
-import { MODELLIERUNGSHINWEIS, VERFAHREN } from '../kern/vergleich';
 import Hinweis, { ERKLAERUNG } from './Hinweis';
+import Spaltenkopf from './Spaltenkopf';
 
 type Eigenschaften = {
   daten: Rundendaten;
@@ -173,28 +173,7 @@ export default function Ergebnistabelle({
               {zeigeVergleich &&
                 VERGLEICHSSPALTEN.map((id) => (
                   <Table.Th key={id} ta="right">
-                    <Hinweis
-                      text={
-                        VERFAHREN[id].modelliert
-                          ? `${VERFAHREN[id].regel} ${MODELLIERUNGSHINWEIS}`
-                          : VERFAHREN[id].regel
-                      }
-                    >
-                      {VERFAHREN[id].bezeichnung}
-                    </Hinweis>
-                    {VERFAHREN[id].modelliert && (
-                      <>
-                        <br />
-                        <Badge
-                          size="xs"
-                          variant="outline"
-                          color="ocker"
-                          styles={{ root: { borderStyle: 'dashed', textTransform: 'none' } }}
-                        >
-                          modelliert
-                        </Badge>
-                      </>
-                    )}
+                    <Spaltenkopf verfahren={id} />
                   </Table.Th>
                 ))}
               {zeigeKopplung && kopplung && (

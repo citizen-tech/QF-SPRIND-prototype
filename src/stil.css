@@ -190,6 +190,24 @@ body {
   color: var(--tinte-still);
 }
 
+/* --- Spaltenköpfe der Verfahren ----------------------------------------- */
+
+/* Marke über der Bezeichnung, und die Markenzeile bleibt auch dann frei, wenn
+   keine Marke da ist. Sonst stünden die Namen der modellierten Verfahren eine
+   Zeile höher als die übrigen. */
+.spaltenkopf {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 3px;
+}
+
+.spaltenkopf__marke {
+  display: flex;
+  align-items: center;
+  min-height: 17px;
+}
+
 /* --- Programmtypwahl ---------------------------------------------------- */
 
 /* Anwählbare Karten statt eines Umschalters: Sie sehen nach Knopf aus, tragen
