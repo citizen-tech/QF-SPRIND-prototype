@@ -20,11 +20,12 @@ Bund und Ländern finanziertes Programm mit 110 beitragenden Stellen und 8 Mio. 
 Beide rechnen mit **derselben Bemessungsregel in derselben Fassung** — das ist der
 Beleg für die Skalierbarkeit, nicht ein zweites Werkzeug.
 
-Ein zweiter Bereich zeigt dieselbe Runde **aus Sicht der Beitragenden**: Wie
-ändert sich die Zuteilung, wenn eine weitere Person mitträgt? Die Beträge dort
-sind ausdrücklich die **Nachrechnung einer abgeschlossenen Runde**, keine
-Vorhersage auf eine laufende — bei gedeckeltem Topf hängt die Wirkung eines
-Beitrags von allen übrigen ab und stünde erst am Rundenende fest.
+Ein zweiter Bereich, **Wie das Verfahren rechnet**, erklärt die Formel als Bild:
+Jeder Beitrag wird zu einem Quadrat der Seitenlänge √c, auf der Diagonale
+aufgereiht spannen sie ein großes Quadrat auf. Dessen Fläche ist der
+Gesamtfinanzierungswert, die Fläche über den Beitragsblöcken der Bemessungswert.
+Die Darstellung folgt Miller, Weyl und Erichsen, *Beyond Collusion Resistance*
+(2022), Abbildungen 1 bis 3.
 
 Der Satz, den die Seite belegen soll:
 
@@ -85,7 +86,7 @@ src/kern/        reine Rechenbibliothek — keine React-, DOM- oder UI-Importe
                   Prüfsumme, Hebel, Kopplungsabschlag, Rundenerzeuger,
                   Runde als Link)
 src/ui/          Oberfläche: Einstellungen, eine Ergebnistabelle, Kennzahlen,
-                 Visualisierung aus Sicht der Beitragenden
+                 Erklärung der Formel als Flächenbild
 src/nachweis/    Nachweismappe: Objektaufbau, Begründungstexte, Druckansicht
 src/daten/       erzeugte Demodaten (eingecheckt)
 tools/           schreibt Demodaten und Golden-Datei

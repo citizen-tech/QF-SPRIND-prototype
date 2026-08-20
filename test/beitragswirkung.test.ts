@@ -5,6 +5,7 @@ import { describe, expect, it } from 'vitest';
 import demodaten from '../src/daten/runde-demo.json';
 import { stuetzstellen, wirkungJeVorhaben, wirkungskurve } from '../src/kern/beitragswirkung';
 import { berechneQf, berechneVorhabenwerte } from '../src/kern/qf';
+import { seitenlaenge } from '../src/ui/QfQuadrat';
 import type { Beitrag, Rundendaten } from '../src/kern/typen';
 
 const daten = demodaten as Rundendaten;
@@ -108,6 +109,33 @@ describe('Wirkung eines Beitrags', () => {
     wirkungJeVorhaben(daten, 10_000);
     const nachher = berechneVorhabenwerte(daten).map((w) => w.beitragendeAnzahl);
     expect(nachher).toEqual(vorher);
+  });
+});
+
+describe('QF-Quadrat', () => {
+  // Das Bild darf nicht von der Formel abweichen: Die Seitenlänge des
+  // gezeichneten Quadrats ist dieselbe Wurzelsumme, mit der der Kern rechnet.
+  it('hat als Seitenlänge genau die Wurzelsumme des Vorhabens', () => {
+    for (const w of berechneVorhabenwerte(daten)) {
+      expect(seitenlaenge(w.posten.map((p) => p.betragEuro))).toBeCloseTo(w.wurzelsumme, 9);
+    }
+  });
+
+  it('bildet Beitragssumme und Bemessungswert als Flächen ab', () => {
+    for (const w of berechneVorhabenwerte(daten)) {
+      const seite = seitenlaenge(w.posten.map((p) => p.betragEuro));
+      const flaecheGesamt = seite * seite;
+      const flaecheBeitraege = w.posten.reduce((a, p) => a + p.betragEuro, 0);
+
+      expect(flaecheGesamt).toBeCloseTo(w.quadrat, 6);
+      expect(flaecheBeitraege).toBeCloseTo(w.eigenEuro, 9);
+      expect(flaecheGesamt - flaecheBeitraege).toBeCloseTo(w.rohEuro, 6);
+    }
+  });
+
+  it('füllt das Quadrat bei einer einzigen Person vollständig aus', () => {
+    const seite = seitenlaenge([64]);
+    expect(seite * seite - 64).toBeCloseTo(0, 9);
   });
 });
 

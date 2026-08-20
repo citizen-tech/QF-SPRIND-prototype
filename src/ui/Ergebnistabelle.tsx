@@ -9,6 +9,7 @@ import type { Rundendaten } from '../kern/typen';
 import type { VerfahrenId, Verfahrensergebnis } from '../kern/vergleich';
 import Hinweis, { ERKLAERUNG } from './Hinweis';
 import Spaltenkopf from './Spaltenkopf';
+import Wirkungskurve from './Wirkungskurve';
 
 type Eigenschaften = {
   daten: Rundendaten;
@@ -18,7 +19,6 @@ type Eigenschaften = {
   kopplung: Kopplungsverfahren | null;
   zeigeVergleich: boolean;
   zeigeKopplung: boolean;
-  onZurVisualisierung: (vorhabenId: string) => void;
 };
 
 const VERGLEICHSSPALTEN: VerfahrenId[] = ['giesskanne', 'windhund', 'jury', 'anteilig'];
@@ -100,7 +100,6 @@ export default function Ergebnistabelle({
   kopplung,
   zeigeVergleich,
   zeigeKopplung,
-  onZurVisualisierung,
 }: Eigenschaften) {
   const [offen, setOffen] = useState<ReadonlySet<string>>(new Set());
 
@@ -310,40 +309,26 @@ export default function Ergebnistabelle({
                           <Title order={4} mt="lg" mb={6}>
                             Ein weiterer Beitrag von {euro(PROBEBEITRAG_CENT)}
                           </Title>
-                          <Text size="sm" maw="52ch">
-                            {schritt.gedeckelt || hebelwert.zuwachsCent <= 0 ? (
-                              <Text span c="dimmed" inherit>
-                                Obergrenze erreicht — ein weiterer Beitrag erhöht die Zuteilung
-                                in dieser Runde nicht.
-                              </Text>
-                            ) : hebelwert.verhaeltnis === null || !bezug ? (
-                              <Text span c="dimmed" inherit>
-                                nicht bestimmbar
-                              </Text>
-                            ) : (
-                              <>
-                                zählt hier{' '}
-                                <Text span fw={600} inherit>
-                                  {zahl(hebelwert.verhaeltnis, 1)}-mal so stark
-                                </Text>{' '}
-                                wie bei „{bezug.titel}“. Bewusst ohne Euro-Angabe: Bei
-                                gedeckeltem Topf hinge eine Eurozahl von allen übrigen Beiträgen
-                                der Runde ab und wäre am Rundenende falsch.
-                              </>
-                            )}
-                          </Text>
-
-                          {/* In Beträgen lässt sich das erst sagen, wenn die Runde
-                              abgeschlossen ist. Genau das leistet die Visualisierung —
-                              deshalb der Weg dorthin statt einer Zahl an dieser Stelle. */}
-                          <Button
-                            variant="default"
-                            size="compact-sm"
-                            mt="sm"
-                            onClick={() => onZurVisualisierung(vorhaben.id)}
-                          >
-                            In Beträgen nachrechnen →
-                          </Button>
+                          {schritt.gedeckelt || hebelwert.zuwachsCent <= 0 ? (
+                            <Text size="sm" c="dimmed" maw="52ch">
+                              Obergrenze erreicht — ein weiterer Beitrag hätte die Zuteilung in
+                              dieser Runde nicht verändert.
+                            </Text>
+                          ) : (
+                            <>
+                              <Wirkungskurve
+                                daten={daten}
+                                vorhabenId={vorhaben.id}
+                                betragCent={PROBEBEITRAG_CENT}
+                              />
+                              {bezug && hebelwert.verhaeltnis !== null && (
+                                <Text size="sm" c="var(--tinte-lese)" mt={6} maw="52ch">
+                                  Das ist das {zahl(hebelwert.verhaeltnis, 1)}-fache dessen, was
+                                  derselbe Beitrag bei „{bezug.titel}“ bewirkt hätte.
+                                </Text>
+                              )}
+                            </>
+                          )}
                         </div>
 
                         <div>

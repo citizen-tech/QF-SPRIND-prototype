@@ -177,6 +177,69 @@ body {
   border-bottom-color: var(--amt);
 }
 
+/* --- QF-Quadrat --------------------------------------------------------- */
+
+/* Nach Miller/Weyl/Erichsen 2022, Abb. 1–3. Die Fläche über den Beitragsblöcken
+   ist der Bemessungswert. Farben aus der Seitenpalette statt Grün/Gelb der
+   Vorlage. */
+.qfquadrat {
+  display: block;
+  width: 100%;
+  max-width: 260px;
+  height: auto;
+}
+
+.qfquadrat__gesamt {
+  fill: var(--amt-flaeche);
+  stroke: var(--amt);
+  stroke-width: 1.5;
+}
+
+.qfquadrat__beitrag {
+  fill: var(--graphit);
+  stroke: var(--flaeche);
+  stroke-width: 0.75;
+}
+
+.legende {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 0.87rem;
+  color: var(--tinte-lese);
+}
+
+.legende__feld {
+  width: 14px;
+  height: 14px;
+  flex: none;
+  border-radius: 2px;
+}
+
+.legende__feld--beitrag {
+  background: var(--graphit);
+}
+
+.legende__feld--gesamt {
+  background: var(--amt-flaeche);
+  border: 1.5px solid var(--amt);
+}
+
+.quadratreihe {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 24px;
+  align-items: end;
+}
+
+.quadratreihe__eintrag {
+  margin: 0;
+}
+
+.quadratreihe__eintrag figcaption {
+  margin-top: 8px;
+}
+
 /* --- Kurve -------------------------------------------------------------- */
 
 .kurve {
@@ -209,6 +272,10 @@ body {
   fill: var(--amt);
   stroke: var(--flaeche);
   stroke-width: 2.5;
+}
+
+.kurve--klein {
+  max-width: 340px;
 }
 
 .kurve__marke,

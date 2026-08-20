@@ -40,7 +40,7 @@ import Kennzahlenblock from './Kennzahlenblock';
 import Hinweis, { ERKLAERUNG } from './Hinweis';
 import Kopplungsgruppen from './Kopplungsgruppen';
 import Simulationslauf, { LAUFDAUER_MS, LAUFSCHRITTE } from './Simulationslauf';
-import Visualisierung from './Visualisierung';
+import Erklaerung from './Erklaerung';
 
 function gleich(a: Simulationseinstellungen, b: Simulationseinstellungen): boolean {
   return JSON.stringify(a) === JSON.stringify(b);
@@ -71,8 +71,7 @@ export default function App() {
   const [zeigeVergleich, setZeigeVergleich] = useState(false);
   const [zeigeKopplung, setZeigeKopplung] = useState(false);
   const [mappeOffen, setMappeOffen] = useState(false);
-  const [ansicht, setAnsicht] = useState<'prototyp' | 'visualisierung'>('prototyp');
-  const [sichtVorhaben, setSichtVorhaben] = useState<string | undefined>(undefined);
+  const [ansicht, setAnsicht] = useState<'prototyp' | 'erklaerung'>('prototyp');
   const scrollMerker = useRef(0);
   const [pruefsumme, setPruefsumme] = useState('');
 
@@ -283,7 +282,7 @@ export default function App() {
           {(
             [
               ['prototyp', 'Prototyp'],
-              ['visualisierung', 'Visualisierung'],
+              ['erklaerung', 'Wie das Verfahren rechnet'],
             ] as const
           ).map(([kennung, beschriftung]) => (
             <button
@@ -293,7 +292,6 @@ export default function App() {
               aria-current={ansicht === kennung ? 'page' : undefined}
               onClick={() => {
                 setAnsicht(kennung);
-                if (kennung === 'visualisierung') setSichtVorhaben(undefined);
                 window.scrollTo(0, 0);
               }}
             >
@@ -304,13 +302,7 @@ export default function App() {
       </nav>
 
       <main className="huelle">
-        {ansicht === 'visualisierung' && (
-          <Visualisierung
-            key={sichtVorhaben ?? 'erstes'}
-            daten={sichtdaten}
-            startVorhabenId={sichtVorhaben}
-          />
-        )}
+        {ansicht === 'erklaerung' && <Erklaerung daten={sichtdaten} />}
 
         {ansicht === 'prototyp' && (
         <>
@@ -529,11 +521,6 @@ export default function App() {
                 kopplung={kopplung}
                 zeigeVergleich={zeigeVergleich}
                 zeigeKopplung={zeigeKopplung}
-                onZurVisualisierung={(vorhabenId) => {
-                  setSichtVorhaben(vorhabenId);
-                  setAnsicht('visualisierung');
-                  window.scrollTo(0, 0);
-                }}
               />
 
               {verfahren.qf.nichtAusgeschoepftCent > 0 && (
