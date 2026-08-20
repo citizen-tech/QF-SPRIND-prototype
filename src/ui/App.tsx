@@ -32,6 +32,7 @@ const PROGRAMMTYP_IDS: Programmtyp[] = ['bund', 'buerger'];
 import { ausLink, nachLink } from '../kern/rundenlink';
 import { alleVerfahren } from '../kern/vergleich';
 import { FORMEL_VERSION } from '../kern/version';
+import { abweichungenVonAusgangsrunde, rundenwerteGleich } from '../nachweis/abweichungen';
 import { baueNachweismappe } from '../nachweis/mappe';
 import NachweismappeAnsicht from '../nachweis/Nachweismappe';
 import Einrichtung from './Einrichtung';
@@ -45,16 +46,10 @@ function gleich(a: Simulationseinstellungen, b: Simulationseinstellungen): boole
   return JSON.stringify(a) === JSON.stringify(b);
 }
 
-/** Vergleicht die Rundenwerte, ohne Vorhaben und Seed — die sind gewürfelt. */
 /** Vollständige Adresse zu einer gerechneten Runde. */
 function rundenlink(e: Simulationseinstellungen): string {
   const { origin, pathname } = window.location;
   return `${origin}${pathname}#r=${nachLink(e)}`;
-}
-
-function rundenwerteGleich(a: Simulationseinstellungen, b: Simulationseinstellungen): boolean {
-  const ohne = (x: Simulationseinstellungen) => JSON.stringify({ ...x, vorhaben: [], seed: 0 });
-  return ohne(a) === ohne(b);
 }
 
 export default function App() {
@@ -189,29 +184,10 @@ export default function App() {
   const entwurfNichtAngewandt =
     angewandt !== null && entwurf !== null && !gleich(entwurf, angewandt);
 
-  const abweichungen = useMemo(() => {
-    if (!angewandt) return [];
-    const s = AUSGANGSRUNDEN[angewandt.programmtyp];
-    if (rundenwerteGleich(angewandt, s)) return [];
-    const liste: string[] = [];
-    if (angewandt.poolCent !== s.poolCent) {
-      liste.push(`Fördertopf ${euro(angewandt.poolCent)} statt ${euro(s.poolCent)}.`);
-    }
-    if (angewandt.hoechstbetragJeVorhabenCent !== s.hoechstbetragJeVorhabenCent) {
-      liste.push(
-        `Höchstbetrag je Vorhaben: ${
-          angewandt.hoechstbetragJeVorhabenCent === null
-            ? 'ohne Höchstbetrag'
-            : euro(angewandt.hoechstbetragJeVorhabenCent)
-        }.`,
-      );
-    }
-    if (angewandt.beitragendeGesamt !== s.beitragendeGesamt) {
-      liste.push(`${angewandt.beitragendeGesamt} Beitragende statt ${s.beitragendeGesamt}.`);
-    }
-    if (liste.length === 0) liste.push('Die Einstellungen weichen von der Ausgangsrunde ab.');
-    return liste;
-  }, [angewandt]);
+  const abweichungen = useMemo(
+    () => (angewandt ? abweichungenVonAusgangsrunde(angewandt) : []),
+    [angewandt],
+  );
 
   if (mappeOffen && daten && werte && verfahren) {
     const mappe = baueNachweismappe({

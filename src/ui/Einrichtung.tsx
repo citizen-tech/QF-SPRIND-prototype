@@ -264,7 +264,7 @@ export default function Einrichtung({
                 thousandSeparator="."
                 decimalSeparator=","
                 min={1}
-                max={1_000_000}
+                max={TOPF_MAX_CENT / 100}
                 value={entwurf.betragMinCent / 100}
                 onChange={(wert) => setze({ betragMinCent: Math.round(Number(wert) * 100) })}
               />
@@ -274,7 +274,7 @@ export default function Einrichtung({
                 thousandSeparator="."
                 decimalSeparator=","
                 min={1}
-                max={1_000_000}
+                max={TOPF_MAX_CENT / 100}
                 value={entwurf.betragMaxCent / 100}
                 onChange={(wert) => setze({ betragMaxCent: Math.round(Number(wert) * 100) })}
               />
